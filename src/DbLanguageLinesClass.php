@@ -1,11 +1,11 @@
 <?php
 
-namespace Spatie\Skeleton;
+namespace Spatie\DbLanguageLines;
 
-class SkeletonClass
+class DbLanguageLinesClass
 {
     /**
-     * Create a new Skeleton Instance
+     * Create a new DbLanguageLines Instance
      */
     public function __construct()
     {

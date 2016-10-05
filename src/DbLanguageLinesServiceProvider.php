@@ -1,10 +1,10 @@
 <?php
 
-namespace Spatie\Skeleton;
+namespace Spatie\DbLanguageLines;
 
 use Illuminate\Support\ServiceProvider;
 
-class SkeletonServiceProvider extends ServiceProvider
+class DbLanguageLinesServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -12,17 +12,13 @@ class SkeletonServiceProvider extends ServiceProvider
     public function boot()
     {
         if ($this->app->runningInConsole()) {
+            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
+            /*
            $this->publishes([
                __DIR__.'/../config/skeleton.php' => config_path('skeleton.php'),
            ], 'config');
-
-           /*
-           $this->loadViewsFrom(__DIR__.'/../resources/views', 'skeleton');
-   
-           $this->publishes([
-               __DIR__.'/../resources/views' => base_path('resources/views/vendor/skeleton'),
-           ], 'views');
-           */
+            */
         }
     }
 
@@ -31,6 +27,6 @@ class SkeletonServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'skeleton');
+        //$this->mergeConfigFrom(__DIR__.'/../config/config.php', 'skeleton');
     }
 }
