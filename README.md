@@ -73,10 +73,31 @@ return [
 
 ## Usage
 
-``` php
-$skeleton = new Spatie\DbLanguageLines();
-echo $skeleton->echoPhrase('Hello, Spatie!');
+You can create a translation in the database by creating and saving an instance of the `Spatie\DbLanguageLines\LanguageLine`-model:
+
+```php
+use Spatie\DbLanguageLines\LanguageLine;
+
+LanguageLine::create([
+   'group' => 'validation',
+   'key' => 'required',
+   'text' => ['en' => 'This is a required field', 'nl' => 'Dit is een verplicht veld'],
+]);
 ```
+
+That model uses the `HasTranslations` trait provided by [the `spatie/laravel-translatable` package](https://github.com/spatie/laravel-translatable).
+
+You can fetch the translation with [Laravel's default `trans` function](https://laravel.com/docs/5.3/localization#retrieving-language-lines):
+
+```php
+trans('validation.required'); // returns 'This is a required field'
+
+app()->setLocale('nl');
+
+trans('validation.required'); // returns 'Dit is een verplicht veld'
+```
+
+You can still keep using the default language files as well. If a requested translation is present in both the database and the language files, the database version will be returned.
 
 ## Changelog
 
