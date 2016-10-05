@@ -8,13 +8,8 @@ use Spatie\DbLanguageLines\DbLanguageLinesServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
-    /** @var \Spatie\DbLanguageLines\Test */
-    protected $testHelper;
-
     public function setUp()
     {
-        $this->testHelper = new TestHelper();
-
         parent::setUp();
 
         Artisan::call('migrate');
@@ -37,24 +32,40 @@ abstract class TestCase extends Orchestra
      */
     protected function getEnvironmentSetUp($app)
     {
-        $this->createDatabase();
+        $app['path.lang'] = $this->getFixturesDirectory('lang');
 
         $app['config']->set('database.default', 'sqlite');
 
         $app['config']->set('database.default', 'sqlite');
         $app['config']->set('database.connections.sqlite', [
             'driver' => 'sqlite',
-            'database' => $this->testHelper->getTempDirectory().'/database.sqlite',
+            'database' => $this->createSqliteDatabase(),
             'prefix' => '',
         ]);
 
 
     }
 
-    protected function createDatabase()
+    protected function createSqliteDatabase(): string
     {
-        $this->testHelper->initializeTempDirectory();
+        $dbPath = __DIR__."/temp/database.sqlite";
 
-        file_put_contents($this->testHelper->getTempDirectory().'/database.sqlite', null);
+        if (file_exists($dbPath)) {
+            unlink($dbPath);
+        }
+
+        touch($dbPath);
+
+        return $dbPath;
+    }
+
+    public function getFixturesDirectory(string $path): string
+    {
+        return __DIR__."/fixtures/{$path}";
+    }
+
+    public function getTempDirectory(string $path): string
+    {
+        return __DIR__."/{$path}";
     }
 }

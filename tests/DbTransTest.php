@@ -2,8 +2,6 @@
 
 namespace Spatie\DbLanguageLines\Test;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Translation\Translator;
 use Spatie\DbLanguageLines\LanguageLine;
 
 class TransTest extends TestCase
