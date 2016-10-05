@@ -55,11 +55,9 @@ class TranslationLoader extends FileLoader
     {
         $modelClass = config('laravel-db-language-lines.model');
 
-
         if (! is_a(new $modelClass, LanguageLine::class)) {
             throw InvalidConfiguration::invalidModel($modelClass);
         }
-
 
         return $modelClass;
     }

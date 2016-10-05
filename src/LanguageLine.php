@@ -12,8 +12,10 @@ class LanguageLine extends Model
         setTranslation as traitSetTranslation;
     }
 
+    /** @var array */
     public $translatable = ['text'];
 
+    /** @var array */
     public $guarded = ['id'];
 
     public static function boot()
@@ -56,7 +58,7 @@ class LanguageLine extends Model
         }
     }
 
-    public static function getCacheKey(string $group, string $locale)
+    public static function getCacheKey(string $group, string $locale): string
     {
         return "spatie.laravel-db-language-lines.{$group}.{$locale}";
     }
