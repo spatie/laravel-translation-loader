@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'key' => 'nl value'
+    'key' => 'nl value',
 ];

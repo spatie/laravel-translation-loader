@@ -2,7 +2,6 @@
 
 namespace Spatie\DbLanguageLines;
 
-use Cache;
 use Illuminate\Translation\FileLoader;
 use Schema;
 use Spatie\DbLanguageLines\Exceptions\InvalidConfiguration;
@@ -21,11 +20,11 @@ class TranslationLoader extends FileLoader
     public function load($locale, $group, $namespace = null): array
     {
         //load vendor lang files
-        if (!is_null($namespace) && $namespace !== '*') {
+        if (! is_null($namespace) && $namespace !== '*') {
             return $this->loadNamespaced($locale, $group, $namespace);
         }
 
-        if (!$this->schemaHasTable('language_lines')) {
+        if (! $this->schemaHasTable('language_lines')) {
             return [];
         }
 

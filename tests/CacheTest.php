@@ -28,12 +28,12 @@ class CacheTest extends TestCase
     /** @test */
     public function it_flushes_the_cache_when_a_translation_has_been_created()
     {
-        $this->assertEquals('group.new',trans('group.new'));
+        $this->assertEquals('group.new', trans('group.new'));
 
         $this->createTranslation('group', 'new', ['en' => 'created']);
         $this->flushIlluminateTranslatorCache();
 
-        $this->assertEquals('created',trans('group.new'));
+        $this->assertEquals('created', trans('group.new'));
     }
 
     /** @test */
