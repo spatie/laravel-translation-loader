@@ -8,8 +8,13 @@
 [![StyleCI](https://styleci.io/repos/70038687/shield?branch=master)](https://styleci.io/repos/70038687)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-db-language-lines.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-db-language-lines)
 
+In a vanilla Laravel installation you can use [language files](https://laravel.com/docs/5.3/localization) to localize your app. This package will enable the translations to be stored in the database. You can still use all the features of [the `trans` function](https://laravel.com/docs/5.3/localization#retrieving-language-lines) you know and love.
 
-Store your language lines in the database
+```php
+trans('messages.welcome', ['name' => 'dayle']);
+``` 
+
+You can even mix using language files and the database. When a translation is present in both a file and the database, the database version will be returned.
 
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
@@ -28,6 +33,17 @@ You can install the package via composer:
 ``` bash
 composer require spatie/laravel-db-language-lines
 ```
+
+In `config/app/php` you should replace Laravel's translation service provider
+
+```php
+Illuminate\Translation\TranslationServiceProvider::class,
+```
+
+by the one included in this package:
+
+```php
+
 
 ## Usage
 

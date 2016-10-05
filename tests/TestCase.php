@@ -4,8 +4,8 @@ namespace Spatie\DbLanguageLines\Test;
 
 use Illuminate\Support\Facades\Artisan;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Spatie\DbLanguageLines\DbLanguageLinesServiceProvider;
 use Spatie\DbLanguageLines\LanguageLine;
+use Spatie\DbLanguageLines\TranslationServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
@@ -29,7 +29,7 @@ abstract class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            DbLanguageLinesServiceProvider::class,
+            TranslationServiceProvider::class,
         ];
     }
 

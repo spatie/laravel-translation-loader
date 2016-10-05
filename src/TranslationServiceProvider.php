@@ -2,9 +2,9 @@
 
 namespace Spatie\DbLanguageLines;
 
-use Illuminate\Translation\TranslationServiceProvider;
+use Illuminate\Translation\TranslationServiceProvider as IlluminateTranslationServiceProvider;
 
-class DbLanguageLinesServiceProvider extends TranslationServiceProvider
+class TranslationServiceProvider extends IlluminateTranslationServiceProvider
 {
     /**
      * Bootstrap the application services.
