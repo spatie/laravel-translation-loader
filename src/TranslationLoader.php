@@ -23,30 +23,25 @@ class TranslationLoader extends FileLoader
             return $this->loadNamespaced($locale, $group, $namespace);
         }
 
-        if (!$this->languageLinesAreAvailable()) {
+        if (!$this->schemaHasTable('language_lines')) {
             return [];
         }
 
-        return Cache::rememberForever(
-            "locale.fragments.{$locale}.{$group}",
-            function () use ($group, $locale) {
-                return LanguageLine::getGroup($group, $locale);
-            }
-        );
+        return LanguageLine::getGroup($group, $locale);
     }
 
-    protected function languageLinesAreAvailable(): bool
+    protected function schemaHasTable(string $tableName): bool
     {
-        static $fragmentTableFound = null;
+        static $tableFound = null;
 
-        if (is_null($fragmentTableFound)) {
+        if (is_null($tableFound)) {
             try {
-                $fragmentTableFound = Schema::hasTable('language_lines');
+                $tableFound = Schema::hasTable($tableName);
             } catch (\Exception $e) {
-                $fragmentTableFound = false;
+                $tableFound = false;
             }
         }
 
-        return $fragmentTableFound;
+        return $tableFound;
     }
 }
