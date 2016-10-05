@@ -28,10 +28,10 @@ class TranslationLoader extends FileLoader
             return [];
         }
 
-        $dbLanguageLines = LanguageLine::getGroup($group, $locale);
         $fileLanguageLines = $this->loadPath($this->path, $locale, $group);
+        $dbLanguageLines = LanguageLine::getGroup($group, $locale);
 
-        return array_merge($dbLanguageLines, $fileLanguageLines);
+        return array_merge($fileLanguageLines, $dbLanguageLines);
     }
 
     protected function schemaHasTable(string $tableName): bool

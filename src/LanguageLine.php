@@ -20,9 +20,11 @@ class LanguageLine extends Model
     public static function boot()
     {
         static::saved(function (LanguageLine $languageLine) {
-            foreach ($languageLine->getTranslatedLocales('text') as $locale) {
-                Cache::forget(static::getCacheKey($languageLine->group, $locale));
-            }
+            $languageLine->flushGroupCache();
+        });
+
+        static::deleted(function (LanguageLine $languageLine) {
+            $languageLine->flushGroupCache();
         });
     }
 
@@ -47,11 +49,16 @@ class LanguageLine extends Model
     {
         return $this->traitSetTranslation('text', $locale, $value);
     }
+    
+    protected function flushGroupCache()
+    {
+        foreach ($this->getTranslatedLocales('text') as $locale) {
+            Cache::forget(static::getCacheKey($this->group, $locale));
+        }
+    }
 
     public static function getCacheKey(string $group, string $locale)
     {
-
-
         return "spatie.laravel-db-language-lines.{$group}.{$locale}";
     }
 }

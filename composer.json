@@ -3,7 +3,11 @@
     "description": "Store your language lines in the database",
     "keywords": [
         "spatie",
-        "laravel-db-language-lines"
+        "laravel",
+        "laravel-db-language-lines",
+        "translate",
+        "language",
+        "i8n"
     ],
     "homepage": "https://github.com/spatie/laravel-db-language-lines",
     "license": "MIT",
@@ -17,9 +21,9 @@
     ],
     "require": {
         "php": "^7.0",
-        "illuminate/contracts": "^5.3",
-        "illuminate/database": "^5.3",
-        "illuminate/support": "^5.3",
+        "illuminate/contracts": "~5.3.0",
+        "illuminate/database": "~5.3.0",
+        "illuminate/support": "~5.3.0",
         "spatie/laravel-translatable": "^1.1"
     },
     "require-dev": {

@@ -46,7 +46,7 @@ class TransTest extends TestCase
         trans('group.key');
 
         $queryCount = count(DB::getQueryLog());
-        $this->mimicNewRequest();
+        $this->flushIlluminateTranslatorCache();
 
         trans('group.key');
 
@@ -61,9 +61,20 @@ class TransTest extends TestCase
         $this->languageLine->setTranslation('en', 'updated');
         $this->languageLine->save();
 
-        $this->mimicNewRequest();
+        $this->flushIlluminateTranslatorCache();
 
         $this->assertEquals('updated', trans('group.key'));
+    }
+
+    /** @test */
+    public function it_will_not_be_able_to_translate_a_key_when_the_translation_is_deleted()
+    {
+        $this->assertEquals('english', trans('group.key'));
+
+        $this->languageLine->delete();
+        $this->flushIlluminateTranslatorCache();
+
+        $this->assertEquals('group.key', trans('group.key'));
     }
 
     protected function createTranslation(string $group, string $key, array $text): LanguageLine
@@ -71,7 +82,7 @@ class TransTest extends TestCase
         return LanguageLine::create(compact('group', 'key', 'text'));
     }
 
-    protected function mimicNewRequest()
+    protected function flushIlluminateTranslatorCache()
     {
         $app = app();
 
