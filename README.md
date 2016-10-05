@@ -14,7 +14,7 @@ In a vanilla Laravel installation you can use [language files](https://laravel.c
 trans('messages.welcome', ['name' => 'dayle']);
 ``` 
 
-You can even mix using language files and the database. When a translation is present in both a file and the database, the database version will be returned.
+You can even mix using language files and the database. If a translation is present in both a file and the database, the database version will be returned.
 
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
