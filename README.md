@@ -38,12 +38,38 @@ In `config/app/php` you should replace Laravel's translation service provider
 
 ```php
 Illuminate\Translation\TranslationServiceProvider::class,
-```
+``` 
 
 by the one included in this package:
 
 ```php
+Spatie\DbLanguageLines\TranslationServiceProvider::class,
+```
 
+You must run the migrations to create the `language_lines` table:
+
+```bash
+php artisan migrate
+```
+
+Optionally you could publish the config file using this command.
+
+```bash
+php artisan vendor:publish --provider="Spatie\DbLanguageLines\TranslationServiceProvide" --tag="config"
+```
+
+This is the contents of the published config file:
+
+```php
+return [
+
+    /*
+     * The model that handles the language lines. You can place any model here
+     * that extends Spatie\DbLanguageLines\LanguageLine.
+     */
+    'model' => Spatie\DbLanguageLines\LanguageLine::class,
+];
+```
 
 ## Usage
 
