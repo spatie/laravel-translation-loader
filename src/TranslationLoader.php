@@ -19,6 +19,7 @@ class TranslationLoader extends FileLoader
      */
     public function load($locale, $group, $namespace = null): array
     {
+        //load vendor lang files
         if (!is_null($namespace) && $namespace !== '*') {
             return $this->loadNamespaced($locale, $group, $namespace);
         }
@@ -27,7 +28,10 @@ class TranslationLoader extends FileLoader
             return [];
         }
 
-        return LanguageLine::getGroup($group, $locale);
+        $dbLanguageLines = LanguageLine::getGroup($group, $locale);
+        $fileLanguageLines = $this->loadPath($this->path, $locale, $group);
+
+        return array_merge($dbLanguageLines, $fileLanguageLines);
     }
 
     protected function schemaHasTable(string $tableName): bool
