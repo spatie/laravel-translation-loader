@@ -49,7 +49,7 @@ class LanguageLine extends Model
     {
         return $this->traitSetTranslation('text', $locale, $value);
     }
-    
+
     protected function flushGroupCache()
     {
         foreach ($this->getTranslatedLocales('text') as $locale) {

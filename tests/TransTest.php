@@ -40,60 +40,8 @@ class TransTest extends TestCase
         $this->assertEquals('group.unknown', trans('group.unknown'));
     }
 
-    /** @test */
-    public function it_will_cache_all_translations()
-    {
-        trans('group.key');
-
-        $queryCount = count(DB::getQueryLog());
-        $this->flushIlluminateTranslatorCache();
-
-        trans('group.key');
-
-        $this->assertEquals($queryCount, count(DB::getQueryLog()));
-    }
-
-    /** @test */
-    public function it_can_get_an_updated_translation()
-    {
-        trans('group.key');
-
-        $this->languageLine->setTranslation('en', 'updated');
-        $this->languageLine->save();
-
-        $this->flushIlluminateTranslatorCache();
-
-        $this->assertEquals('updated', trans('group.key'));
-    }
-
-    /** @test */
-    public function it_will_not_be_able_to_translate_a_key_when_the_translation_is_deleted()
-    {
-        $this->assertEquals('english', trans('group.key'));
-
-        $this->languageLine->delete();
-        $this->flushIlluminateTranslatorCache();
-
-        $this->assertEquals('group.key', trans('group.key'));
-    }
-
     protected function createTranslation(string $group, string $key, array $text): LanguageLine
     {
         return LanguageLine::create(compact('group', 'key', 'text'));
-    }
-
-    protected function flushIlluminateTranslatorCache()
-    {
-        $app = app();
-
-        $loader = $app['translation.loader'];
-
-        $locale = $app['config']['app.locale'];
-
-        $trans = new Translator($loader, $locale);
-
-        $trans->setFallback($app['config']['app.fallback_locale']);
-
-        $app['translator'] = $trans;
     }
 }
