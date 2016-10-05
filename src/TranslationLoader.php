@@ -24,13 +24,14 @@ class TranslationLoader extends FileLoader
             return $this->loadNamespaced($locale, $group, $namespace);
         }
 
+        $fileLanguageLines = $this->loadPath($this->path, $locale, $group);
+
         if (! $this->schemaHasTable('language_lines')) {
-            return [];
+            return $fileLanguageLines;
         }
 
         $modelClass = $this->getConfiguredModelClass();
 
-        $fileLanguageLines = $this->loadPath($this->path, $locale, $group);
         $dbLanguageLines = $modelClass::getGroup($group, $locale);
 
         return array_merge($fileLanguageLines, $dbLanguageLines);
