@@ -2,9 +2,7 @@
 
 namespace Spatie\DbLanguageLines\Test;
 
-use Spatie\DbLanguageLines\LanguageLine;
-
-class TransTest extends TestCase
+class DbTransTest extends TestCase
 {
     /** @var \Spatie\DbLanguageLines\LanguageLine */
     protected $languageLine;
@@ -12,8 +10,6 @@ class TransTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-
-        $this->languageLine = $this->createTranslation('group','key',  ['en' => 'english', 'nl' => 'nederlands']);
     }
 
     /** @test */
@@ -38,8 +34,14 @@ class TransTest extends TestCase
         $this->assertEquals('group.unknown', trans('group.unknown'));
     }
 
-    protected function createTranslation(string $group, string $key, array $text): LanguageLine
+    /** @test */
+    public function it_supports_placeholders()
     {
-        return LanguageLine::create(compact('group', 'key', 'text'));
+        $this->createTranslation('group', 'placeholder', ['en' => 'text with :placeholder']);
+
+        $this->assertEquals(
+            'text with filled in placeholder',
+            trans('group.placeholder', ['placeholder' => 'filled in placeholder'])
+        );
     }
 }

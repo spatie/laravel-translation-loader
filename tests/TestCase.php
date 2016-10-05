@@ -5,14 +5,20 @@ namespace Spatie\DbLanguageLines\Test;
 use Illuminate\Support\Facades\Artisan;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\DbLanguageLines\DbLanguageLinesServiceProvider;
+use Spatie\DbLanguageLines\LanguageLine;
 
 abstract class TestCase extends Orchestra
 {
+    /** @var \Spatie\DbLanguageLines\LanguageLine */
+    protected $languageLine;
+
     public function setUp()
     {
         parent::setUp();
 
         Artisan::call('migrate');
+
+        $this->languageLine = $this->createTranslation('group','key',  ['en' => 'english', 'nl' => 'nederlands']);
     }
 
     /**
@@ -42,8 +48,6 @@ abstract class TestCase extends Orchestra
             'database' => $this->createSqliteDatabase(),
             'prefix' => '',
         ]);
-
-
     }
 
     protected function createSqliteDatabase(): string
@@ -67,5 +71,10 @@ abstract class TestCase extends Orchestra
     public function getTempDirectory(string $path): string
     {
         return __DIR__."/{$path}";
+    }
+
+    protected function createTranslation(string $group, string $key, array $text): LanguageLine
+    {
+        return LanguageLine::create(compact('group', 'key', 'text'));
     }
 }

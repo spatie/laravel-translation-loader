@@ -5,6 +5,7 @@ namespace Spatie\DbLanguageLines;
 use Cache;
 use Illuminate\Translation\FileLoader;
 use Schema;
+use Spatie\DbLanguageLines\Exceptions\InvalidConfiguration;
 
 class TranslationLoader extends FileLoader
 {
@@ -28,8 +29,10 @@ class TranslationLoader extends FileLoader
             return [];
         }
 
+        $modelClass = $this->getConfiguredModelClass();
+
         $fileLanguageLines = $this->loadPath($this->path, $locale, $group);
-        $dbLanguageLines = LanguageLine::getGroup($group, $locale);
+        $dbLanguageLines = $modelClass::getGroup($group, $locale);
 
         return array_merge($fileLanguageLines, $dbLanguageLines);
     }
@@ -47,5 +50,18 @@ class TranslationLoader extends FileLoader
         }
 
         return $tableFound;
+    }
+
+    protected function getConfiguredModelClass(): string
+    {
+        $modelClass = config('laravel-db-language-lines.model');
+
+
+        if (! is_a(new $modelClass, LanguageLine::class)) {
+            throw InvalidConfiguration::invalidModel($modelClass);
+        }
+
+
+        return $modelClass;
     }
 }

@@ -4,18 +4,12 @@ namespace Spatie\DbLanguageLines\Test;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Translation\Translator;
-use Spatie\DbLanguageLines\LanguageLine;
 
 class CacheTest extends TestCase
 {
-    /** @var \Spatie\DbLanguageLines\LanguageLine */
-    protected $languageLine;
-
     public function setUp()
     {
         parent::setUp();
-
-        $this->languageLine = $this->createTranslation('group','key',  ['en' => 'english', 'nl' => 'nederlands']);
     }
 
     /** @test */
@@ -66,23 +60,16 @@ class CacheTest extends TestCase
         $this->assertEquals('group.key', trans('group.key'));
     }
 
-    protected function createTranslation(string $group, string $key, array $text): LanguageLine
-    {
-        return LanguageLine::create(compact('group', 'key', 'text'));
-    }
-
     protected function flushIlluminateTranslatorCache()
     {
-        $app = app();
+        $loader = $this->app['translation.loader'];
 
-        $loader = $app['translation.loader'];
-
-        $locale = $app['config']['app.locale'];
+        $locale = $this->app['config']['app.locale'];
 
         $trans = new Translator($loader, $locale);
 
-        $trans->setFallback($app['config']['app.fallback_locale']);
+        $trans->setFallback($this->app['config']['app.fallback_locale']);
 
-        $app['translator'] = $trans;
+        $this->app['translator'] = $trans;
     }
 }
