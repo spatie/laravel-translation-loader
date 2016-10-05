@@ -1,4 +1,4 @@
-# Very short description of the package
+# Store your language lines in the database
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-db-language-lines.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-db-language-lines)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
