@@ -2,6 +2,7 @@
 
 namespace Spatie\DbLanguageLines;
 
+use Exception;
 use Illuminate\Translation\FileLoader;
 use Schema;
 use Spatie\DbLanguageLines\Exceptions\InvalidConfiguration;
@@ -44,7 +45,7 @@ class TranslationLoader extends FileLoader
         if (is_null($tableFound)) {
             try {
                 $tableFound = Schema::hasTable($tableName);
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 $tableFound = false;
             }
         }
