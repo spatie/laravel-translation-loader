@@ -15,8 +15,7 @@ class ConfigTest extends TestCase
     /** @test */
     public function it_can_work_with_a_custom_model()
     {
-        $alternativeModel = new Class extends LanguageLine {
-
+        $alternativeModel = new class extends LanguageLine {
             public static function getGroup(string $group, string $locale): array
             {
                 return ['key' => 'alternative class'];
@@ -31,7 +30,8 @@ class ConfigTest extends TestCase
     /** @test */
     public function it_will_throw_an_exception_if_the_configured_model_does_not_extend_the_default_one()
     {
-        $invalidModel = new Class{};
+        $invalidModel = new class {
+        };
 
         $this->app['config']->set('laravel-db-language-lines.model', get_class($invalidModel));
 

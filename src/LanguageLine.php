@@ -3,7 +3,6 @@
 namespace Spatie\DbLanguageLines;
 
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Support\Facades\Cache;
 use Spatie\Translatable\HasTranslations;
 

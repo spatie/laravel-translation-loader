@@ -18,7 +18,7 @@ abstract class TestCase extends Orchestra
 
         Artisan::call('migrate');
 
-        $this->languageLine = $this->createTranslation('group','key',  ['en' => 'english', 'nl' => 'nederlands']);
+        $this->languageLine = $this->createTranslation('group', 'key', ['en' => 'english', 'nl' => 'nederlands']);
     }
 
     /**
@@ -52,7 +52,7 @@ abstract class TestCase extends Orchestra
 
     protected function createSqliteDatabase(): string
     {
-        $dbPath = __DIR__."/temp/database.sqlite";
+        $dbPath = __DIR__.'/temp/database.sqlite';
 
         if (file_exists($dbPath)) {
             unlink($dbPath);

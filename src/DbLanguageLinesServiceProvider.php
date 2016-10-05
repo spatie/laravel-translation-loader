@@ -12,12 +12,11 @@ class DbLanguageLinesServiceProvider extends TranslationServiceProvider
     public function boot()
     {
         if ($this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
-           $this->publishes([
+            $this->publishes([
                __DIR__.'/../config/laravel-db-language-lines.php' => config_path('laravel-db-language-lines.php'),
            ], 'config');
-
         }
     }
 
