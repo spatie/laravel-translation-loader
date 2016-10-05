@@ -27,6 +27,8 @@ class DbLanguageLinesServiceProvider extends TranslationServiceProvider
      */
     public function register()
     {
+        parent::register();
+
         $this->mergeConfigFrom(__DIR__.'/../config/laravel-db-language-lines.php', 'laravel-db-language-lines');
     }
 

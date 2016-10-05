@@ -8,6 +8,18 @@ use Spatie\DbLanguageLines\DbLanguageLinesServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
+    /** @var \Spatie\DbLanguageLines\Test */
+    protected $testHelper;
+
+    public function setUp()
+    {
+        $this->testHelper = new TestHelper();
+
+        parent::setUp();
+
+        Artisan::call('migrate');
+    }
+
     /**
      * @param \Illuminate\Foundation\Application $app
      *
@@ -25,7 +37,7 @@ abstract class TestCase extends Orchestra
      */
     protected function getEnvironmentSetUp($app)
     {
-        $this->testHelper->initializeTempDirectory();
+        $this->createDatabase();
 
         $app['config']->set('database.default', 'sqlite');
 
@@ -35,15 +47,14 @@ abstract class TestCase extends Orchestra
             'database' => $this->testHelper->getTempDirectory().'/database.sqlite',
             'prefix' => '',
         ]);
+
+
     }
 
-    /**
-     * @param \Illuminate\Foundation\Application $app
-     */
-    protected function setUpDatabase($app)
+    protected function createDatabase()
     {
-        file_put_contents($this->testHelper->getTempDirectory().'/database.sqlite', null);
+        $this->testHelper->initializeTempDirectory();
 
-        Artisan::call('migrate');
+        file_put_contents($this->testHelper->getTempDirectory().'/database.sqlite', null);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Locale;
+namespace Spatie\DbLanguageLines;
 
 use Cache;
 use Illuminate\Translation\FileLoader;
