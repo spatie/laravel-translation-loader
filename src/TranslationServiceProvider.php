@@ -3,6 +3,7 @@
 namespace Spatie\DbLanguageLines;
 
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\TranslationServiceProvider as IlluminateTranslationServiceProvider;
 use Spatie\DbLanguageLines\TranslationLoaders\PhpFile;
 
@@ -29,22 +30,16 @@ class TranslationServiceProvider extends IlluminateTranslationServiceProvider
     {
         parent::register();
 
-        $this->app->when(PhpFile::class)
-            ->needs(Filesystem::class)
-            ->give($this->app['files']);
-
-        $this->app->when(PhpFile::class)
-            ->needs('$path')
-            ->give( $this->app['path.lang']);
-
-
         $this->mergeConfigFrom(__DIR__.'/../config/laravel-db-language-lines.php', 'laravel-db-language-lines');
     }
 
     protected function registerLoader()
     {
         $this->app->singleton('translation.loader', function ($app) {
-            return new TranslationLoaderManager($app['files'], $app['path.lang']);
+
+            $fileLoader = new FileLoader($app['files'], $app['path.lang']);
+
+            return new TranslationLoaderManager($fileLoader);
         });
     }
 }

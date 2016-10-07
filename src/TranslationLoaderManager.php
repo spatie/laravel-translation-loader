@@ -2,11 +2,18 @@
 
 namespace Spatie\DbLanguageLines;
 
-use Illuminate\Translation\LoaderInterface;
+use Illuminate\Translation\FileLoader;
 use Spatie\DbLanguageLines\TranslationLoaders\TranslationLoader;
 
-class TranslationLoaderManager implements LoaderInterface
+class TranslationLoaderManager extends FileLoader
 {
+    protected $fileLoader;
+
+    public function __construct(FileLoader $fileLoader)
+    {
+        $this->fileLoader = $fileLoader;
+    }
+
     /**
      * Load the messages for the given locale.
      *
@@ -18,27 +25,31 @@ class TranslationLoaderManager implements LoaderInterface
      */
     public function load($locale, $group, $namespace = null): array
     {
-        return collect(config('laravel-db-language-lines.translationLoaders'))
-            ->map(function(string $className) {
+        $fileTranslations = $this->fileLoader->load($locale, $group, $namespace);
+
+        if (!is_null($namespace) && $namespace !== '*') {
+            return $fileTranslations;
+        }
+
+        $loaderTranslations = $this->getTranslationsForTranslationLoaders($locale, $group, $namespace);
+
+        return array_merge($fileTranslations, $loaderTranslations);
+    }
+    
+    protected function getTranslationsForTranslationLoaders(string $locale, string $group, string $namespace = null): array
+    {
+        $loaderTranslations = collect(config('laravel-db-language-lines.translationLoaders'))
+            ->map(function (string $className) {
                 return app($className);
             })
-            ->map(function(TranslationLoader $translationLoader) use ($locale, $group, $namespace) {
+            ->map(function (TranslationLoader $translationLoader) use ($locale, $group, $namespace) {
                 return $translationLoader->loadTranslations($locale, $group, $namespace);
             })
-            ->reduce(function($allTranslations, $translations) {
+            ->reduce(function ($allTranslations, $translations) {
                 return array_merge($allTranslations, $translations);
             }, []);
+        return $loaderTranslations;
     }
 
-    /**
-     * Add a new namespace to the loader.
-     *
-     * @param  string $namespace
-     * @param  string $hint
-     * @return void
-     */
-    public function addNamespace($namespace, $hint)
-    {
-        // TODO: Implement addNamespace() method.
-    }
+
 }
