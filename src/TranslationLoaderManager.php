@@ -27,7 +27,7 @@ class TranslationLoaderManager extends FileLoader
     {
         $fileTranslations = $this->fileLoader->load($locale, $group, $namespace);
 
-        if (!is_null($namespace) && $namespace !== '*') {
+        if (! is_null($namespace) && $namespace !== '*') {
             return $fileTranslations;
         }
 
@@ -48,8 +48,7 @@ class TranslationLoaderManager extends FileLoader
             ->reduce(function ($allTranslations, $translations) {
                 return array_merge($allTranslations, $translations);
             }, []);
+
         return $loaderTranslations;
     }
-
-
 }
