@@ -16,7 +16,7 @@ trans('messages.welcome', ['name' => 'dayle']);
 
 You can even mix using language files and the database. If a translation is present in both a file and the database, the database version will be returned.
 
-Want to use a different source for your translations? No problem! The package is easily extendable. 
+Want to use a different source for your translations? No problem! The package is [easily extendable](https://github.com/spatie/laravel-translation-loader#creating-your-own-translation-providers). 
 
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
@@ -48,9 +48,10 @@ by the one included in this package:
 Spatie\TranslationLoader\TranslationServiceProvider::class,
 ```
 
-You must run the migrations to create the `language_lines` table:
+You must publish and run the migrations to create the `language_lines` table:
 
 ```bash
+php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvide" --tag="migrations"
 php artisan migrate
 ```
 
