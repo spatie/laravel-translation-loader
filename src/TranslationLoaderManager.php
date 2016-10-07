@@ -19,13 +19,13 @@ class TranslationLoaderManager implements LoaderInterface
     public function load($locale, $group, $namespace = null): array
     {
         return collect(config('laravel-db-language-lines.translationLoaders'))
-            ->map(function(string $className) {
+            ->map(function (string $className) {
                 return app($className);
             })
-            ->map(function(TranslationLoader $translationLoader) use ($locale, $group, $namespace) {
+            ->map(function (TranslationLoader $translationLoader) use ($locale, $group, $namespace) {
                 return $translationLoader->loadTranslations($locale, $group, $namespace);
             })
-            ->reduce(function($allTranslations, $translations) {
+            ->reduce(function ($allTranslations, $translations) {
                 return array_merge($allTranslations, $translations);
             }, []);
     }

@@ -35,7 +35,7 @@ class TranslationServiceProvider extends IlluminateTranslationServiceProvider
 
         $this->app->when(PhpFile::class)
             ->needs('$path')
-            ->give( $this->app['path.lang']);
+            ->give($this->app['path.lang']);
 
 
         $this->mergeConfigFrom(__DIR__.'/../config/laravel-db-language-lines.php', 'laravel-db-language-lines');
