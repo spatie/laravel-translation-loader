@@ -18,6 +18,15 @@ class TranslationServiceProvider extends IlluminateTranslationServiceProvider
             $this->publishes([
                __DIR__.'/../config/laravel-translation-loader.php' => config_path('laravel-translation-loader.php'),
            ], 'config');
+
+            if (! class_exists('CreateLanguageLinesTable')) {
+                $timestamp = date('Y_m_d_His', time());
+
+                $this->publishes([
+                    __DIR__.'/../database/migrations/create_language_lines_table.php.stub' =>
+                        database_path('migrations/'.$timestamp.'_create_language_lines_table.php'),
+                ], 'migrations');
+            }
         }
     }
 

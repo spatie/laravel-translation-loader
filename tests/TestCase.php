@@ -18,6 +18,10 @@ abstract class TestCase extends Orchestra
 
         Artisan::call('migrate');
 
+        include_once __DIR__.'/../database/migrations/create_language_lines_table.php.stub';
+
+        (new \CreateLanguageLinesTable())->up();
+
         $this->languageLine = $this->createTranslation('group', 'key', ['en' => 'english', 'nl' => 'nederlands']);
     }
 
