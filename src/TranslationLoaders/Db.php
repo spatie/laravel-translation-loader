@@ -12,7 +12,7 @@ class Db implements TranslationLoader
     {
         $model = app(config('laravel-db-language-lines.model'));
 
-        if (!$this->schemaHasTable($model->getTable())) {
+        if (! $this->schemaHasTable($model->getTable())) {
             return [];
         }
 
@@ -44,7 +44,7 @@ class Db implements TranslationLoader
     {
         $modelClass = config('laravel-db-language-lines.model');
 
-        if (!is_a(new $modelClass, LanguageLine::class)) {
+        if (! is_a(new $modelClass, LanguageLine::class)) {
             throw InvalidConfiguration::invalidModel($modelClass);
         }
 

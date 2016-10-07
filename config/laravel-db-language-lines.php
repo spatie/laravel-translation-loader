@@ -2,7 +2,7 @@
 
 return [
 
-    /**
+    /*
      * Language lines will be fetched by these loaders.
      */
     'translationLoaders' => [
