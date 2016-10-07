@@ -103,9 +103,8 @@ class DbTest extends TestCase
     public function it_can_work_with_a_custom_model()
     {
         $alternativeModel = new class extends LanguageLine {
-            public static function getGroup(string $group, string $locale): array
+            public static function getTranslationsForGroup(string $locale, string $group): array
             {
-                dd('in anonymous');
                 return ['key' => 'alternative class'];
             }
         };

@@ -11,34 +11,9 @@ class Db implements TranslationLoader
 {
     public function loadTranslations(string $locale, string $group, string $namespace = null): array
     {
-        $model = app($this->getConfiguredModelClass());
+        $model = $this->getConfiguredModelClass();
 
-        if (!$this->schemaHasTable($model->getTable())) {
-            return [];
-        }
-
-        return Cache::rememberForever($model::getCacheKey($group, $locale), function () use ($group, $locale, $model) {
-            return $model::query()
-                ->where('group', $group)
-                ->get()
-                ->pluck('text', 'key')
-                ->toArray();
-        });
-    }
-
-    protected function schemaHasTable(string $tableName): bool
-    {
-        static $tableFound = null;
-
-        if (is_null($tableFound)) {
-            try {
-                $tableFound = Schema::hasTable($tableName);
-            } catch (Exception $e) {
-                $tableFound = false;
-            }
-        }
-
-        return $tableFound;
+        return $model::getTranslationsForGroup($locale, $group);
     }
 
     protected function getConfiguredModelClass(): string

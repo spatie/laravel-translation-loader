@@ -31,15 +31,15 @@ class LanguageLine extends Model
         });
     }
 
-    /**
-     * @param string $locale
-     * @param string $value
-     *
-     * @return $this
-     */
-    public function setTranslation(string $locale, string $value)
+    public static function getTranslationsForGroup(string $locale, string $group): array
     {
-        return $this->traitSetTranslation('text', $locale, $value);
+        return Cache::rememberForever(static::getCacheKey($group, $locale), function () use ($group, $locale) {
+            return static::query()
+                ->where('group', $group)
+                ->get()
+                ->pluck('text', 'key')
+                ->toArray();
+        });
     }
 
     protected function flushGroupCache()
@@ -53,4 +53,17 @@ class LanguageLine extends Model
     {
         return "spatie.laravel-db-language-lines.{$group}.{$locale}";
     }
+
+    /**
+     * @param string $locale
+     * @param string $value
+     *
+     * @return $this
+     */
+    public function setTranslation(string $locale, string $value)
+    {
+        return $this->traitSetTranslation('text', $locale, $value);
+    }
+
+
 }
