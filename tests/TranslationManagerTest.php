@@ -14,7 +14,7 @@ class TranslationManagerTest extends TestCase
     /** @test */
     public function it_will_not_use_database_translations_if_the_provider_is_not_configured()
     {
-        $this->app['config']->set('laravel-translation-loader.translationLoaders', []);
+        $this->app['config']->set('laravel-translation-loader.translation_loaders', []);
 
         $this->assertEquals('group.key', trans('group.key'));
     }
@@ -22,7 +22,7 @@ class TranslationManagerTest extends TestCase
     /** @test */
     public function it_will_merge_translation_from_all_providers()
     {
-        $this->app['config']->set('laravel-translation-loader.translationLoaders', [
+        $this->app['config']->set('laravel-translation-loader.translation_loaders', [
             Db::class,
             DummyLoader::class,
         ]);
