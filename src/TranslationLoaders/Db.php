@@ -2,8 +2,6 @@
 
 namespace Spatie\TranslationLoader\TranslationLoaders;
 
-use Cache;
-use Schema;
 use Spatie\TranslationLoader\Exceptions\InvalidConfiguration;
 use Spatie\TranslationLoader\LanguageLine;
 
@@ -20,7 +18,7 @@ class Db implements TranslationLoader
     {
         $modelClass = config('laravel-translation-loader.model');
 
-        if (!is_a(new $modelClass, LanguageLine::class)) {
+        if (! is_a(new $modelClass, LanguageLine::class)) {
             throw InvalidConfiguration::invalidModel($modelClass);
         }
 
