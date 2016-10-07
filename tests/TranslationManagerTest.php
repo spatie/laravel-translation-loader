@@ -24,7 +24,7 @@ class TranslationManagerTest extends TestCase
     {
         $this->app['config']->set('laravel-translation-loader.translationLoaders', [
             Db::class,
-            DummyLoader::class
+            DummyLoader::class,
         ]);
 
         $this->createTranslation('db', 'key', ['en' => 'db']);
