@@ -117,7 +117,8 @@ class DbTest extends TestCase
     /** @test */
     public function it_will_throw_an_exception_if_the_configured_model_does_not_extend_the_default_one()
     {
-        $invalidModel = new class {};
+        $invalidModel = new class {
+        };
 
         $this->app['config']->set('laravel-translation-loader.model', get_class($invalidModel));
 
