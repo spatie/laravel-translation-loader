@@ -18,8 +18,6 @@ class LanguageLine extends Model
     /** @var array */
     public $guarded = ['id'];
 
-    public $table = 'language_lines';
-
     public static function boot()
     {
         static::saved(function (LanguageLine $languageLine) {
