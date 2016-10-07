@@ -16,6 +16,8 @@ trans('messages.welcome', ['name' => 'dayle']);
 
 You can even mix using language files and the database. If a translation is present in both a file and the database, the database version will be returned.
 
+Want to use a different source for your translations? No problem! The package is easily extendable. 
+
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
 ## Postcardware
@@ -61,10 +63,16 @@ php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServi
 This is the contents of the published config file:
 
 ```php
-return [
+    /*
+     * Language lines will be fetched by these loaders. You can put any class here that implements
+     * the Spatie\TranslationLoader\TranslationLoaders\TranslationLoader-interface.
+     */
+    'translationLoaders' => [
+        Spatie\TranslationLoader\TranslationLoaders\Db::class,
+    ],
 
     /*
-     * The model that handles the language lines. You can place any model here
+     * This is the model used by the Db Translation loader. You can put any model here
      * that extends Spatie\TranslationLoader\LanguageLine.
      */
     'model' => Spatie\TranslationLoader\LanguageLine::class,
@@ -98,6 +106,26 @@ trans('validation.required'); // returns 'Dit is een verplicht veld'
 ```
 
 You can still keep using the default language files as well. If a requested translation is present in both the database and the language files, the database version will be returned.
+
+## Creating your own translation providers
+
+This package ships with a translation provider than can fetch translations from the database. If you're storing your translations in a yaml-file, a csv-file, or ... you can easily extend this package by creating your own translation provider.
+
+A translation provider can be any class that implements the `Spatie\TranslationLoader\TranslationLoaders\TranslationLoader`-interface. You'll only need to implement this method:
+
+```php 
+namespace Spatie\TranslationLoader\TranslationLoaders;
+
+interface TranslationLoader
+{
+    /*
+     * Returns all translations for the given locale and group.
+     */
+    public function loadTranslations(string $locale, string $group): array;
+}
+```
+
+Translation providers can be registered in the `translationLoaders` key of the config file.
 
 ## Changelog
 

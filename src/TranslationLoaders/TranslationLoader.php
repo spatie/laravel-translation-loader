@@ -4,5 +4,8 @@ namespace Spatie\TranslationLoader\TranslationLoaders;
 
 interface TranslationLoader
 {
-    public function loadTranslations(string $locale, string $group, string $namespace = null): array;
+    /*
+     * Returns all translations for the given locale and group.
+     */
+    public function loadTranslations(string $locale, string $group): array;
 }
