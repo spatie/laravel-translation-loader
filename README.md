@@ -51,14 +51,14 @@ Spatie\TranslationLoader\TranslationServiceProvider::class,
 You must publish and run the migrations to create the `language_lines` table:
 
 ```bash
-php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvide" --tag="migrations"
+php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="migrations"
 php artisan migrate
 ```
 
 Optionally you could publish the config file using this command.
 
 ```bash
-php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvide" --tag="config"
+php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="config"
 ```
 
 This is the contents of the published config file:
