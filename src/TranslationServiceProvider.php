@@ -2,10 +2,8 @@
 
 namespace Spatie\DbLanguageLines;
 
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\TranslationServiceProvider as IlluminateTranslationServiceProvider;
-use Spatie\DbLanguageLines\TranslationLoaders\PhpFile;
 
 class TranslationServiceProvider extends IlluminateTranslationServiceProvider
 {
@@ -36,7 +34,6 @@ class TranslationServiceProvider extends IlluminateTranslationServiceProvider
     protected function registerLoader()
     {
         $this->app->singleton('translation.loader', function ($app) {
-
             $fileLoader = new FileLoader($app['files'], $app['path.lang']);
 
             return new TranslationLoaderManager($fileLoader);

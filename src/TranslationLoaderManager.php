@@ -27,7 +27,7 @@ class TranslationLoaderManager extends FileLoader
     {
         $fileTranslations = $this->fileLoader->load($locale, $group, $namespace);
 
-        if (!is_null($namespace) && $namespace !== '*') {
+        if (! is_null($namespace) && $namespace !== '*') {
             return $fileTranslations;
         }
 
@@ -35,7 +35,7 @@ class TranslationLoaderManager extends FileLoader
 
         return array_merge($fileTranslations, $loaderTranslations);
     }
-    
+
     protected function getTranslationsForTranslationLoaders(string $locale, string $group, string $namespace = null): array
     {
         $loaderTranslations = collect(config('laravel-db-language-lines.translationLoaders'))
@@ -48,8 +48,7 @@ class TranslationLoaderManager extends FileLoader
             ->reduce(function ($allTranslations, $translations) {
                 return array_merge($allTranslations, $translations);
             }, []);
+
         return $loaderTranslations;
     }
-
-
 }
