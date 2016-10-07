@@ -1,8 +1,10 @@
 <?php
 
-namespace Spatie\DbLanguageLines\Test;
+namespace Spatie\DbLanguageLines\Test\TranslationLoaders;
 
-class FileTransTest extends TestCase
+use Spatie\DbLanguageLines\Test\TestCase;
+
+class PhpFileTest extends TestCase
 {
     public function setUp()
     {

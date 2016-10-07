@@ -2,9 +2,13 @@
 
 return [
 
-    /*
-     * The model that handles the language lines. You can place any model here
-     * that extends Spatie\DbLanguageLines\LanguageLine.
+    /**
+     * Language lines will be fetched by these loaders.
      */
+    'translationLoaders' => [
+        Spatie\DbLanguageLines\TranslationLoaders\PhpFile::class,
+        Spatie\DbLanguageLines\TranslationLoaders\Db::class,
+    ],
+
     'model' => Spatie\DbLanguageLines\LanguageLine::class,
 ];

@@ -18,6 +18,8 @@ class LanguageLine extends Model
     /** @var array */
     public $guarded = ['id'];
 
+    public $table = 'language_lines';
+
     public static function boot()
     {
         static::saved(function (LanguageLine $languageLine) {
@@ -26,17 +28,6 @@ class LanguageLine extends Model
 
         static::deleted(function (LanguageLine $languageLine) {
             $languageLine->flushGroupCache();
-        });
-    }
-
-    public static function getGroup(string $group, string $locale): array
-    {
-        return Cache::rememberForever(static::getCacheKey($group, $locale), function () use ($group, $locale) {
-            return static::query()
-                ->where('group', $group)
-                ->get()
-                ->pluck('text', 'key')
-                ->toArray();
         });
     }
 
