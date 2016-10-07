@@ -64,11 +64,13 @@ php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServi
 This is the contents of the published config file:
 
 ```php
+return [
+
     /*
      * Language lines will be fetched by these loaders. You can put any class here that implements
      * the Spatie\TranslationLoader\TranslationLoaders\TranslationLoader-interface.
      */
-    'translationLoaders' => [
+    'translation_loaders' => [
         Spatie\TranslationLoader\TranslationLoaders\Db::class,
     ],
 
@@ -87,7 +89,7 @@ You can create a translation in the database by creating and saving an instance 
 ```php
 use Spatie\TranslationLoader\LanguageLine;
 
-LanguageLine::create([
+TranslationLoader::create([
    'group' => 'validation',
    'key' => 'required',
    'text' => ['en' => 'This is a required field', 'nl' => 'Dit is een verplicht veld'],
