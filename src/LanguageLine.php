@@ -4,19 +4,16 @@ namespace Spatie\TranslationLoader;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
-use Spatie\Translatable\HasTranslations;
 
 class LanguageLine extends Model
 {
-    use HasTranslations {
-        setTranslation as traitSetTranslation;
-    }
-
     /** @var array */
     public $translatable = ['text'];
 
     /** @var array */
     public $guarded = ['id'];
+
+    protected $casts = ['text' => 'array'];
 
     public static function boot()
     {
@@ -35,16 +32,15 @@ class LanguageLine extends Model
             return static::query()
                 ->where('group', $group)
                 ->get()
+                ->map(function (LanguageLine $languageLine) use ($locale) {
+                    return [
+                        'key' => $languageLine->key,
+                        'text' => $languageLine->getTranslation($locale),
+                    ];
+                })
                 ->pluck('text', 'key')
                 ->toArray();
         });
-    }
-
-    protected function flushGroupCache()
-    {
-        foreach ($this->getTranslatedLocales('text') as $locale) {
-            Cache::forget(static::getCacheKey($this->group, $locale));
-        }
     }
 
     public static function getCacheKey(string $group, string $locale): string
@@ -54,12 +50,32 @@ class LanguageLine extends Model
 
     /**
      * @param string $locale
-     * @param string $value
      *
-     * @return $this
+     * @return string
+     */
+    public function getTranslation(string $locale): string
+    {
+        return $this->text[$locale] ?? '';
+    }
+
+    /**
+     * @param string $locale
+     * @param string $value
      */
     public function setTranslation(string $locale, string $value)
     {
-        return $this->traitSetTranslation('text', $locale, $value);
+        $this->text = array_merge($this->text, [$locale => $value]);
+    }
+
+    protected function flushGroupCache()
+    {
+        foreach ($this->getTranslatedLocales() as $locale) {
+            Cache::forget(static::getCacheKey($this->group, $locale));
+        }
+    }
+
+    protected function getTranslatedLocales(): array
+    {
+        return array_keys($this->text);
     }
 }
