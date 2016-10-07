@@ -112,7 +112,7 @@ You can still keep using the default language files as well. If a requested tran
 
 This package ships with a translation provider than can fetch translations from the database. If you're storing your translations in a yaml-file, a csv-file, or ... you can easily extend this package by creating your own translation provider.
 
-A translation provider can be any class that implements the `Spatie\TranslationLoader\TranslationLoaders\TranslationLoader`-interface. You'll only need to implement this method:
+A translation provider can be any class that implements the `Spatie\TranslationLoader\TranslationLoaders\TranslationLoader`-interface. It contains only one method:
 
 ```php 
 namespace Spatie\TranslationLoader\TranslationLoaders;
@@ -126,7 +126,7 @@ interface TranslationLoader
 }
 ```
 
-Translation providers can be registered in the `translationLoaders` key of the config file.
+Translation providers can be registered in the `translation_loaders` key of the config file.
 
 ## Changelog
 
