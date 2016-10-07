@@ -13,6 +13,7 @@ class LanguageLine extends Model
     /** @var array */
     public $guarded = ['id'];
 
+    /** @var array */
     protected $casts = ['text' => 'array'];
 
     public static function boot()
