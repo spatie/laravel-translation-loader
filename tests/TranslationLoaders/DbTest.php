@@ -105,6 +105,7 @@ class DbTest extends TestCase
         $alternativeModel = new class extends LanguageLine {
             public static function getGroup(string $group, string $locale): array
             {
+                dd('in anonymous');
                 return ['key' => 'alternative class'];
             }
         };

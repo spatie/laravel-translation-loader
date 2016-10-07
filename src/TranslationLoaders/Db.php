@@ -5,12 +5,13 @@ namespace Spatie\DbLanguageLines\TranslationLoaders;
 use Cache;
 use Schema;
 use Spatie\DbLanguageLines\Exceptions\InvalidConfiguration;
+use Spatie\DbLanguageLines\LanguageLine;
 
 class Db implements TranslationLoader
 {
     public function loadTranslations(string $locale, string $group, string $namespace = null): array
     {
-        $model = app(config('laravel-db-language-lines.model'));
+        $model = app($this->getConfiguredModelClass());
 
         if (!$this->schemaHasTable($model->getTable())) {
             return [];
