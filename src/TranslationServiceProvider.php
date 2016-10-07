@@ -41,8 +41,6 @@ class TranslationServiceProvider extends IlluminateTranslationServiceProvider
      * Register the translation line loader. This method registers a
      * `TranslationLoaderManager` instead of a simple `FileLoader` as the
      * applications `translation.loader` instance.
-     *
-     * @return void
      */
     protected function registerLoader()
     {

@@ -94,8 +94,6 @@ LanguageLine::create([
 ]);
 ```
 
-That model uses the `HasTranslations` trait provided by [the `spatie/laravel-translatable` package](https://github.com/spatie/laravel-translatable).
-
 You can fetch the translation with [Laravel's default `trans` function](https://laravel.com/docs/5.3/localization#retrieving-language-lines):
 
 ```php
