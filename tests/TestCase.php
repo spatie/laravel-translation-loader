@@ -1,15 +1,15 @@
 <?php
 
-namespace Spatie\DbLanguageLines\Test;
+namespace Spatie\TranslationLoader\Test;
 
 use Illuminate\Support\Facades\Artisan;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Spatie\DbLanguageLines\LanguageLine;
-use Spatie\DbLanguageLines\TranslationServiceProvider;
+use Spatie\TranslationLoader\LanguageLine;
+use Spatie\TranslationLoader\TranslationServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
-    /** @var \Spatie\DbLanguageLines\LanguageLine */
+    /** @var \Spatie\TranslationLoader\LanguageLine */
     protected $languageLine;
 
     public function setUp()

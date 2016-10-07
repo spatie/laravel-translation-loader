@@ -1,9 +1,9 @@
 <?php
 
-namespace Spatie\DbLanguageLines;
+namespace Spatie\TranslationLoader;
 
 use Illuminate\Translation\FileLoader;
-use Spatie\DbLanguageLines\TranslationLoaders\TranslationLoader;
+use Spatie\TranslationLoader\TranslationLoaders\TranslationLoader;
 
 class TranslationLoaderManager extends FileLoader
 {
@@ -38,7 +38,7 @@ class TranslationLoaderManager extends FileLoader
 
     protected function getTranslationsForTranslationLoaders(string $locale, string $group, string $namespace = null): array
     {
-        $loaderTranslations = collect(config('laravel-db-language-lines.translationLoaders'))
+        $loaderTranslations = collect(config('laravel-translation-loader.translationLoaders'))
             ->map(function (string $className) {
                 return app($className);
             })

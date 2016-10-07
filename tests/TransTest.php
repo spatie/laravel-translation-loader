@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\DbLanguageLines\Test;
+namespace Spatie\TranslationLoader\Test;
 
 class TransTest extends TestCase
 {

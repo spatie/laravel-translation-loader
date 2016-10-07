@@ -1,11 +1,11 @@
 <?php
 
-namespace Spatie\DbLanguageLines\TranslationLoaders;
+namespace Spatie\TranslationLoader\TranslationLoaders;
 
 use Cache;
 use Schema;
-use Spatie\DbLanguageLines\Exceptions\InvalidConfiguration;
-use Spatie\DbLanguageLines\LanguageLine;
+use Spatie\TranslationLoader\Exceptions\InvalidConfiguration;
+use Spatie\TranslationLoader\LanguageLine;
 
 class Db implements TranslationLoader
 {
@@ -18,7 +18,7 @@ class Db implements TranslationLoader
 
     protected function getConfiguredModelClass(): string
     {
-        $modelClass = config('laravel-db-language-lines.model');
+        $modelClass = config('laravel-translation-loader.model');
 
         if (!is_a(new $modelClass, LanguageLine::class)) {
             throw InvalidConfiguration::invalidModel($modelClass);

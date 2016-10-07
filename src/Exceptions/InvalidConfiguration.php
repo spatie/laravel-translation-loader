@@ -1,9 +1,9 @@
 <?php
 
-namespace Spatie\DbLanguageLines\Exceptions;
+namespace Spatie\TranslationLoader\Exceptions;
 
 use Exception;
-use Spatie\DbLanguageLines\LanguageLine;
+use Spatie\TranslationLoader\LanguageLine;
 
 class InvalidConfiguration extends Exception
 {

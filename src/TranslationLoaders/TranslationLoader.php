@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\DbLanguageLines\TranslationLoaders;
+namespace Spatie\TranslationLoader\TranslationLoaders;
 
 interface TranslationLoader
 {

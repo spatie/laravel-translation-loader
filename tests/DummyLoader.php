@@ -1,8 +1,8 @@
 <?php
 
-namespace Spatie\DbLanguageLines\Test;
+namespace Spatie\TranslationLoader\Test;
 
-use Spatie\DbLanguageLines\TranslationLoaders\TranslationLoader;
+use Spatie\TranslationLoader\TranslationLoaders\TranslationLoader;
 
 class DummyLoader implements TranslationLoader
 {

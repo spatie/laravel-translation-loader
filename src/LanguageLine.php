@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\DbLanguageLines;
+namespace Spatie\TranslationLoader;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
@@ -51,7 +51,7 @@ class LanguageLine extends Model
 
     public static function getCacheKey(string $group, string $locale): string
     {
-        return "spatie.laravel-db-language-lines.{$group}.{$locale}";
+        return "spatie.laravel-translation-loader.{$group}.{$locale}";
     }
 
     /**

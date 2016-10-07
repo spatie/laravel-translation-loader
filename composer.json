@@ -1,15 +1,17 @@
 {
-    "name": "spatie/laravel-db-language-lines",
-    "description": "Store your language lines in the database",
+    "name": "spatie/laravel-translation-loader",
+    "description": "Store your language lines in the database, yaml or other sources",
     "keywords": [
         "spatie",
         "laravel",
-        "laravel-db-language-lines",
+        "laravel-translation-loader",
         "translate",
+        "database",
+        "db",
         "language",
         "i8n"
     ],
-    "homepage": "https://github.com/spatie/laravel-db-language-lines",
+    "homepage": "https://github.com/spatie/laravel-translation-loader",
     "license": "MIT",
     "authors": [
         {
@@ -32,12 +34,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\DbLanguageLines\\": "src"
+            "Spatie\\TranslationLoader\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\DbLanguageLines\\Test\\": "tests"
+            "Spatie\\TranslationLoader\\Test\\": "tests"
         }
     },
     "scripts": {

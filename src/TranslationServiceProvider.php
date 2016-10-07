@@ -1,10 +1,10 @@
 <?php
 
-namespace Spatie\DbLanguageLines;
+namespace Spatie\TranslationLoader;
 
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\TranslationServiceProvider as IlluminateTranslationServiceProvider;
-use Spatie\DbLanguageLines\TranslationLoaders\PhpFile;
+use Spatie\TranslationLoader\TranslationLoaders\PhpFile;
 
 class TranslationServiceProvider extends IlluminateTranslationServiceProvider
 {
@@ -17,7 +17,7 @@ class TranslationServiceProvider extends IlluminateTranslationServiceProvider
             $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
             $this->publishes([
-               __DIR__.'/../config/laravel-db-language-lines.php' => config_path('laravel-db-language-lines.php'),
+               __DIR__.'/../config/laravel-translation-loader.php' => config_path('laravel-translation-loader.php'),
            ], 'config');
         }
     }
@@ -29,7 +29,7 @@ class TranslationServiceProvider extends IlluminateTranslationServiceProvider
     {
         parent::register();
 
-        $this->mergeConfigFrom(__DIR__.'/../config/laravel-db-language-lines.php', 'laravel-db-language-lines');
+        $this->mergeConfigFrom(__DIR__.'/../config/laravel-translation-loader.php', 'laravel-translation-loader');
     }
 
     protected function registerLoader()
