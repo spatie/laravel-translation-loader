@@ -7,6 +7,7 @@ use Spatie\TranslationLoader\TranslationLoaders\TranslationLoader;
 
 class TranslationLoaderManager extends FileLoader
 {
+    /** @var \Illuminate\Translation\FileLoader */
     protected $fileLoader;
 
     public function __construct(FileLoader $fileLoader)
@@ -36,19 +37,18 @@ class TranslationLoaderManager extends FileLoader
         return array_merge($fileTranslations, $loaderTranslations);
     }
 
-    protected function getTranslationsForTranslationLoaders(string $locale, string $group, string $namespace = null): array
-    {
-        $loaderTranslations = collect(config('laravel-translation-loader.translationLoaders'))
+    protected function getTranslationsForTranslationLoaders(
+        string $locale,
+        string $group,
+        string $namespace = null
+    ): array {
+        return collect(config('laravel-translation-loader.translation_loaders'))
             ->map(function (string $className) {
                 return app($className);
             })
-            ->map(function (TranslationLoader $translationLoader) use ($locale, $group, $namespace) {
+            ->flatMap(function (TranslationLoader $translationLoader) use ($locale, $group, $namespace) {
                 return $translationLoader->loadTranslations($locale, $group, $namespace);
             })
-            ->reduce(function ($allTranslations, $translations) {
-                return array_merge($allTranslations, $translations);
-            }, []);
-
-        return $loaderTranslations;
+            ->toArray();
     }
 }

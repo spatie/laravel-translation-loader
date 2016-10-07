@@ -18,7 +18,11 @@ abstract class TestCase extends Orchestra
 
         Artisan::call('migrate');
 
-        $this->languageLine = $this->createTranslation('group', 'key', ['en' => 'english', 'nl' => 'nederlands']);
+        include_once __DIR__.'/../database/migrations/create_language_lines_table.php.stub';
+
+        (new \CreateLanguageLinesTable())->up();
+
+        $this->languageLine = $this->createLanguageLine('group', 'key', ['en' => 'english', 'nl' => 'nederlands']);
     }
 
     /**
@@ -73,7 +77,7 @@ abstract class TestCase extends Orchestra
         return __DIR__."/{$path}";
     }
 
-    protected function createTranslation(string $group, string $key, array $text): LanguageLine
+    protected function createLanguageLine(string $group, string $key, array $text): LanguageLine
     {
         return LanguageLine::create(compact('group', 'key', 'text'));
     }
