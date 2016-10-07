@@ -40,6 +40,13 @@ class TranslationServiceProvider extends IlluminateTranslationServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/laravel-translation-loader.php', 'laravel-translation-loader');
     }
 
+    /**
+     * Register the translation line loader. This method registers a
+     * `TranslationLoaderManager` instead of a simple `FileLoader` as the
+     * applications `translation.loader` instance.
+     *
+     * @return void
+     */
     protected function registerLoader()
     {
         $this->app->singleton('translation.loader', function ($app) {
