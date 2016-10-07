@@ -64,6 +64,4 @@ class LanguageLine extends Model
     {
         return $this->traitSetTranslation('text', $locale, $value);
     }
-
-
 }
