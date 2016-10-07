@@ -1,10 +1,8 @@
 <?php
 
-namespace Spatie\DbLanguageLines\Test\TranslationLoaders;
+namespace Spatie\DbLanguageLines\Test;
 
-use Spatie\DbLanguageLines\Test\TestCase;
-
-class PhpFileTest extends TestCase
+class TransTest extends TestCase
 {
     public function setUp()
     {
@@ -26,7 +24,7 @@ class PhpFileTest extends TestCase
     }
 
     /** @test */
-    public function it_will_prefer_a_db_translation_over_a_file_translation()
+    public function by_default_it_will_prefer_a_db_translation_over_a_file_translation()
     {
         $this->createTranslation('file', 'key', ['en' => 'en value from db']);
 

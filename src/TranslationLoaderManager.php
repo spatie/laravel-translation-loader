@@ -35,7 +35,7 @@ class TranslationLoaderManager extends FileLoader
 
         return array_merge($fileTranslations, $loaderTranslations);
     }
-    
+
     protected function getTranslationsForTranslationLoaders(string $locale, string $group, string $namespace = null): array
     {
         $loaderTranslations = collect(config('laravel-db-language-lines.translationLoaders'))

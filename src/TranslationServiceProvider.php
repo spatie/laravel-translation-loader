@@ -2,7 +2,6 @@
 
 namespace Spatie\DbLanguageLines;
 
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\TranslationServiceProvider as IlluminateTranslationServiceProvider;
 use Spatie\DbLanguageLines\TranslationLoaders\PhpFile;
