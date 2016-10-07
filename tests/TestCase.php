@@ -22,7 +22,7 @@ abstract class TestCase extends Orchestra
 
         (new \CreateLanguageLinesTable())->up();
 
-        $this->languageLine = $this->createTranslation('group', 'key', ['en' => 'english', 'nl' => 'nederlands']);
+        $this->languageLine = $this->createLanguageLine('group', 'key', ['en' => 'english', 'nl' => 'nederlands']);
     }
 
     /**
@@ -77,7 +77,7 @@ abstract class TestCase extends Orchestra
         return __DIR__."/{$path}";
     }
 
-    protected function createTranslation(string $group, string $key, array $text): LanguageLine
+    protected function createLanguageLine(string $group, string $key, array $text): LanguageLine
     {
         return LanguageLine::create(compact('group', 'key', 'text'));
     }

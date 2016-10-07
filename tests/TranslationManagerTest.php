@@ -27,7 +27,7 @@ class TranslationManagerTest extends TestCase
             DummyLoader::class,
         ]);
 
-        $this->createTranslation('db', 'key', ['en' => 'db']);
+        $this->createLanguageLine('db', 'key', ['en' => 'db']);
 
         $this->assertEquals('db', trans('db.key'));
         $this->assertEquals('this is dummy', trans('dummy.dummy'));

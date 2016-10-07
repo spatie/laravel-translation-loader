@@ -26,7 +26,7 @@ class TransTest extends TestCase
     /** @test */
     public function by_default_it_will_prefer_a_db_translation_over_a_file_translation()
     {
-        $this->createTranslation('file', 'key', ['en' => 'en value from db']);
+        $this->createLanguageLine('file', 'key', ['en' => 'en value from db']);
 
         $this->assertEquals('en value from db', trans('file.key'));
     }
