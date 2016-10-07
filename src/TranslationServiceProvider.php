@@ -23,8 +23,6 @@ class TranslationServiceProvider extends IlluminateTranslationServiceProvider
     public function boot()
     {
         if ($this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-
             $this->publishes([
                 __DIR__.'/../config/laravel-translation-loader.php' => config_path('laravel-translation-loader.php'),
             ], 'config');
