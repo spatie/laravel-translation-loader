@@ -89,7 +89,7 @@ You can create a translation in the database by creating and saving an instance 
 ```php
 use Spatie\TranslationLoader\LanguageLine;
 
-TranslationLoader::create([
+LanguageLine::create([
    'group' => 'validation',
    'key' => 'required',
    'text' => ['en' => 'This is a required field', 'nl' => 'Dit is een verplicht veld'],
