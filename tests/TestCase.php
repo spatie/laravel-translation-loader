@@ -49,32 +49,15 @@ abstract class TestCase extends Orchestra
         $app['config']->set('database.default', 'sqlite');
         $app['config']->set('database.connections.sqlite', [
             'driver' => 'sqlite',
-            'database' => $this->createSqliteDatabase(),
+            'database' => ':memory:',
             'prefix' => '',
         ]);
     }
-
-    protected function createSqliteDatabase(): string
-    {
-        $dbPath = __DIR__.'/temp/database.sqlite';
-
-        if (file_exists($dbPath)) {
-            unlink($dbPath);
-        }
-
-        touch($dbPath);
-
-        return $dbPath;
-    }
+    
 
     public function getFixturesDirectory(string $path): string
     {
         return __DIR__."/fixtures/{$path}";
-    }
-
-    public function getTempDirectory(string $path): string
-    {
-        return __DIR__."/{$path}";
     }
 
     protected function createLanguageLine(string $group, string $key, array $text): LanguageLine
