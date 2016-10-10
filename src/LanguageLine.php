@@ -65,7 +65,7 @@ class LanguageLine extends Model
      */
     public function setTranslation(string $locale, string $value)
     {
-        $this->text = array_merge($this->text, [$locale => $value]);
+        $this->text = array_merge($this->text ?? [], [$locale => $value]);
     }
 
     protected function flushGroupCache()
