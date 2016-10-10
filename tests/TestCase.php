@@ -53,7 +53,6 @@ abstract class TestCase extends Orchestra
             'prefix' => '',
         ]);
     }
-    
 
     public function getFixturesDirectory(string $path): string
     {
