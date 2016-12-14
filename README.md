@@ -28,6 +28,9 @@ Our address is: Spatie, Samberstraat 69D, 2060 Antwerp, Belgium.
 
 The best postcards will get published on the open source page on our website.
 
+## Requirements
+This package requires PHP 7 or newer.
+
 ## Installation
 
 You can install the package via composer:
