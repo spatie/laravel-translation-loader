@@ -2,8 +2,8 @@
 
 namespace Spatie\TranslationLoader;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Model;
 
 class LanguageLine extends Model
 {
