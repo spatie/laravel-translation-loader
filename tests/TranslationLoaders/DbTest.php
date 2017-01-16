@@ -4,9 +4,9 @@ namespace Spatie\TranslationLoader\Test\TranslationLoaders;
 
 use DB;
 use Illuminate\Translation\Translator;
-use Spatie\TranslationLoader\Exceptions\InvalidConfiguration;
 use Spatie\TranslationLoader\LanguageLine;
 use Spatie\TranslationLoader\Test\TestCase;
+use Spatie\TranslationLoader\Exceptions\InvalidConfiguration;
 
 class DbTest extends TestCase
 {
