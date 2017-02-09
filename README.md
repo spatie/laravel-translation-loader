@@ -36,7 +36,7 @@ You can install the package via composer:
 composer require spatie/laravel-translation-loader
 ```
 
-In `config/app/php` you should replace Laravel's translation service provider
+In `config/app.php` you should replace Laravel's translation service provider
 
 ```php
 Illuminate\Translation\TranslationServiceProvider::class,
