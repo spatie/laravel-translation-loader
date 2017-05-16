@@ -62,10 +62,14 @@ class LanguageLine extends Model
     /**
      * @param string $locale
      * @param string $value
+     *
+     * @return $this
      */
     public function setTranslation(string $locale, string $value)
     {
         $this->text = array_merge($this->text ?? [], [$locale => $value]);
+
+        return $this;
     }
 
     protected function flushGroupCache()
