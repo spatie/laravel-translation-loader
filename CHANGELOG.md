@@ -1,8 +1,12 @@
 # Changelog
 
-All Notable changes to `laravel-translation-loader` will be documented in this file
+All notable changes to `laravel-translation-loader` will be documented in this file
 
-## 1.1.0 - 2016-01-23
+## 1.1.1 - 2017-05-15
+
+- make `setTranslation` chainable
+
+## 1.1.0 - 2016-10-23
 
 - add compatibility with Laravel 5.4
 
