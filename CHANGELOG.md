@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-translation-loader` will be documented in this file
 
+## 1.1.2 - 2017-06-26
+
+- fix bug that prevented translations from vendor files being loaded
+
 ## 1.1.1 - 2017-05-15
 
 - make `setTranslation` chainable

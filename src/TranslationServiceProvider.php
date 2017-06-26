@@ -45,9 +45,7 @@ class TranslationServiceProvider extends IlluminateTranslationServiceProvider
     protected function registerLoader()
     {
         $this->app->singleton('translation.loader', function ($app) {
-            $fileLoader = new FileLoader($app['files'], $app['path.lang']);
-
-            return new TranslationLoaderManager($fileLoader);
+            return new TranslationLoaderManager($app['files'], $app['path.lang']);
         });
     }
 }
