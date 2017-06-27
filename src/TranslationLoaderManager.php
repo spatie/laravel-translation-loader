@@ -16,13 +16,9 @@ class TranslationLoaderManager extends FileLoader
      *
      * @return array
      */
-    public function load($locale, $group, $namespace = null): array
+    public function load($locale, $group, $namespace = '*'): array
     {
         $fileTranslations = parent::load($locale, $group, $namespace);
-
-        if (! is_null($namespace) && $namespace !== '*') {
-            return $fileTranslations;
-        }
 
         $loaderTranslations = $this->getTranslationsForTranslationLoaders($locale, $group, $namespace);
 
@@ -32,7 +28,7 @@ class TranslationLoaderManager extends FileLoader
     protected function getTranslationsForTranslationLoaders(
         string $locale,
         string $group,
-        string $namespace = null
+        string $namespace = '*'
     ): array {
         return collect(config('laravel-translation-loader.translation_loaders'))
             ->map(function (string $className) {
