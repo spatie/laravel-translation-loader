@@ -27,10 +27,11 @@ class LanguageLine extends Model
         });
     }
 
-    public static function getTranslationsForGroup(string $locale, string $group): array
+    public static function getTranslationsForGroup(string $locale, string $group, string $namespace): array
     {
-        return Cache::rememberForever(static::getCacheKey($group, $locale), function () use ($group, $locale) {
+        return Cache::rememberForever(static::getCacheKey($namespace, $group, $locale), function () use ($namespace, $group, $locale) {
             return static::query()
+                ->where('namespace', $namespace)
                 ->where('group', $group)
                 ->get()
                 ->map(function (LanguageLine $languageLine) use ($locale) {
@@ -44,9 +45,9 @@ class LanguageLine extends Model
         });
     }
 
-    public static function getCacheKey(string $group, string $locale): string
+    public static function getCacheKey(string $namespace, string $group, string $locale): string
     {
-        return "spatie.laravel-translation-loader.{$group}.{$locale}";
+        return "spatie.laravel-translation-loader.{$namespace}.{$group}.{$locale}";
     }
 
     /**
@@ -75,7 +76,7 @@ class LanguageLine extends Model
     protected function flushGroupCache()
     {
         foreach ($this->getTranslatedLocales() as $locale) {
-            Cache::forget(static::getCacheKey($this->group, $locale));
+            Cache::forget(static::getCacheKey($this->namespace, $this->group, $locale));
         }
     }
 
