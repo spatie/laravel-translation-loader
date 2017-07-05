@@ -49,13 +49,19 @@ class ImportVendorTranslations extends Command
             // And foreach vendor item
             foreach (config('laravel-translation-loader.vendor_import', []) as $file) {
                 // Load the vendor translations
-                $lines = array_dot(require_once(resource_path('lang' . self::DS . $locale . self::DS . $file . '.php')));
+                $path = resource_path('lang' . self::DS . $locale . self::DS . $file . '.php');
 
-                // And assign them to a data array
-                foreach ($lines as $key => $line) {
-                    if ($line) {
-                        $translations[$file][$key][$locale] = $line;
+                if (File::exists($path)) {
+                    $lines = array_dot(require_once($path));
+
+                    // And assign them to a data array
+                    foreach ($lines as $key => $line) {
+                        if ($line) {
+                            $translations[$file][$key][$locale] = $line;
+                        }
                     }
+                } else {
+                    $this->error("{$file} specified in config can not be loaded from: {$path}");
                 }
             }
         });
