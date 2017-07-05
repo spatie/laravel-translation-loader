@@ -15,4 +15,15 @@ return [
      * that extends Spatie\TranslationLoader\LanguageLine.
      */
     'model' => Spatie\TranslationLoader\LanguageLine::class,
+
+    /*
+     * List of vendor language files that will be imported via
+     * laravel-translation-loader:import-vendor-translations command
+     */
+    'vendor_import' => [
+        'auth',
+        'pagination',
+        'passwords',
+        'validation',
+    ],
 ];
