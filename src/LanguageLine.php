@@ -30,24 +30,16 @@ class LanguageLine extends Model
     public static function getTranslationsForGroup(string $locale, string $group): array
     {
         return Cache::rememberForever(static::getCacheKey($group, $locale), function () use ($group, $locale) {
-            $languageLines = static::query()
+            $translations = [];
+
+            static::query()
                 ->where('group', $group)
                 ->get()
-                ->map(function (LanguageLine $languageLine) use ($locale) {
-                    return [
-                        'key' => $languageLine->key,
-                        'text' => $languageLine->getTranslation($locale),
-                    ];
-                })
-                ->pluck('text', 'key')
-                ->toArray();
+                ->map(function (LanguageLine $languageLine) use ($locale, $group, &$translations) {
+                    array_set($translations, $languageLine->key, $languageLine->getTranslation($locale));
+                });
 
-            $result = [];
-            foreach ($languageLines as $key => $value) {
-                array_set($result, $key, $value);
-            }
-
-            return $result;
+            return $translations;
         });
     }
 
