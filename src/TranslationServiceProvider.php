@@ -4,6 +4,7 @@ namespace Spatie\TranslationLoader;
 
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\TranslationServiceProvider as IlluminateTranslationServiceProvider;
+use Spatie\TranslationLoader\Commands\ImportVendorTranslations;
 
 class TranslationServiceProvider extends IlluminateTranslationServiceProvider
 {
@@ -34,6 +35,10 @@ class TranslationServiceProvider extends IlluminateTranslationServiceProvider
                     __DIR__.'/../database/migrations/create_language_lines_table.php.stub' => database_path('migrations/'.$timestamp.'_create_language_lines_table.php'),
                 ], 'migrations');
             }
+
+            $this->commands([
+                ImportVendorTranslations::class
+            ]);
         }
     }
 
