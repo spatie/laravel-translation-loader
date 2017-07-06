@@ -52,7 +52,9 @@ class VendorTranslationsImporter extends Command implements TranslationsImporter
                     // Only if the file exists
                     if (File::exists($filePath)) {
                         foreach (array_dot(require_once($filePath)) as $key => $line) {
-                            $translations[$file][$key][$this->getLocale($path)] = $line;
+                            if ($line) {
+                                $translations[$file][$key][$this->getLocale($path)] = $line;
+                            }
                         }
                     } else {
                         $this->error("{$file} specified in config can not be loaded from: {$filePath}");
