@@ -22,7 +22,6 @@ return [
      */
     'vendor_import' => [
         'auth',
-        'pagination',
         'passwords',
         'validation',
     ],
