@@ -4,7 +4,7 @@ namespace Spatie\TranslationLoader;
 
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\TranslationServiceProvider as IlluminateTranslationServiceProvider;
-use Spatie\TranslationLoader\Commands\ImportVendorTranslations;
+use Spatie\TranslationLoader\Commands\VendorTranslationsImporter;
 
 class TranslationServiceProvider extends IlluminateTranslationServiceProvider
 {
@@ -37,7 +37,7 @@ class TranslationServiceProvider extends IlluminateTranslationServiceProvider
             }
 
             $this->commands([
-                ImportVendorTranslations::class
+                VendorTranslationsImporter::class
             ]);
         }
     }
