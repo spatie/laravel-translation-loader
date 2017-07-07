@@ -28,7 +28,7 @@ class LanguageLine extends Model
     }
 
     /**
-     * Get translations for group
+     * Get translations for group.
      *
      * @param string $locale
      * @param string $group
