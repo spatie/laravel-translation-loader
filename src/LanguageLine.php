@@ -27,15 +27,6 @@ class LanguageLine extends Model
         });
     }
 
-    /**
-     * Get translations for group
-     *
-     * @param string $locale
-     * @param string $group
-     *
-     * @return array
-     * @see https://adamwathan.me/2016/07/14/customizing-keys-when-mapping-collections/
-     */
     public static function getTranslationsForGroup(string $locale, string $group): array
     {
         return Cache::rememberForever(static::getCacheKey($group, $locale), function () use ($group, $locale) {
