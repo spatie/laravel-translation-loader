@@ -4,7 +4,7 @@ namespace Spatie\TranslationLoader\Test;
 
 class TransTest extends TestCase
 {
-    private $nested = [
+    protected $nested = [
         'bool' => [
             1 => 'Yes',
             0 => 'No',
@@ -39,7 +39,7 @@ class TransTest extends TestCase
     }
 
     /** @test */
-    public function it_will_return_array_if_its_nested_translation()
+    public function it_will_return_array_if_the_given_translation_is_nested()
     {
         foreach (array_dot($this->nested) as $key => $text) {
             $this->createLanguageLine('nested', $key, ['en' => $text]);
@@ -49,7 +49,7 @@ class TransTest extends TestCase
     }
 
     /** @test */
-    public function it_will_return_translation_if_max_nested_level_is_reached()
+    public function it_will_return_the_translation_string_if_max_nested_level_is_reached()
     {
         foreach (array_dot($this->nested) as $key => $text) {
             $this->createLanguageLine('nested', $key, ['en' => $text]);
@@ -59,7 +59,7 @@ class TransTest extends TestCase
     }
 
     /** @test */
-    public function it_will_return_translation_key_if_not_found()
+    public function it_will_return_the_dotted_translation_key_if_no_translation_found()
     {
         $notFoundKey = 'nested.bool.3';
 
