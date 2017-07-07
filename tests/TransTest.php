@@ -8,7 +8,7 @@ class TransTest extends TestCase
         'bool' => [
             1 => 'Yes',
             0 => 'No',
-        ]
+        ],
     ];
 
     public function setUp()
@@ -45,7 +45,7 @@ class TransTest extends TestCase
             $this->createLanguageLine('nested', $key, ['en' => $text]);
         }
 
-        $this->assertEquals($this->nested['bool'], trans('nested.bool'), "\$canonicalize = true", $delta = 0.0, $maxDepth = 10, $canonicalize = true);
+        $this->assertEquals($this->nested['bool'], trans('nested.bool'), '$canonicalize = true', $delta = 0.0, $maxDepth = 10, $canonicalize = true);
     }
 
     /** @test */
