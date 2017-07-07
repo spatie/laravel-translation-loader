@@ -6,12 +6,11 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Translation\FileLoader;
 use Spatie\TranslationLoader\LanguageLine;
 
 class VendorTranslationsImporter extends Command implements TranslationsImporter
 {
-    const DS = DIRECTORY_SEPARATOR;
-
     /**
      * The name and signature of the console command.
      *
@@ -27,6 +26,13 @@ class VendorTranslationsImporter extends Command implements TranslationsImporter
     protected $description = 'Import vendor translations.';
 
     /**
+     * The translation file loader
+     *
+     * @var FileLoader
+     */
+    private $loader;
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -34,6 +40,8 @@ class VendorTranslationsImporter extends Command implements TranslationsImporter
     public function __construct()
     {
         parent::__construct();
+
+        $this->loader = new FileLoader(app('files'), app('path.lang'));
     }
 
     /**
@@ -44,24 +52,16 @@ class VendorTranslationsImporter extends Command implements TranslationsImporter
     public function handle()
     {
         $translations = $this->getLocales()
-            ->reduce(function ($translations, $path) {
-                // And foreach vendor item from config
-                foreach (config('laravel-translation-loader.vendor_import', []) as $file) {
-                    $filePath = $this->getLocaleFilePath($path, $file);
-
-                    // Only if the file exists
-                    if (File::exists($filePath)) {
-                        foreach (array_dot(require_once($filePath)) as $key => $line) {
-                            if ($line) {
-                                $translations[$file][$key][$this->getLocale($path)] = $line;
-                            }
+            ->reduce(function ($groups, $locale) {
+                foreach (config('laravel-translation-loader.vendor_import', []) as $group) {
+                    foreach (array_dot($this->loader->load($locale, $group)) as $key => $line) {
+                        if ($line) {
+                            $groups[$group][$key][$locale] = $line;
                         }
-                    } else {
-                        $this->error("{$file} specified in config can not be loaded from: {$filePath}");
                     }
                 }
 
-                return $translations;
+                return $groups;
             });
 
         $this->createLanguageLines($translations);
@@ -75,30 +75,10 @@ class VendorTranslationsImporter extends Command implements TranslationsImporter
      */
     private function getLocales(): Collection
     {
-        return collect(File::directories(resource_path('lang')));
-    }
-
-    /**
-     * Get locale from translation path
-     *
-     * @param string $path
-     *
-     * @return string
-     */
-    private function getLocale(string $path): string
-    {
-        return str_replace(resource_path('lang') . self::DS, '', $path);
-    }
-
-    /**
-     * @param string $path
-     * @param string $file
-     *
-     * @return string
-     */
-    private function getLocaleFilePath(string $path, string $file): string
-    {
-        return $path . self::DS . $file . '.php';
+        return collect(File::directories(app('path.lang')))
+            ->map(function ($path) {
+                return str_replace(app('path.lang') . DIRECTORY_SEPARATOR, '', $path);
+            });
     }
 
     /**
