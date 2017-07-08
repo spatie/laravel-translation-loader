@@ -52,6 +52,10 @@ abstract class TestCase extends Orchestra
             'database' => ':memory:',
             'prefix' => '',
         ]);
+
+        $app['config']->set('laravel-translation-loader.vendor_import', [
+            'file'
+        ]);
     }
 
     public function getFixturesDirectory(string $path): string
