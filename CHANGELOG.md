@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-translation-loader` will be documented in this file
 
+## 1.2.1 - 2017-08-07
+
+- add support for numeric keys
+- drop support for Laravel 5.3
+
 ## 1.2.0 - 2017-07-07
 
 - add support for nested translations
