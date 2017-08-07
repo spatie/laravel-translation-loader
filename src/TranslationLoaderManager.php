@@ -26,7 +26,7 @@ class TranslationLoaderManager extends FileLoader
 
         $loaderTranslations = $this->getTranslationsForTranslationLoaders($locale, $group, $namespace);
 
-        return array_merge($fileTranslations, $loaderTranslations);
+        return $loaderTranslations + $fileTranslations;
     }
 
     protected function getTranslationsForTranslationLoaders(
@@ -38,7 +38,7 @@ class TranslationLoaderManager extends FileLoader
             ->map(function (string $className) {
                 return app($className);
             })
-            ->flatMap(function (TranslationLoader $translationLoader) use ($locale, $group, $namespace) {
+            ->mapWithKeys(function (TranslationLoader $translationLoader) use ($locale, $group, $namespace) {
                 return $translationLoader->loadTranslations($locale, $group, $namespace);
             })
             ->toArray();
