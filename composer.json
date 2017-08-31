@@ -54,5 +54,7 @@
                 "Spatie\\TranslationLoader\\TranslationServiceProvider"
             ]
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
