@@ -43,7 +43,7 @@ class LanguageLine extends Model
 
     public static function getCacheKey(string $group, string $locale): string
     {
-        return "spatie.laravel-translation-loader.{$group}.{$locale}";
+        return "spatie.translation-loader.{$group}.{$locale}";
     }
 
     /**

@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-translation-loader` will be documented in this file
 
+## 2.0.0 - 2017-XX-XX
+
+- add support for Laravel 5.5, dropped support for Laravel 5.4
+- rename config file from `laravel-translation-loader` to `translation-loader`
+
 ## 1.2.1 - 2017-08-07
 
 - add support for numeric keys

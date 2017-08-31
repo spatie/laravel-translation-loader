@@ -34,7 +34,7 @@ class TranslationLoaderManager extends FileLoader
         string $group,
         string $namespace = null
     ): array {
-        return collect(config('laravel-translation-loader.translation_loaders'))
+        return collect(config('translation-loader.translation_loaders'))
             ->map(function (string $className) {
                 return app($className);
             })

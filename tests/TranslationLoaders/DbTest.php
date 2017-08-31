@@ -109,7 +109,7 @@ class DbTest extends TestCase
             }
         };
 
-        $this->app['config']->set('laravel-translation-loader.model', get_class($alternativeModel));
+        $this->app['config']->set('translation-loader.model', get_class($alternativeModel));
 
         $this->assertEquals('alternative class', trans('group.key'));
     }
@@ -120,7 +120,7 @@ class DbTest extends TestCase
         $invalidModel = new class {
         };
 
-        $this->app['config']->set('laravel-translation-loader.model', get_class($invalidModel));
+        $this->app['config']->set('translation-loader.model', get_class($invalidModel));
 
         $this->expectException(InvalidConfiguration::class);
 
