@@ -27,7 +27,7 @@ class LanguageLine extends Model
         });
     }
 
-    public static function getTranslationsForGroup(string $locale, string $group): array
+    public static function getTranslationsForGroup(string $locale, string $group, string $namespace): array
     {
         return Cache::rememberForever(static::getCacheKey($group, $locale), function () use ($group, $locale) {
             return static::query()

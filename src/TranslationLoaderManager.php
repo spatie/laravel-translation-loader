@@ -20,10 +20,6 @@ class TranslationLoaderManager extends FileLoader
     {
         $fileTranslations = parent::load($locale, $group, $namespace);
 
-        if (! is_null($namespace) && $namespace !== '*') {
-            return $fileTranslations;
-        }
-
         $loaderTranslations = $this->getTranslationsForTranslationLoaders($locale, $group, $namespace);
 
         return $loaderTranslations + $fileTranslations;
