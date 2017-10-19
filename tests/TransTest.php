@@ -21,6 +21,7 @@ class TransTest extends TestCase
     {
         $this->assertEquals('en value', trans('file.key'));
         $this->assertEquals('page not found', trans('file.404.title'));
+        $this->assertEquals('This page does not exists', trans('file.404.message'));
     }
 
     /** @test */
@@ -30,6 +31,7 @@ class TransTest extends TestCase
 
         $this->assertEquals('nl value', trans('file.key'));
         $this->assertEquals('pagina niet gevonden', trans('file.404.title'));
+        $this->assertEquals('Deze pagina bestaat niet', trans('file.404.message'));
     }
 
     /** @test */
@@ -40,6 +42,7 @@ class TransTest extends TestCase
 
         $this->assertEquals('en value from db', trans('file.key'));
         $this->assertEquals('page not found from db', trans('file.404.title'));
+        $this->assertEquals('This page does not exists', trans('file.404.message'));
     }
 
     /** @test */
