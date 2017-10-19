@@ -6,5 +6,4 @@ use Spatie\TranslationLoader\TranslationLoaderManager;
 
 class DummyManager extends TranslationLoaderManager
 {
-
 }
