@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-translation-loader` will be documented in this file
 
+## 2.1.0 - 2017-10-19
+
+- add `translation_manager` config key
+- fix for missing keys (issue #49)
+
 ## 2.0.0 - 2017-08-31
 
 - add support for Laravel 5.5, dropped support for Laravel 5.4
