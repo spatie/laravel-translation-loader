@@ -76,4 +76,14 @@ class TransTest extends TestCase
 
         $this->assertEquals($notFoundKey, trans($notFoundKey));
     }
+
+    /** @test */
+    public function it_will_return_fallback_language_translation_when_app_language_translation_not_available()
+    {
+        $this->createLanguageLine('fallback', 'key', ['en' => 'en value from db']);
+
+        app()->setLocale('pt-br');
+
+        $this->assertEquals('en value from db', trans('fallback.key'));
+    }
 }
