@@ -34,9 +34,11 @@ class LanguageLine extends Model
                 ->where('group', $group)
                 ->get()
                 ->reduce(function ($lines, LanguageLine $languageLine) use ($locale) {
-                    array_set($lines, $languageLine->key, $languageLine->getTranslation($locale));
+                    if (! empty($languageLine->getTranslation($locale))) {
+                        array_set($lines, $languageLine->key, $languageLine->getTranslation($locale));
 
-                    return $lines;
+                        return $lines;
+                    }
                 }) ?? [];
         });
     }
