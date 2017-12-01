@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-translation-loader` will be documented in this file
 
+## 2.1.1 - 2017-12-01
+
+- fix for not using fallback locale
+
 ## 2.1.0 - 2017-10-19
 
 - add `translation_manager` config key
