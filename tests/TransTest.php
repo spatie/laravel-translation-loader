@@ -76,4 +76,13 @@ class TransTest extends TestCase
 
         $this->assertEquals($notFoundKey, trans($notFoundKey));
     }
+
+    /** @test */
+    public function it_will_default_to_fallback_if_locale_is_missing()
+    {
+        app()->setLocale('de');
+        $this->createLanguageLine('missing_locale', 'key', ['en' => 'en value from db']);
+
+        $this->assertEquals('en value from db', trans('missing_locale.key'));
+    }
 }
