@@ -8,15 +8,15 @@
 [![StyleCI](https://styleci.io/repos/70038687/shield?branch=master)](https://styleci.io/repos/70038687)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-translation-loader.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-translation-loader)
 
-In a vanilla Laravel installation you can use [language files](https://laravel.com/docs/5.3/localization) to localize your app. This package will enable the translations to be stored in the database. You can still use all the features of [the `trans` function](https://laravel.com/docs/5.3/localization#retrieving-language-lines) you know and love.
+In a vanilla Laravel installation you can use [language files](https://laravel.com/docs/5.6/localization) to localize your app. This package will enable the translations to be stored in the database. You can still use all the features of [the `trans` function](https://laravel.com/docs/5.6/localization#retrieving-translation-strings) you know and love.
 
 ```php
 trans('messages.welcome', ['name' => 'dayle']);
-``` 
+```
 
 You can even mix using language files and the database. If a translation is present in both a file and the database, the database version will be returned.
 
-Want to use a different source for your translations? No problem! The package is [easily extendable](https://github.com/spatie/laravel-translation-loader#creating-your-own-translation-providers). 
+Want to use a different source for your translations? No problem! The package is [easily extendable](https://github.com/spatie/laravel-translation-loader#creating-your-own-translation-providers).
 
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
@@ -32,7 +32,7 @@ In `config/app.php` you should replace Laravel's translation service provider
 
 ```php
 Illuminate\Translation\TranslationServiceProvider::class,
-``` 
+```
 
 by the one included in this package:
 
@@ -76,7 +76,7 @@ return [
      * This is the translation manager which overrides the default Laravel `translation.loader`
      */
     'translation_manager' => Spatie\TranslationLoader\TranslationLoaderManager::class,
-    
+
 ];
 ```
 
@@ -112,7 +112,7 @@ This package ships with a translation provider than can fetch translations from 
 
 A translation provider can be any class that implements the `Spatie\TranslationLoader\TranslationLoaders\TranslationLoader`-interface. It contains only one method:
 
-```php 
+```php
 namespace Spatie\TranslationLoader\TranslationLoaders;
 
 interface TranslationLoader
@@ -161,7 +161,7 @@ We publish all received postcards [on our company website](https://spatie.be/en/
 
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
-Does your business depend on our contributions? Reach out and support us on [Patreon](https://www.patreon.com/spatie). 
+Does your business depend on our contributions? Reach out and support us on [Patreon](https://www.patreon.com/spatie).
 All pledges will be dedicated to allocating workforce on maintenance and new awesome stuff.
 
 ## License

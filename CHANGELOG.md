@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-translation-loader` will be documented in this file
 
+## 2.1.2 - 2018-02-07
+
+- add support for Laravel 5.6
+
 ## 2.1.1 - 2017-12-01
 
 - fix for not using fallback locale
