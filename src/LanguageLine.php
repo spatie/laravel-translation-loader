@@ -18,6 +18,7 @@ class LanguageLine extends Model
 
     public static function boot()
     {
+        parent::boot();
         static::saved(function (LanguageLine $languageLine) {
             $languageLine->flushGroupCache();
         });
@@ -53,7 +54,11 @@ class LanguageLine extends Model
      */
     public function getTranslation(string $locale): string
     {
-        return $this->text[$locale] ?? $this->text[config('app.fallback_locale')];
+        if(isset($this->text[$locale]) && !is_array($this->text[$locale]))
+            return $this->text[$locale];
+        if(isset($this->text[config('app.fallback_locale')]) && !is_array($this->text[config('app.fallback_locale')]))
+            return $this->text[config('app.fallback_locale')];
+        return '';
     }
 
     /**
