@@ -18,6 +18,7 @@ class LanguageLine extends Model
 
     public static function boot()
     {
+        parent::boot();
         static::saved(function (LanguageLine $languageLine) {
             $languageLine->flushGroupCache();
         });
