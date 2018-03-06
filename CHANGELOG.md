@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-translation-loader` will be documented in this file
 
+## 2.1.4 - 2018-03-06
+
+- avoid throwing an exception when retrieving a non existing translation
+
 ## 2.1.3 - 2018-03-08
 
 - fix bug when used with other traits
