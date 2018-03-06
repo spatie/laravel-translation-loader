@@ -49,5 +49,4 @@ class LanguageLineTest extends TestCase
         $languageLine = $this->createLanguageLine('group', 'new', ['en' => 'English']);
         $this->assertEquals('English', $languageLine->getTranslation('es'));
     }
-
 }
