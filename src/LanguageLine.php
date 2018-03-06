@@ -54,13 +54,14 @@ class LanguageLine extends Model
      */
     public function getTranslation(string $locale): string
     {
-        if(isset($this->text[$locale])) {
+        if (isset($this->text[$locale])) {
             return $this->text[$locale];
         }
         $fallback = config('app.fallback_locale');
-        if(isset($this->text[$fallback])) {
+        if (isset($this->text[$fallback])) {
             return $this->text[$fallback];
         }
+
         return '';
     }
 
