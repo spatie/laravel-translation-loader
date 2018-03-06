@@ -50,14 +50,4 @@ class LanguageLineTest extends TestCase
         $this->assertEquals('English', $languageLine->getTranslation('es'));
     }
 
-    /** @test */
-    public function dont_return_arrays_if_was_set()
-    {
-        $value = [
-            'max' => 'Maximo',
-            'min' => 'Minimo'
-        ];
-        $languageLine = $this->createLanguageLine('validation', 'attributes', ['es' => $value]);
-        $this->assertEquals('', $languageLine->getTranslation('es'));
-    }
 }
