@@ -45,8 +45,6 @@ abstract class TestCase extends Orchestra
         $app['path.lang'] = $this->getFixturesDirectory('lang');
 
         $app['config']->set('database.default', 'sqlite');
-
-        $app['config']->set('database.default', 'sqlite');
         $app['config']->set('database.connections.sqlite', [
             'driver' => 'sqlite',
             'database' => ':memory:',

@@ -38,4 +38,18 @@ class DummyManagerTest extends TestCase
         $this->createLanguageLine('file', 'key', ['en' => 'en value from db']);
         $this->assertEquals('en value from db', trans('file.key'));
     }
+
+    /** @test */
+    public function it_can_translate_using_dummy_manager_using_file_with_incomplete_db()
+    {
+        $this->createLanguageLine('file', 'key', ['nl' => 'nl value from db']);
+        $this->assertEquals('en value', trans('file.key'));
+    }
+
+    /** @test */
+    public function it_can_translate_using_dummy_manager_using_empty_translation_in_db()
+    {
+        $this->createLanguageLine('file', 'key', ['en' => '']);
+        $this->assertSame('', trans('file.key'));
+    }
 }
