@@ -87,6 +87,10 @@ class LanguageLine extends Model
 
     protected function getTranslatedLocales(): array
     {
-        return array_keys($this->text);
+        $original = [];
+        if(is_string($this->getOriginal('text'))){
+            $original = json_decode($this->getOriginal('text'), true) ?? [];
+        }
+        return array_keys($this->text + $original);
     }
 }
