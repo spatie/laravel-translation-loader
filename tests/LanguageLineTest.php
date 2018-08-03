@@ -50,4 +50,14 @@ class LanguageLineTest extends TestCase
         $this->assertEquals('English', $languageLine->getTranslation('es'));
     }
 
+    /** @test */
+    public function get_correct_translations_from_cache()
+    {
+        $languageLine = $this->createLanguageLine('group', 'key', ['cr' => 'creole', 'br' => 'barbados']);
+        $this->assertContains('creole', $languageLine->getTranslationsForGroup('cr', 'group'));
+        $languageLine->text = ['br' => 'barbados']; // no more creole
+        $languageLine->save();
+        $this->assertNotContains('creole', $languageLine->getTranslationsForGroup('cr', 'group'));
+    }
+
 }
