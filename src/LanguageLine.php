@@ -36,9 +36,10 @@ class LanguageLine extends Model
                 ->get()
                 ->reduce(function ($lines, LanguageLine $languageLine) use ($locale) {
                     $translation = $languageLine->getTranslation($locale);
-                    if($translation !== null){
+                    if ($translation !== null) {
                         array_set($lines, $languageLine->key, $translation);
                     }
+
                     return $lines;
                 }) ?? [];
         });
@@ -56,7 +57,7 @@ class LanguageLine extends Model
      */
     public function getTranslation(string $locale): ?string
     {
-        if(! isset($this->text[$locale])) {
+        if (! isset($this->text[$locale])) {
             $fallback = config('app.fallback_locale');
 
             return $this->text[$fallback] ?? null;
