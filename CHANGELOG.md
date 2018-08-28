@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-translation-loader` will be documented in this file
 
+## 2.1.6 - 2018-08-28
+
+- add support for Laravel 5.7
+
 ## 2.1.5 - 2018-07-30
 
 - a non-existing translation will now return `null` instead of an empty string
