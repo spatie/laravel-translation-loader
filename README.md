@@ -8,7 +8,7 @@
 [![StyleCI](https://styleci.io/repos/70038687/shield?branch=master)](https://styleci.io/repos/70038687)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-translation-loader.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-translation-loader)
 
-In a vanilla Laravel installation you can use [language files](https://laravel.com/docs/5.6/localization) to localize your app. This package will enable the translations to be stored in the database. You can still use all the features of [the `trans` function](https://laravel.com/docs/5.6/localization#retrieving-translation-strings) you know and love.
+In a vanilla Laravel or Lumen installation you can use [language files](https://laravel.com/docs/5.6/localization) to localize your app. This package will enable the translations to be stored in the database. You can still use all the features of [the `trans` function](https://laravel.com/docs/5.6/localization#retrieving-translation-strings) you know and love.
 
 ```php
 trans('messages.welcome', ['name' => 'dayle']);
@@ -28,7 +28,7 @@ You can install the package via composer:
 composer require spatie/laravel-translation-loader
 ```
 
-In `config/app.php` you should replace Laravel's translation service provider
+In `config/app.php` (Laravel) or `bootstrap/app.php` (Lumen) you should replace Laravel's translation service provider
 
 ```php
 Illuminate\Translation\TranslationServiceProvider::class,
@@ -79,6 +79,8 @@ return [
 
 ];
 ```
+
+> **Note:** publishing assets doesn't work out of the box in Lumen. Instead you have to copy the files from the repo.
 
 ## Usage
 
