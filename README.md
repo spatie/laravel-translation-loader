@@ -3,7 +3,6 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-translation-loader.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-translation-loader)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://img.shields.io/travis/spatie/laravel-translation-loader/master.svg?style=flat-square)](https://travis-ci.org/spatie/laravel-translation-loader)
-[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/5215e908-470a-4351-b39f-7149e8f85b6d.svg?style=flat-square)](https://insight.sensiolabs.com/projects/5215e908-470a-4351-b39f-7149e8f85b6d)
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/laravel-translation-loader.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/laravel-translation-loader)
 [![StyleCI](https://styleci.io/repos/70038687/shield?branch=master)](https://styleci.io/repos/70038687)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-translation-loader.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-translation-loader)
