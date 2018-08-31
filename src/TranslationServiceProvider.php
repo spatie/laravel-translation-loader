@@ -4,6 +4,7 @@ namespace Spatie\TranslationLoader;
 
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\TranslationServiceProvider as IlluminateTranslationServiceProvider;
+use Illuminate\Support\Facades\Schema;
 
 class TranslationServiceProvider extends IlluminateTranslationServiceProvider
 {
@@ -44,10 +45,18 @@ class TranslationServiceProvider extends IlluminateTranslationServiceProvider
      */
     protected function registerLoader()
     {
-        $this->app->singleton('translation.loader', function ($app) {
-            $class = config('translation-loader.translation_manager');
+        if (Schema::hasTable('language_lines')) {
+            $this->app->singleton('translation.loader', function ($app) {
+                $class = config('translation-loader.translation_manager');
 
-            return new $class($app['files'], $app['path.lang']);
-        });
+                return new $class($app['files'], $app['path.lang']);
+            });
+        } else {
+            
+            $this->app->singleton('translation.loader', function ($app) {
+                return new FileLoader($app['files'], $app['path.lang']);
+            });
+
+        }
     }
 }
