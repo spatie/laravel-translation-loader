@@ -19,13 +19,13 @@ class LanguageLine extends Model
     public static function boot()
     {
         parent::boot();
-        static::saved(function (LanguageLine $languageLine) {
-            $languageLine->flushGroupCache();
-        });
 
-        static::deleted(function (LanguageLine $languageLine) {
+        $flushGroupCache = function (LanguageLine $languageLine) {
             $languageLine->flushGroupCache();
-        });
+        };
+
+        static::saved($flushGroupCache);
+        static::deleted($flushGroupCache);
     }
 
     public static function getTranslationsForGroup(string $locale, string $group): array
