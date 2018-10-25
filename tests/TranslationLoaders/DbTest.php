@@ -129,14 +129,6 @@ class DbTest extends TestCase
 
     protected function flushIlluminateTranslatorCache()
     {
-        $loader = $this->app['translation.loader'];
-
-        $locale = $this->app['config']['app.locale'];
-
-        $trans = new Translator($loader, $locale);
-
-        $trans->setFallback($this->app['config']['app.fallback_locale']);
-
-        $this->app['translator'] = $trans;
+        $this->app['translator']->setLoaded([]);
     }
 }
