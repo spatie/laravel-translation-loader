@@ -79,7 +79,7 @@ class LanguageLine extends Model
         return $this;
     }
 
-    protected function flushGroupCache()
+    public function flushGroupCache()
     {
         foreach ($this->getTranslatedLocales() as $locale) {
             Cache::forget(static::getCacheKey($this->group, $locale));

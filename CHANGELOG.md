@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-translation-loader` will be documented in this file
 
+## 2.2.2 - 2018-10-25
+
+- make `flushGroupCache` public
+
 ## 2.2.1 - 2018-10-25
 
 - drop support for Laravel 5.5 and 5.6
