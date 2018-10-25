@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-translation-loader` will be documented in this file
 
+## 2.2.1 - 2018-10-25
+
+- drop support for Laravel 5.5 and 5.6
+
 ## 2.2.0 - 2018-08-30
 
 - add support for Lumen
