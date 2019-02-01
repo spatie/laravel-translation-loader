@@ -2,6 +2,8 @@
 
 namespace Spatie\TranslationLoader\Test;
 
+use Illuminate\Support\Arr;
+
 class TransTest extends TestCase
 {
     protected $nested = [
@@ -48,7 +50,7 @@ class TransTest extends TestCase
     /** @test */
     public function it_will_return_array_if_the_given_translation_is_nested()
     {
-        foreach (array_dot($this->nested) as $key => $text) {
+        foreach (Arr::dot($this->nested) as $key => $text) {
             $this->createLanguageLine('nested', $key, ['en' => $text]);
         }
 
@@ -58,7 +60,7 @@ class TransTest extends TestCase
     /** @test */
     public function it_will_return_the_translation_string_if_max_nested_level_is_reached()
     {
-        foreach (array_dot($this->nested) as $key => $text) {
+        foreach (Arr::dot($this->nested) as $key => $text) {
             $this->createLanguageLine('nested', $key, ['en' => $text]);
         }
 
@@ -70,7 +72,7 @@ class TransTest extends TestCase
     {
         $notFoundKey = 'nested.bool.3';
 
-        foreach (array_dot($this->nested) as $key => $text) {
+        foreach (Arr::dot($this->nested) as $key => $text) {
             $this->createLanguageLine('nested', $key, ['en' => $text]);
         }
 
