@@ -4,6 +4,8 @@ All notable changes to `laravel-translation-loader` will be documented in this f
 
 ## 2.2.4 - 2019-02-27
 
+- add support for Laravel 5.8
+
 ## 2.2.3 - 2019-02-01
 
 - use Arr:: and Str:: functions
