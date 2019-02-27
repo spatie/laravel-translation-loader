@@ -2,6 +2,8 @@
 
 All notable changes to `laravel-translation-loader` will be documented in this file
 
+## 2.2.4 - 2019-02-27
+
 ## 2.2.3 - 2019-02-01
 
 - use Arr:: and Str:: functions

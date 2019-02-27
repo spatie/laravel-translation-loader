@@ -13,7 +13,7 @@ class DbTest extends TestCase
     /** @var \Spatie\TranslationLoader\LanguageLine */
     protected $languageLine;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
     }

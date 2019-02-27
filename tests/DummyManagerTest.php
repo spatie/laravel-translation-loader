@@ -6,7 +6,7 @@ use Spatie\TranslationLoader\Test\TranslationManagers\DummyManager;
 
 class DummyManagerTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
     }

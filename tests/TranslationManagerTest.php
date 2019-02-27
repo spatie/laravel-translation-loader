@@ -6,7 +6,7 @@ use Spatie\TranslationLoader\TranslationLoaders\Db;
 
 class TranslationManagerTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
     }

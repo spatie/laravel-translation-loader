@@ -13,7 +13,7 @@ class TransTest extends TestCase
         ],
     ];
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
     }
@@ -54,7 +54,7 @@ class TransTest extends TestCase
             $this->createLanguageLine('nested', $key, ['en' => $text]);
         }
 
-        $this->assertEquals($this->nested['bool'], trans('nested.bool'), '$canonicalize = true', $delta = 0.0, $maxDepth = 10, $canonicalize = true);
+        $this->assertEqualsCanonicalizing($this->nested['bool'], trans('nested.bool'), '$canonicalize = true', $delta = 0.0, $maxDepth = 10, $canonicalize = true);
     }
 
     /** @test */
