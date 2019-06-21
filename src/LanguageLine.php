@@ -33,6 +33,7 @@ class LanguageLine extends Model
         return Cache::rememberForever(static::getCacheKey($group, $locale), function () use ($group, $locale) {
             return static::query()
                 ->where('group', $group)
+                ->whereNotNull('text->' . $locale)
                 ->get()
                 ->reduce(function ($lines, LanguageLine $languageLine) use ($locale) {
                     $translation = $languageLine->getTranslation($locale);
