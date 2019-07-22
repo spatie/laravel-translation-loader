@@ -107,6 +107,8 @@ trans('validation.required'); // returns 'Dit is een verplicht veld'
 
 You can still keep using the default language files as well. If a requested translation is present in both the database and the language files, the database version will be returned.
 
+If you need to store/override json translation lines, just create a normal LanguageLine with `group => '*'`.
+
 ## Creating your own translation providers
 
 This package ships with a translation provider than can fetch translations from the database. If you're storing your translations in a yaml-file, a csv-file, or ... you can easily extend this package by creating your own translation provider.
