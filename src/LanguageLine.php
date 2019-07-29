@@ -34,9 +34,15 @@ class LanguageLine extends Model
             return static::query()
                 ->where('group', $group)
                 ->get()
-                ->reduce(function ($lines, LanguageLine $languageLine) use ($locale) {
+                ->reduce(function ($lines, LanguageLine $languageLine) use ($group, $locale) {
                     $translation = $languageLine->getTranslation($locale);
-                    if ($translation !== null) {
+
+                    // make flat array when returning json translations
+                    if ($translation !== null && $group === '*') {
+                        $lines[$languageLine->key] = $translation;
+                    }
+                    // make nesetd array when returning normal translations
+                    elseif($translation !== null && $group !== '*'){
                         array_set($lines, $languageLine->key, $translation);
                     }
 
