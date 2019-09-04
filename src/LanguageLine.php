@@ -2,6 +2,7 @@
 
 namespace Spatie\TranslationLoader;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 
@@ -37,7 +38,7 @@ class LanguageLine extends Model
                 ->reduce(function ($lines, LanguageLine $languageLine) use ($locale) {
                     $translation = $languageLine->getTranslation($locale);
                     if ($translation !== null) {
-                        array_set($lines, $languageLine->key, $translation);
+                        Arr::set($lines, $languageLine->key, $translation);
                     }
 
                     return $lines;

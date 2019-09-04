@@ -2,6 +2,7 @@
 
 namespace Spatie\TranslationLoader;
 
+use Illuminate\Support\Str;
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\TranslationServiceProvider as IlluminateTranslationServiceProvider;
 
@@ -22,7 +23,7 @@ class TranslationServiceProvider extends IlluminateTranslationServiceProvider
      */
     public function boot()
     {
-        if ($this->app->runningInConsole() && ! str_contains($this->app->version(), 'Lumen')) {
+        if ($this->app->runningInConsole() && ! Str::contains($this->app->version(), 'Lumen')) {
             $this->publishes([
                 __DIR__.'/../config/translation-loader.php' => config_path('translation-loader.php'),
             ], 'config');
