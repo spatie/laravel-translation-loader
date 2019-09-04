@@ -21,7 +21,7 @@ class LanguageLine extends Model
     {
         parent::boot();
 
-        $flushGroupCache = function (LanguageLine $languageLine) {
+        $flushGroupCache = function (self $languageLine) {
             $languageLine->flushGroupCache();
         };
 
@@ -35,7 +35,7 @@ class LanguageLine extends Model
             return static::query()
                 ->where('group', $group)
                 ->get()
-                ->reduce(function ($lines, LanguageLine $languageLine) use ($locale) {
+                ->reduce(function ($lines, self $languageLine) use ($locale) {
                     $translation = $languageLine->getTranslation($locale);
                     if ($translation !== null) {
                         Arr::set($lines, $languageLine->key, $translation);
