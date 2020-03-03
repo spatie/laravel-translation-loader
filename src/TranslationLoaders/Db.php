@@ -2,8 +2,8 @@
 
 namespace Spatie\TranslationLoader\TranslationLoaders;
 
-use Spatie\TranslationLoader\LanguageLine;
 use Spatie\TranslationLoader\Exceptions\InvalidConfiguration;
+use Spatie\TranslationLoader\LanguageLine;
 
 class Db implements TranslationLoader
 {

@@ -3,8 +3,8 @@
 namespace Spatie\TranslationLoader\Test;
 
 use Illuminate\Support\Facades\Artisan;
-use Spatie\TranslationLoader\LanguageLine;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Spatie\TranslationLoader\LanguageLine;
 use Spatie\TranslationLoader\TranslationServiceProvider;
 
 abstract class TestCase extends Orchestra
