@@ -4,7 +4,7 @@ All notable changes to `laravel-translation-loader` will be documented in this f
 
 ## 2.6.0 - 2020-03-03
 
-- add support for PHP 7.1
+- drop support for PHP 7.1
 
 ## 2.5.0 - 2020-03-03
 
