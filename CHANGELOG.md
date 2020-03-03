@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-translation-loader` will be documented in this file
 
+## 2.5.0 - 2020-03-03
+
+- add support for Laravel 7
+
 ## 2.4.0 - 2019-09-04
 
 - make compatible with Laravel 6
