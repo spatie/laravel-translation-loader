@@ -50,6 +50,9 @@ class DummyManagerTest extends TestCase
     public function it_can_translate_using_dummy_manager_using_empty_translation_in_db()
     {
         $this->createLanguageLine('file', 'key', ['en' => '']);
-        $this->assertSame('', trans('file.key'));
+
+        // Some versions of Laravel changed the behaviour of what an empty "" translation value returns: the key name or an empty value
+        // @see https://github.com/laravel/framework/issues/34218
+        $this->assertTrue(in_array(trans('file.key'), ['', 'file.key']));
     }
 }
