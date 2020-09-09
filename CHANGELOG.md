@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-translation-loader` will be documented in this file
 
+## 2.6.2 - 2020-09-09
+
+- Support Laravel 8
+
 ## 2.6.1 - 2020-04-09
 
 - improve migration
