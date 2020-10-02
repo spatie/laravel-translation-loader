@@ -33,16 +33,21 @@ class LanguageLine extends Model
     {
         return Cache::rememberForever(static::getCacheKey($group, $locale), function () use ($group, $locale) {
             return static::query()
-                ->where('group', $group)
-                ->get()
-                ->reduce(function ($lines, self $languageLine) use ($locale) {
-                    $translation = $languageLine->getTranslation($locale);
-                    if ($translation !== null) {
-                        Arr::set($lines, $languageLine->key, $translation);
-                    }
+                    ->where('group', $group)
+                    ->get()
+                    ->reduce(function ($lines, self $languageLine) use ($group, $locale) {
+                        $translation = $languageLine->getTranslation($locale);
 
-                    return $lines;
-                }) ?? [];
+                        if ($translation !== null && $group === '*') {
+                            // Make a flat array when returning json translations
+                            $lines[$languageLine->key] = $translation;
+                        } elseif ($translation !== null && $group !== '*') {
+                            // Make a nesetd array when returning normal translations
+                            Arr::set($lines, $languageLine->key, $translation);
+                        }
+
+                        return $lines;
+                    }) ?? [];
         });
     }
 
@@ -58,7 +63,7 @@ class LanguageLine extends Model
      */
     public function getTranslation(string $locale): ?string
     {
-        if (! isset($this->text[$locale])) {
+        if (!isset($this->text[$locale])) {
             $fallback = config('app.fallback_locale');
 
             return $this->text[$fallback] ?? null;
