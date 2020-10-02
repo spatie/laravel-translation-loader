@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-translation-loader` will be documented in this file
 
+## 2.6.3 - 2020-10-02
+
+- bugfix: support translations from json files (#114)
+
 ## 2.6.2 - 2020-09-09
 
 - Support Laravel 8
