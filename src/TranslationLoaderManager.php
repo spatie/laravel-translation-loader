@@ -23,14 +23,14 @@ class TranslationLoaderManager extends FileLoader
     {
         $fileTranslations = parent::load($locale, $group, $namespace);
 
-        $model = new (config('translation-loader.model'));
-
+        $model = config('translation-loader.model');
+        $model = (new $model);
         try {
             DB::connection()->getPdo();
         } catch (\Exception $e) {
             return $fileTranslations;
         }
-        
+
         if (! is_null($namespace) && $namespace !== '*' || ($model instanceof Model && !Schema::hasTable($model->getTable()))) {
             return $fileTranslations;
         }
