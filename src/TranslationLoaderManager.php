@@ -2,6 +2,7 @@
 
 namespace Spatie\TranslationLoader;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Translation\FileLoader;
 use Spatie\TranslationLoader\TranslationLoaders\TranslationLoader;
@@ -23,6 +24,13 @@ class TranslationLoaderManager extends FileLoader
         $fileTranslations = parent::load($locale, $group, $namespace);
 
         $model = new (config('translation-loader.model'));
+
+        try {
+            DB::connection()->getPdo();
+        } catch (\Exception $e) {
+            return $fileTranslations;
+        }
+        
         if (! is_null($namespace) && $namespace !== '*' || ($model instanceof Model && !Schema::hasTable($model->getTable()))) {
             return $fileTranslations;
         }
