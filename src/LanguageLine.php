@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Cache;
 
 class LanguageLine extends Model
 {
+     /** @var string */
+    protected $table = 'language_lines';
+
     /** @var array */
     public $translatable = ['text'];
 
@@ -42,7 +45,7 @@ class LanguageLine extends Model
                             // Make a flat array when returning json translations
                             $lines[$languageLine->key] = $translation;
                         } elseif ($translation !== null && $group !== '*') {
-                            // Make a nesetd array when returning normal translations
+                            // Make a nested array when returning normal translations
                             Arr::set($lines, $languageLine->key, $translation);
                         }
 

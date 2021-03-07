@@ -2,6 +2,7 @@
 
 namespace Spatie\TranslationLoader;
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Translation\FileLoader;
 use Spatie\TranslationLoader\TranslationLoaders\TranslationLoader;
 
@@ -20,7 +21,8 @@ class TranslationLoaderManager extends FileLoader
     {
         $fileTranslations = parent::load($locale, $group, $namespace);
 
-        if (! is_null($namespace) && $namespace !== '*') {
+        $model = config('translation-loader.model');
+        if (! is_null($namespace) && $namespace !== '*' || !Schema::hasTable((new $model)->getTable())) {
             return $fileTranslations;
         }
 

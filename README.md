@@ -45,7 +45,7 @@ by the one included in this package:
 Spatie\TranslationLoader\TranslationServiceProvider::class,
 ```
 
-You must publish and run the migrations to create the `language_lines` table:
+You must publish and run the migrations to create the `language_lines` table otherwise only file translations will be loaded:
 
 ```bash
 php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="migrations"
