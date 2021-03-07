@@ -22,8 +22,8 @@ class TranslationLoaderManager extends FileLoader
     {
         $fileTranslations = parent::load($locale, $group, $namespace);
 
-        $model = config('translation-loader.model');
-        if (! is_null($namespace) && $namespace !== '*' || ($model instanceof Model && !Schema::hasTable((new $model)->getTable()))) {
+        $model = new (config('translation-loader.model'));
+        if (! is_null($namespace) && $namespace !== '*' || ($model instanceof Model && !Schema::hasTable($model->getTable()))) {
             return $fileTranslations;
         }
 
