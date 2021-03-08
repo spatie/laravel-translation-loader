@@ -6,6 +6,7 @@ use DB;
 use Spatie\TranslationLoader\Exceptions\InvalidConfiguration;
 use Spatie\TranslationLoader\LanguageLine;
 use Spatie\TranslationLoader\Test\TestCase;
+use Illuminate\Database\Eloquent\Model;
 
 class DbTest extends TestCase
 {
@@ -116,7 +117,8 @@ class DbTest extends TestCase
     /** @test */
     public function it_will_throw_an_exception_if_the_configured_model_does_not_extend_the_default_one()
     {
-        $invalidModel = new class {
+        $invalidModel = new class extends Model {
+            protected $table = 'language_lines';
         };
 
         $this->app['config']->set('translation-loader.model', get_class($invalidModel));
@@ -124,6 +126,28 @@ class DbTest extends TestCase
         $this->expectException(InvalidConfiguration::class);
 
         $this->assertEquals('alternative class', trans('group.key'));
+    }
+
+    /** @test */
+    public function it_knows_when_language_lines_table_does_not_exist()
+    {
+        include_once __DIR__.'/../../database/migrations/create_language_lines_table.php.stub';
+
+        (new \CreateLanguageLinesTable())->down();
+
+        $translationLoaderManager = $this->app['translation.loader'];
+
+        $this->assertEquals(false, $this->callMethod($translationLoaderManager, 'hasValidDbRequirements'));
+    }
+
+
+    /** @test */
+    public function it_knows_when_no_db_connection_exist()
+    {
+        $this->app['config']->set('database.default', null);
+            
+        $translationLoaderManager = $this->app['translation.loader'];
+        $this->assertEquals(false, $this->callMethod($translationLoaderManager, 'hasValidDbRequirements'));
     }
 
     protected function flushIlluminateTranslatorCache()

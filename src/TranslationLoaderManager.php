@@ -23,15 +23,11 @@ class TranslationLoaderManager extends FileLoader
     {
         $fileTranslations = parent::load($locale, $group, $namespace);
 
-        $model = config('translation-loader.model');
-        $model = (new $model);
-        try {
-            DB::connection()->getPdo();
-        } catch (\Exception $e) {
+        if(!$this->hasValidDbRequirements()){
             return $fileTranslations;
         }
 
-        if (! is_null($namespace) && $namespace !== '*' || ($model instanceof Model && !Schema::hasTable($model->getTable()))) {
+        if (! is_null($namespace) && $namespace !== '*') {
             return $fileTranslations;
         }
 
@@ -53,5 +49,29 @@ class TranslationLoaderManager extends FileLoader
                 return $translationLoader->loadTranslations($locale, $group, $namespace);
             })
             ->toArray();
+    }
+
+    /**
+     * Confirms that migration has been run and 
+     * current context has a valid DB connection.
+     */
+    protected function hasValidDbRequirements() {
+        $model = config('translation-loader.model');
+        $model = new $model;
+        if(!$model instanceof Model){
+            return false;
+        }
+
+        try {
+            DB::connection()->getPdo();
+        } catch (\Exception $e) {
+            return false;
+        }
+        
+        if( !Schema::hasTable($model->getTable()) ){
+            return false;
+        }
+
+        return true;
     }
 }
