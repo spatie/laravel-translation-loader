@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Translation\FileLoader;
 use Spatie\TranslationLoader\TranslationLoaders\TranslationLoader;
 use Illuminate\Database\Eloquent\Model;
+use Exception;
 
 class TranslationLoaderManager extends FileLoader
 {
@@ -64,7 +65,7 @@ class TranslationLoaderManager extends FileLoader
 
         try {
             DB::connection()->getPdo();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
         
