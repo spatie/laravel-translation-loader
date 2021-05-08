@@ -15,7 +15,7 @@ class LanguageLine extends Model
     public $guarded = ['id'];
 
     /** @var array */
-    protected $casts = ['text' => 'array'];
+    // protected $casts = ['text' => 'array'];
 
     public static function boot()
     {
@@ -29,6 +29,14 @@ class LanguageLine extends Model
         static::deleted($flushGroupCache);
     }
 
+    public function setTextAttribute($value){
+        $this->attributes['text'] = json_encode($value,JSON_UNESCAPED_UNICODE);
+    }
+
+    public function getTextAttribute($value){
+        return json_decode($value,true);
+    }
+
     public static function getTranslationsForGroup(string $locale, string $group): array
     {
         return Cache::rememberForever(static::getCacheKey($group, $locale), function () use ($group, $locale) {
@@ -37,7 +45,6 @@ class LanguageLine extends Model
                     ->get()
                     ->reduce(function ($lines, self $languageLine) use ($group, $locale) {
                         $translation = $languageLine->getTranslation($locale);
-
                         if ($translation !== null && $group === '*') {
                             // Make a flat array when returning json translations
                             $lines[$languageLine->key] = $translation;
@@ -94,6 +101,6 @@ class LanguageLine extends Model
 
     protected function getTranslatedLocales(): array
     {
-        return array_keys($this->text);
+        return array_keys($this->text,true);
     }
 }
