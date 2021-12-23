@@ -21,4 +21,9 @@ return [
      */
     'translation_manager' => Spatie\TranslationLoader\TranslationLoaderManager::class,
 
+    /*
+     * Language lines table name
+     */
+    'language_lines_table' => 'language_lines',
+
 ];
