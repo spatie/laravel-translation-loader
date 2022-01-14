@@ -1,4 +1,4 @@
-# Changelog
+``# Changelog
 
 All notable changes to `laravel-translation-loader` will be documented in this file
 
@@ -41,7 +41,7 @@ All notable changes to `laravel-translation-loader` will be documented in this f
 - add support for Laravel 5.8
 
 ## 2.2.3 - 2019-02-01
-
+``
 - use Arr:: and Str:: functions
 
 ## 2.2.2 - 2018-10-25
