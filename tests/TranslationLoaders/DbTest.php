@@ -102,9 +102,9 @@ class DbTest extends TestCase
     public function it_can_work_with_a_custom_model()
     {
         $alternativeModel = new class extends LanguageLine {
+            protected $table = 'language_lines';
             public static function getTranslationsForGroup(string $locale, string $group): array
             {
-                protected $table = 'language_lines';
                 return ['key' => 'alternative class'];
             }
         };
