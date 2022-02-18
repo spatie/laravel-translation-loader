@@ -19,8 +19,12 @@ class TranslationLoaderManager extends FileLoader
      */
     public function load($locale, $group, $namespace = null): array
     {
-        if (!Schema::hasTable('language_lines')) {
-            return parent::load($locale, $group, $namespace);
+        $modelClass = config('translation-loader.model');
+        $model = new $modelClass;
+        if (is_a($model, LanguageLine::class)) {
+            if (! Schema::hasTable($model->getTable())) {
+                return parent::load($locale, $group, $namespace);
+            }
         }
 
         $fileTranslations = parent::load($locale, $group, $namespace);
