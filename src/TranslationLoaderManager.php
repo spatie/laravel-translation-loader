@@ -3,6 +3,7 @@
 namespace Spatie\TranslationLoader;
 
 use Illuminate\Translation\FileLoader;
+use Illuminate\Support\Facades\Schema;
 use Spatie\TranslationLoader\TranslationLoaders\TranslationLoader;
 
 class TranslationLoaderManager extends FileLoader
