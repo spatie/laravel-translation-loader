@@ -104,6 +104,7 @@ class DbTest extends TestCase
         $alternativeModel = new class extends LanguageLine {
             public static function getTranslationsForGroup(string $locale, string $group): array
             {
+                protected $table = 'language_lines';
                 return ['key' => 'alternative class'];
             }
         };
