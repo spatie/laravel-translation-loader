@@ -35,7 +35,7 @@ class TranslationLoaderManager extends FileLoader
             $model = new $modelClass;
             if (is_a($model, LanguageLine::class)) {
                 try {
-                    DB::connection()->getPdo();
+                    \DB::connection()->getPdo();
                     if (! Schema::hasTable($model->getTable())) {
                         return parent::load($locale, $group, $namespace);
                     }
