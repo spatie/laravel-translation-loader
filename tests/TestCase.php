@@ -18,9 +18,9 @@ abstract class TestCase extends Orchestra
 
         Artisan::call('migrate');
 
-        include_once __DIR__.'/../database/migrations/create_language_lines_table.php.stub';
+        $LanguageLinesTable = require(__DIR__.'/../database/migrations/create_language_lines_table.php.stub');
 
-        (new \CreateLanguageLinesTable())->up();
+        $LanguageLinesTable->up();
 
         $this->languageLine = $this->createLanguageLine('group', 'key', ['en' => 'english', 'nl' => 'nederlands']);
     }
