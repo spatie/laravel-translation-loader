@@ -6,7 +6,7 @@ use Spatie\TranslationLoader\LanguageLine;
 
 function flushIlluminateTranslatorCache(): void
 {
-    test()->app['translator']->setLoaded([]);
+    app()['translator']->setLoaded([]);
 }
 
 it('can get a translation for the current app locale', function () {
