@@ -1,16 +1,8 @@
 <?php
 
-namespace Spatie\TranslationLoader\Test;
-
 use Spatie\TranslationLoader\Test\TranslationManagers\DummyManager;
 
-class DummyManagerTest extends TestCase
-{
-    public function setUp(): void
-    {
-        parent::setUp();
-    }
-
+trait SetupDummyManagerTest {
     /**
      * @param \Illuminate\Foundation\Application $app
      */
@@ -19,40 +11,32 @@ class DummyManagerTest extends TestCase
         parent::getEnvironmentSetUp($app);
         $app['config']->set('translation-loader.translation_manager', DummyManager::class);
     }
-
-    /** @test */
-    public function it_allow_to_change_translation_manager()
-    {
-        $this->assertInstanceOf(DummyManager::class, $this->app['translation.loader']);
-    }
-
-    /** @test */
-    public function it_can_translate_using_dummy_manager_using_file()
-    {
-        $this->assertEquals('en value', trans('file.key'));
-    }
-
-    /** @test */
-    public function it_can_translate_using_dummy_manager_using_db()
-    {
-        $this->createLanguageLine('file', 'key', ['en' => 'en value from db']);
-        $this->assertEquals('en value from db', trans('file.key'));
-    }
-
-    /** @test */
-    public function it_can_translate_using_dummy_manager_using_file_with_incomplete_db()
-    {
-        $this->createLanguageLine('file', 'key', ['nl' => 'nl value from db']);
-        $this->assertEquals('en value', trans('file.key'));
-    }
-
-    /** @test */
-    public function it_can_translate_using_dummy_manager_using_empty_translation_in_db()
-    {
-        $this->createLanguageLine('file', 'key', ['en' => '']);
-
-        // Some versions of Laravel changed the behaviour of what an empty "" translation value returns: the key name or an empty value
-        // @see https://github.com/laravel/framework/issues/34218
-        $this->assertTrue(in_array(trans('file.key'), ['', 'file.key']));
-    }
 }
+
+uses(SetupDummyManagerTest::class);
+
+it('allow to change translation manager', function () {
+    $this->assertInstanceOf(DummyManager::class, $this->app['translation.loader']);
+});
+
+it('can translate using dummy manager using file', function () {
+    $this->assertEquals('en value', trans('file.key'));
+});
+
+it('can translate using dummy manager using db', function () {
+    $this->createLanguageLine('file', 'key', ['en' => 'en value from db']);
+    $this->assertEquals('en value from db', trans('file.key'));
+});
+
+it('can translate using dummy manager using file with incomplete db', function () {
+    $this->createLanguageLine('file', 'key', ['nl' => 'nl value from db']);
+    $this->assertEquals('en value', trans('file.key'));
+});
+
+it('can translate using dummy manager using empty translation in db', function () {
+    $this->createLanguageLine('file', 'key', ['en' => '']);
+
+    // Some versions of Laravel changed the behaviour of what an empty "" translation value returns: the key name or an empty value
+    // @see https://github.com/laravel/framework/issues/34218
+    $this->assertTrue(in_array(trans('file.key'), ['', 'file.key']));
+});
