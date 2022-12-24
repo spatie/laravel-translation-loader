@@ -2,7 +2,8 @@
 
 use Spatie\TranslationLoader\Test\TranslationManagers\DummyManager;
 
-trait SetupDummyManagerTest {
+trait SetupDummyManagerTest
+{
     /**
      * @param \Illuminate\Foundation\Application $app
      */

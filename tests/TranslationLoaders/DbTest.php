@@ -72,11 +72,12 @@ it('flushes the cache when a translation has been deleted', function () {
 });
 
 it('can work with a custom model', function () {
-    $alternativeModel = new class extends LanguageLine {
+    $alternativeModel = new class () extends LanguageLine {
         protected $table = 'language_lines';
+
         public static function getTranslationsForGroup(string $locale, string $group): array
         {
-        return ['key' => 'alternative class'];
+            return ['key' => 'alternative class'];
         }
     };
 
@@ -86,7 +87,7 @@ it('can work with a custom model', function () {
 });
 
 it('will throw an exception if the configured model does not extend the default one', function () {
-    $invalidModel = new class {
+    $invalidModel = new class () {
     };
 
     $this->app['config']->set('translation-loader.model', get_class($invalidModel));

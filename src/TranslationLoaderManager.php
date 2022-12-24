@@ -3,8 +3,8 @@
 namespace Spatie\TranslationLoader;
 
 use Illuminate\Database\QueryException;
-use Illuminate\Translation\FileLoader;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Translation\FileLoader;
 use Spatie\TranslationLoader\TranslationLoaders\TranslationLoader;
 
 class TranslationLoaderManager extends FileLoader
@@ -23,7 +23,7 @@ class TranslationLoaderManager extends FileLoader
         try {
             $fileTranslations = parent::load($locale, $group, $namespace);
 
-            if (!is_null($namespace) && $namespace !== '*') {
+            if (! is_null($namespace) && $namespace !== '*') {
                 return $fileTranslations;
             }
 
@@ -32,7 +32,7 @@ class TranslationLoaderManager extends FileLoader
             return array_replace_recursive($fileTranslations, $loaderTranslations);
         } catch (QueryException $e) {
             $modelClass = config('translation-loader.model');
-            $model = new $modelClass;
+            $model = new $modelClass();
             if (is_a($model, LanguageLine::class)) {
                 if (! Schema::hasTable($model->getTable())) {
                     return parent::load($locale, $group, $namespace);
