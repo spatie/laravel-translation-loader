@@ -7,7 +7,6 @@
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
-         processIsolation="true"
          stopOnFailure="false">
     <testsuites>
         <testsuite name="Spatie Test Suite">

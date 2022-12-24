@@ -12,7 +12,7 @@ abstract class TestCase extends Orchestra
     /** @var \Spatie\TranslationLoader\LanguageLine */
     protected $languageLine;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
