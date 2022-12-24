@@ -14,28 +14,28 @@ beforeEach(function () {
 });
 
 it('can get translations for language files', function () {
-    $this->assertEquals($this->TERM1_EN, __($this->TERM1));
-    $this->assertEquals($this->TERM2_EN, __($this->TERM2));
+    expect(__($this->TERM1))->toEqual($this->TERM1_EN)
+        ->and(__($this->TERM2))->toEqual($this->TERM2_EN);
 });
 
 it('can get translations for language files for the current locale', function () {
     app()->setLocale('nl');
 
-    $this->assertEquals($this->TERM1_NL, __($this->TERM1));
-    $this->assertEquals($this->TERM2_NL, __($this->TERM2));
+    expect(__($this->TERM1))->toEqual($this->TERM1_NL)
+        ->and(__($this->TERM2))->toEqual($this->TERM2_NL);
 });
 
 it('by default it will prefer a db translation over a file translation', function () {
     $this->createLanguageLine('*', $this->TERM1, ['en' => $this->TERM1_EN_DB]);
     $this->createLanguageLine('*', $this->TERM2, ['en' => $this->TERM2_EN_DB]);
 
-    $this->assertEquals($this->TERM1_EN_DB, __($this->TERM1));
-    $this->assertEquals($this->TERM2_EN_DB, __($this->TERM2));
+    expect(__($this->TERM1))->toEqual($this->TERM1_EN_DB)
+        ->and(__($this->TERM2))->toEqual($this->TERM2_EN_DB);
 });
 
 it('will default to fallback if locale is missing', function () {
     app()->setLocale('de');
     $this->createLanguageLine('*', $this->TERM1, ['en' => $this->TERM1_EN_DB]);
 
-    $this->assertEquals($this->TERM1_EN_DB, __($this->TERM1));
+    expect(__($this->TERM1))->toEqual($this->TERM1_EN_DB);
 });

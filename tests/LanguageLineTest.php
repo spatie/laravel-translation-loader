@@ -5,8 +5,8 @@ use Spatie\TranslationLoader\LanguageLine;
 it('can get a translation', function () {
     $languageLine = $this->createLanguageLine('group', 'new', ['en' => 'english', 'nl' => 'nederlands']);
 
-    $this->assertEquals('english', $languageLine->getTranslation('en'));
-    $this->assertEquals('nederlands', $languageLine->getTranslation('nl'));
+    expect($languageLine->getTranslation('en'))->toEqual('english')
+        ->and($languageLine->getTranslation('nl'))->toEqual('nederlands');
 });
 
 it('can set a translation', function () {
@@ -14,8 +14,8 @@ it('can set a translation', function () {
 
     $languageLine->setTranslation('nl', 'nederlands');
 
-    $this->assertEquals('english', $languageLine->getTranslation('en'));
-    $this->assertEquals('nederlands', $languageLine->getTranslation('nl'));
+    expect($languageLine->getTranslation('en'))->toEqual('english')
+        ->and($languageLine->getTranslation('nl'))->toEqual('nederlands');
 });
 
 it('can set a translation on a fresh model', function () {
@@ -23,15 +23,15 @@ it('can set a translation on a fresh model', function () {
 
     $languageLine->setTranslation('nl', 'nederlands');
 
-    $this->assertEquals('nederlands', $languageLine->getTranslation('nl'));
+    expect($languageLine->getTranslation('nl'))->toEqual('nederlands');
 });
 
 it('doesnt show error when getting nonexistent translation', function () {
     $languageLine = $this->createLanguageLine('group', 'new', ['nl' => 'nederlands']);
-    $this->assertSame(null, $languageLine->getTranslation('en'));
+    expect($languageLine->getTranslation('en'))->toBe(null);
 });
 
 it('get fallback locale if doesnt exists', function () {
     $languageLine = $this->createLanguageLine('group', 'new', ['en' => 'English']);
-    $this->assertEquals('English', $languageLine->getTranslation('es'));
+    expect($languageLine->getTranslation('es'))->toEqual('English');
 });

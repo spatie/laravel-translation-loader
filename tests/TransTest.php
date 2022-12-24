@@ -12,26 +12,26 @@ beforeEach(function () {
 });
 
 it('can get translations for language files', function () {
-    $this->assertEquals('en value', trans('file.key'));
-    $this->assertEquals('page not found', trans('file.404.title'));
-    $this->assertEquals('This page does not exists', trans('file.404.message'));
+    expect(trans('file.key'))->toEqual('en value')
+        ->and(trans('file.404.title'))->toEqual('page not found')
+        ->and(trans('file.404.message'))->toEqual('This page does not exists');
 });
 
 it('can get translations for language files for the current locale', function () {
     app()->setLocale('nl');
 
-    $this->assertEquals('nl value', trans('file.key'));
-    $this->assertEquals('pagina niet gevonden', trans('file.404.title'));
-    $this->assertEquals('Deze pagina bestaat niet', trans('file.404.message'));
+    expect(trans('file.key'))->toEqual('nl value')
+        ->and(trans('file.404.title'))->toEqual('pagina niet gevonden')
+        ->and(trans('file.404.message'))->toEqual('Deze pagina bestaat niet');
 });
 
 it('by default it will prefer a db translation over a file translation', function () {
     $this->createLanguageLine('file', 'key', ['en' => 'en value from db']);
     $this->createLanguageLine('file', '404.title', ['en' => 'page not found from db']);
 
-    $this->assertEquals('en value from db', trans('file.key'));
-    $this->assertEquals('page not found from db', trans('file.404.title'));
-    $this->assertEquals('This page does not exists', trans('file.404.message'));
+    expect(trans('file.key'))->toEqual('en value from db')
+        ->and(trans('file.404.title'))->toEqual('page not found from db')
+        ->and(trans('file.404.message'))->toEqual('This page does not exists');
 });
 
 it('will return array if the given translation is nested', function () {
@@ -39,7 +39,7 @@ it('will return array if the given translation is nested', function () {
         $this->createLanguageLine('nested', $key, ['en' => $text]);
     }
 
-    $this->assertEqualsCanonicalizing($this->nested['bool'], trans('nested.bool'), '$canonicalize = true', $delta = 0.0, $maxDepth = 10, $canonicalize = true);
+    expect(trans('nested.bool'))->toEqualCanonicalizing($this->nested['bool']);
 });
 
 it('will return the translation string if max nested level is reached', function () {
@@ -47,7 +47,7 @@ it('will return the translation string if max nested level is reached', function
         $this->createLanguageLine('nested', $key, ['en' => $text]);
     }
 
-    $this->assertEquals($this->nested['bool'][1], trans('nested.bool.1'));
+    expect(trans('nested.bool.1'))->toEqual($this->nested['bool'][1]);
 });
 
 it('will return the dotted translation key if no translation found', function () {
@@ -57,12 +57,12 @@ it('will return the dotted translation key if no translation found', function ()
         $this->createLanguageLine('nested', $key, ['en' => $text]);
     }
 
-    $this->assertEquals($notFoundKey, trans($notFoundKey));
+    expect(trans($notFoundKey))->toEqual($notFoundKey);
 });
 
 it('will default to fallback if locale is missing', function () {
     app()->setLocale('de');
     $this->createLanguageLine('missing_locale', 'key', ['en' => 'en value from db']);
 
-    $this->assertEquals('en value from db', trans('missing_locale.key'));
+    expect(trans('missing_locale.key'))->toEqual('en value from db');
 });

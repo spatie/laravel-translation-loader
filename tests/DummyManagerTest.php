@@ -16,21 +16,21 @@ trait SetupDummyManagerTest {
 uses(SetupDummyManagerTest::class);
 
 it('allow to change translation manager', function () {
-    $this->assertInstanceOf(DummyManager::class, $this->app['translation.loader']);
+    expect($this->app['translation.loader'])->toBeInstanceOf(DummyManager::class);
 });
 
 it('can translate using dummy manager using file', function () {
-    $this->assertEquals('en value', trans('file.key'));
+    expect(trans('file.key'))->toEqual('en value');
 });
 
 it('can translate using dummy manager using db', function () {
     $this->createLanguageLine('file', 'key', ['en' => 'en value from db']);
-    $this->assertEquals('en value from db', trans('file.key'));
+    expect(trans('file.key'))->toEqual('en value from db');
 });
 
 it('can translate using dummy manager using file with incomplete db', function () {
     $this->createLanguageLine('file', 'key', ['nl' => 'nl value from db']);
-    $this->assertEquals('en value', trans('file.key'));
+    expect(trans('file.key'))->toEqual('en value');
 });
 
 it('can translate using dummy manager using empty translation in db', function () {
@@ -38,5 +38,5 @@ it('can translate using dummy manager using empty translation in db', function (
 
     // Some versions of Laravel changed the behaviour of what an empty "" translation value returns: the key name or an empty value
     // @see https://github.com/laravel/framework/issues/34218
-    $this->assertTrue(in_array(trans('file.key'), ['', 'file.key']));
+    expect(in_array(trans('file.key'), ['', 'file.key']))->toBeTrue();
 });

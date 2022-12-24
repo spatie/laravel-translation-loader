@@ -6,7 +6,7 @@ use Spatie\TranslationLoader\TranslationLoaders\Db;
 it('will not use database translations if the provider is not configured', function () {
     $this->app['config']->set('translation-loader.translation_loaders', []);
 
-    $this->assertEquals('group.key', trans('group.key'));
+    expect(trans('group.key'))->toEqual('group.key');
 });
 
 it('will merge translation from all providers', function () {
@@ -17,6 +17,6 @@ it('will merge translation from all providers', function () {
 
     $this->createLanguageLine('db', 'key', ['en' => 'db']);
 
-    $this->assertEquals('db', trans('db.key'));
-    $this->assertEquals('this is dummy', trans('dummy.dummy'));
+    expect(trans('db.key'))->toEqual('db')
+        ->and(trans('dummy.dummy'))->toEqual('this is dummy');
 });

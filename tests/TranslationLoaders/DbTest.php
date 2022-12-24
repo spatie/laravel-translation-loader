@@ -10,28 +10,25 @@ function flushIlluminateTranslatorCache(): void
 }
 
 it('can get a translation for the current app locale', function () {
-    $this->assertEquals('english', trans('group.key'));
+    expect(trans('group.key'))->toEqual('english');
 });
 
 it('can get a correct translation after the locale has been changed', function () {
     app()->setLocale('nl');
 
-    $this->assertEquals('nederlands', trans('group.key'));
+    expect(trans('group.key'))->toEqual('nederlands');
 });
 
 it('can return the group and the key when getting a non existing translation', function () {
     app()->setLocale('nl');
 
-    $this->assertEquals('group.unknown', trans('group.unknown'));
+    expect(trans('group.unknown'))->toEqual('group.unknown');
 });
 
 it('supports placeholders', function () {
     $this->createLanguageLine('group', 'placeholder', ['en' => 'text with :placeholder']);
 
-    $this->assertEquals(
-        'text with filled in placeholder',
-        trans('group.placeholder', ['placeholder' => 'filled in placeholder'])
-    );
+    expect(trans('group.placeholder', ['placeholder' => 'filled in placeholder']))->toEqual('text with filled in placeholder');
 });
 
 it('will cache all translations', function () {
@@ -42,16 +39,16 @@ it('will cache all translations', function () {
 
     trans('group.key');
 
-    $this->assertEquals($queryCount, count(DB::getQueryLog()));
+    expect(count(DB::getQueryLog()))->toEqual($queryCount);
 });
 
 it('flushes the cache when a translation has been created', function () {
-    $this->assertEquals('group.new', trans('group.new'));
+    expect(trans('group.new'))->toEqual('group.new');
 
     $this->createLanguageLine('group', 'new', ['en' => 'created']);
     flushIlluminateTranslatorCache();
 
-    $this->assertEquals('created', trans('group.new'));
+    expect(trans('group.new'))->toEqual('created');
 });
 
 it('flushes the cache when a translation has been updated', function () {
@@ -62,16 +59,16 @@ it('flushes the cache when a translation has been updated', function () {
 
     flushIlluminateTranslatorCache();
 
-    $this->assertEquals('updated', trans('group.key'));
+    expect(trans('group.key'))->toEqual('updated');
 });
 
 it('flushes the cache when a translation has been deleted', function () {
-    $this->assertEquals('english', trans('group.key'));
+    expect(trans('group.key'))->toEqual('english');
 
     $this->languageLine->delete();
     flushIlluminateTranslatorCache();
 
-    $this->assertEquals('group.key', trans('group.key'));
+    expect(trans('group.key'))->toEqual('group.key');
 });
 
 it('can work with a custom model', function () {
@@ -85,7 +82,7 @@ it('can work with a custom model', function () {
 
     $this->app['config']->set('translation-loader.model', get_class($alternativeModel));
 
-    $this->assertEquals('alternative class', trans('group.key'));
+    expect(trans('group.key'))->toEqual('alternative class');
 });
 
 it('will throw an exception if the configured model does not extend the default one', function () {
@@ -96,5 +93,5 @@ it('will throw an exception if the configured model does not extend the default 
 
     $this->expectException(InvalidConfiguration::class);
 
-    $this->assertEquals('alternative class', trans('group.key'));
+    expect(trans('group.key'))->toEqual('alternative class');
 });
