@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-translation-loader.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-translation-loader)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/spatie/laravel-translation-loader/run-tests?label=tests)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/spatie/laravel-translation-loader/run-tests.yml?branch=main&label=Tests&style=flat-square)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-translation-loader.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-translation-loader)
 
 In a vanilla Laravel or Lumen installation you can use [language files](https://laravel.com/docs/5.6/localization) to localize your app. This package will enable the translations to be stored in the database. You can still use all the features of [the `trans` function](https://laravel.com/docs/5.6/localization#retrieving-translation-strings) you know and love.
