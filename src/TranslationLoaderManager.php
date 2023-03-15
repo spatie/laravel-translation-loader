@@ -5,6 +5,7 @@ namespace Spatie\TranslationLoader;
 use Illuminate\Database\QueryException;
 use Illuminate\Translation\FileLoader;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Arr;
 use Spatie\TranslationLoader\TranslationLoaders\TranslationLoader;
 
 class TranslationLoaderManager extends FileLoader
@@ -48,13 +49,13 @@ class TranslationLoaderManager extends FileLoader
         string $group,
         string $namespace = null
     ): array {
-        return collect(config('translation-loader.translation_loaders'))
+        return Arr::dot(collect(config('translation-loader.translation_loaders'))
             ->map(function (string $className) {
                 return app($className);
             })
             ->mapWithKeys(function (TranslationLoader $translationLoader) use ($locale, $group, $namespace) {
                 return $translationLoader->loadTranslations($locale, $group, $namespace);
             })
-            ->toArray();
+            ->toArray());
     }
 }
