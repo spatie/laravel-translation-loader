@@ -53,4 +53,14 @@ class TranslationLoaderManager extends FileLoader
             })
             ->toArray();
     }
+
+    /**
+     * Get translation file paths.
+     *
+     * @return array
+     */
+    public function paths(): array
+    {
+        return array_merge($this->paths, $this->hints);
+    }
 }
