@@ -29,13 +29,17 @@ class LanguageLine extends Model
         static::deleted($flushGroupCache);
     }
 
-    public static function getTranslationsForGroup(string $locale, string $group): array
+    public static function getTranslationsForGroup(string $locale, string $group, $namespace = null): array
     {
-        return Cache::rememberForever(static::getCacheKey($group, $locale), function () use ($group, $locale) {
+        return Cache::rememberForever(static::getCacheKey($group, $locale, $namespace), function () use ($namespace, $group, $locale) {
             return static::query()
+                    ->when($namespace && $namespace != '*',
+                        fn ($query) => $query->where('namespace', $namespace),
+                        fn ($query) => $query->whereNull('namespace'),
+                    )
                     ->where('group', $group)
                     ->get()
-                    ->reduce(function ($lines, self $languageLine) use ($group, $locale) {
+                    ->reduce(function ($lines, self $languageLine) use ($namespace, $group, $locale) {
                         $translation = $languageLine->getTranslation($locale);
 
                         if ($translation !== null && $group === '*') {
@@ -51,9 +55,10 @@ class LanguageLine extends Model
         });
     }
 
-    public static function getCacheKey(string $group, string $locale): string
+    public static function getCacheKey(string $group, string $locale, $namespace): string
     {
-        return "spatie.translation-loader.{$group}.{$locale}";
+        $namespace ??= '*';
+        return "spatie.translation-loader.{$namespace}.{$group}.{$locale}";
     }
 
     /**
@@ -85,10 +90,22 @@ class LanguageLine extends Model
         return $this;
     }
 
+    /**
+     * @param string $namespace
+     *
+     * @return $this
+     */
+    public function setNamespace(string $namespace)
+    {
+        $this->namespace;
+
+        return $this;
+    }
+
     public function flushGroupCache()
     {
         foreach ($this->getTranslatedLocales() as $locale) {
-            Cache::forget(static::getCacheKey($this->group, $locale));
+            Cache::forget(static::getCacheKey($this->group, $locale, $this->namespace));
         }
     }
 

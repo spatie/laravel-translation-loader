@@ -57,8 +57,8 @@ abstract class TestCase extends Orchestra
         return __DIR__."/fixtures/{$path}";
     }
 
-    protected function createLanguageLine(string $group, string $key, array $text): LanguageLine
+    protected function createLanguageLine(string $group, string $key, array $text, $namespace = null): LanguageLine
     {
-        return LanguageLine::create(compact('group', 'key', 'text'));
+        return LanguageLine::create(compact('group', 'key', 'text', 'namespace'));
     }
 }
