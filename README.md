@@ -5,10 +5,10 @@
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/spatie/laravel-translation-loader/run-tests.yml?branch=main&label=Tests&style=flat-square)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-translation-loader.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-translation-loader)
 
-In a vanilla Laravel or Lumen installation you can use [language files](https://laravel.com/docs/5.6/localization) to localize your app. This package will enable the translations to be stored in the database. You can still use all the features of [the `trans` function](https://laravel.com/docs/5.6/localization#retrieving-translation-strings) you know and love.
+In a vanilla Laravel or Lumen installation you can use [language files](https://laravel.com/docs/localization) to localize your app. This package will enable the translations to be stored in the database. You can still use all the features of [the `__` helper function](https://laravel.com/docs/localization#retrieving-translation-strings) you know and love.
 
 ```php
-trans('messages.welcome', ['name' => 'dayle']);
+__('messages.welcome', ['name' => 'dayle']);
 ```
 
 You can even mix using language files and the database. If a translation is present in both a file and the database, the database version will be returned.
@@ -101,14 +101,14 @@ LanguageLine::create([
 ]);
 ```
 
-You can fetch the translation with [Laravel's default `trans` function](https://laravel.com/docs/5.3/localization#retrieving-language-lines):
+You can fetch the translation with [Laravel's default `__` function](https://laravel.com/docs/localization#retrieving-translation-strings):
 
 ```php
-trans('validation.required'); // returns 'This is a required field'
+__('validation.required'); // returns 'This is a required field'
 
 app()->setLocale('nl');
 
-trans('validation.required'); // returns 'Dit is een verplicht veld'
+__('validation.required'); // returns 'Dit is een verplicht veld'
 ```
 
 You can still keep using the default language files as well. If a requested translation is present in both the database and the language files, the database version will be returned.
