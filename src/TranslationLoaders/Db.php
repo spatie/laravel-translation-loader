@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Spatie\TranslationLoader\TranslationLoaders;
 
 use Spatie\TranslationLoader\Exceptions\InvalidConfiguration;
@@ -18,7 +20,7 @@ class Db implements TranslationLoader
     {
         $modelClass = config('translation-loader.model');
 
-        if (! is_a(new $modelClass, LanguageLine::class)) {
+        if (! is_a(new $modelClass(), LanguageLine::class)) {
             throw InvalidConfiguration::invalidModel($modelClass);
         }
 

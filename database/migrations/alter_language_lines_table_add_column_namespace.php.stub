@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('language_lines', function (Blueprint $table) {
-            $table->id();
-            $table->string('group')->index();
-            $table->string('key');
-            $table->json('text');
-            $table->timestamps();
+        Schema::table('language_lines', function (Blueprint $table) {
+            $table->string('namespace')->nullable()->after('id');
         });
     }
 
@@ -29,6 +25,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('language_lines');
+        Schema::table('language_lines', function (Blueprint $table) {
+            $table->dropColumn('namespace');
+        });
     }
 };
