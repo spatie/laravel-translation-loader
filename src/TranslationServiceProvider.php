@@ -32,9 +32,10 @@ class TranslationServiceProvider extends IlluminateTranslationServiceProvider
             if (! class_exists('CreateLanguageLinesTable')) {
                 $timestamp = date('Y_m_d_His', time());
 
-                $this->publishes([
-                    __DIR__.'/../database/migrations/create_language_lines_table.php.stub' => database_path('migrations/'.$timestamp.'_create_language_lines_table.php'),
-                ], 'migrations');
+                $this->publishesMigrations([
+                    __DIR__ . '/../database/migrations/create_language_lines_table.php.stub' => database_path('migrations/' . $timestamp . '_create_language_lines_table.php'),
+                    __DIR__ . '/../database/migrations/alter_language_lines_table_add_column_namespace.php.stub' => database_path('migrations/' . $timestamp . '_alter_language_lines_table_add_column_namespace.php'),
+                ]);
             }
         }
     }

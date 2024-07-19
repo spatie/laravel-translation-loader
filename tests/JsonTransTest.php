@@ -1,57 +1,50 @@
 <?php
 
-namespace Spatie\TranslationLoader\Test;
+declare(strict_types=1);
 
-class JsonTransTest extends TestCase
-{
-    const TERM1 = 'file not found';
-    const TERM1_EN = 'File not found';
-    const TERM1_NL = 'Bestand niet gevonden';
-    const TERM1_EN_DB = 'File not found from db';
-    const TERM1_NL_DB = 'File not found from db';
-    const TERM2 = 'file not found. it might be in trash.';
-    const TERM2_EN = 'File not found. It might be in trash.';
-    const TERM2_NL = 'Bestand niet gevonden. Het bestand is waarschijnlijk verwijderd.';
-    const TERM2_EN_DB = 'File not found from db. It might be in trash.';
-    const TERM2_NL_DB = 'Bestand niet gevonden uit de database. Het bestand is waarschijnlijk verwijderd.';
+use Spatie\TranslationLoader\Test\TestCase;
 
-    public function setUp(): void
-    {
-        parent::setUp();
-    }
+uses(TestCase::class);
 
-    /** @test */
-    public function it_can_get_translations_for_language_files()
-    {
-        $this->assertEquals(self::TERM1_EN, __(self::TERM1));
-        $this->assertEquals(self::TERM2_EN, __(self::TERM2));
-    }
+const TERM1 = 'file not found';
 
-    /** @test */
-    public function it_can_get_translations_for_language_files_for_the_current_locale()
-    {
-        app()->setLocale('nl');
+const TERM1_EN = 'File not found';
 
-        $this->assertEquals(self::TERM1_NL, __(self::TERM1));
-        $this->assertEquals(self::TERM2_NL, __(self::TERM2));
-    }
+const TERM1_NL = 'Bestand niet gevonden';
 
-    /** @test */
-    public function by_default_it_will_prefer_a_db_translation_over_a_file_translation()
-    {
-        $this->createLanguageLine('*', self::TERM1, ['en' => self::TERM1_EN_DB]);
-        $this->createLanguageLine('*', self::TERM2, ['en' => self::TERM2_EN_DB]);
+const TERM1_EN_DB = 'File not found from db';
 
-        $this->assertEquals(self::TERM1_EN_DB, __(self::TERM1));
-        $this->assertEquals(self::TERM2_EN_DB, __(self::TERM2));
-    }
+const TERM2 = 'file not found. it might be in trash.';
 
-    /** @test */
-    public function it_will_default_to_fallback_if_locale_is_missing()
-    {
-        app()->setLocale('de');
-        $this->createLanguageLine('*', self::TERM1, ['en' => self::TERM1_EN_DB]);
+const TERM2_EN = 'File not found. It might be in trash.';
 
-        $this->assertEquals(self::TERM1_EN_DB, __(self::TERM1));
-    }
-}
+const TERM2_NL = 'Bestand niet gevonden. Het bestand is waarschijnlijk verwijderd.';
+
+const TERM2_EN_DB = 'File not found from db. It might be in trash.';
+
+it('can get translations for language files', function () {
+    expect(__(TERM1))->toEqual(TERM1_EN)
+        ->and(__(TERM2))->toEqual(TERM2_EN);
+});
+
+it('can get translations for language files for the current locale', function () {
+    app()->setLocale('nl');
+
+    expect(__(TERM1))->toEqual(TERM1_NL)
+        ->and(__(TERM2))->toEqual(TERM2_NL);
+});
+
+test('by default it will prefer a db translation over a file translation', function () {
+    createLanguageLine('*', TERM1, ['en' => TERM1_EN_DB]);
+    createLanguageLine('*', TERM2, ['en' => TERM2_EN_DB]);
+
+    expect(__(TERM1))->toEqual(TERM1_EN_DB)
+        ->and(__(TERM2))->toEqual(TERM2_EN_DB);
+});
+
+it('will default to fallback if locale is missing', function () {
+    app()->setLocale('de');
+    createLanguageLine('*', TERM1, ['en' => TERM1_EN_DB]);
+
+    expect(__(TERM1))->toEqual(TERM1_EN_DB);
+});

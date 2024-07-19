@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Spatie\TranslationLoader\Test;
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Artisan;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\TranslationLoader\LanguageLine;
@@ -9,38 +12,28 @@ use Spatie\TranslationLoader\TranslationServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
-    /** @var \Spatie\TranslationLoader\LanguageLine */
+    /** @var LanguageLine */
     protected $languageLine;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
         Artisan::call('migrate');
 
-        $LanguageLinesTable = require(__DIR__.'/../database/migrations/create_language_lines_table.php.stub');
+        $LanguageLinesTable = require __DIR__ . '/../database/migrations/create_language_lines_table.php.stub';
 
         $LanguageLinesTable->up();
 
-        $this->languageLine = $this->createLanguageLine('group', 'key', ['en' => 'english', 'nl' => 'nederlands']);
+        $this->languageLine = createLanguageLine('group', 'key', ['en' => 'english', 'nl' => 'nederlands']);
     }
 
     /**
-     * @param \Illuminate\Foundation\Application $app
+     * @param  $app
      *
-     * @return array
+     * @return void
      */
-    protected function getPackageProviders($app)
-    {
-        return [
-            TranslationServiceProvider::class,
-        ];
-    }
-
-    /**
-     * @param \Illuminate\Foundation\Application $app
-     */
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         $app['path.lang'] = $this->getFixturesDirectory('lang');
 
@@ -52,13 +45,25 @@ abstract class TestCase extends Orchestra
         ]);
     }
 
-    public function getFixturesDirectory(string $path): string
+    /**
+     * @param  string  $path
+     *
+     * @return string
+     */
+    protected function getFixturesDirectory(string $path): string
     {
-        return __DIR__."/fixtures/{$path}";
+        return __DIR__ . "/fixtures/{$path}";
     }
 
-    protected function createLanguageLine(string $group, string $key, array $text): LanguageLine
+    /**
+     * @param  Application  $app
+     *
+     * @return array
+     */
+    protected function getPackageProviders($app)
     {
-        return LanguageLine::create(compact('group', 'key', 'text'));
+        return [
+            TranslationServiceProvider::class,
+        ];
     }
 }

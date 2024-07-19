@@ -1,58 +1,48 @@
 <?php
 
-namespace Spatie\TranslationLoader\Test;
+declare(strict_types=1);
 
+use Spatie\TranslationLoader\Test\TestCase;
 use Spatie\TranslationLoader\Test\TranslationManagers\DummyManager;
 
-class DummyManagerTest extends TestCase
-{
-    public function setUp(): void
-    {
-        parent::setUp();
-    }
+uses(TestCase::class);
 
-    /**
-     * @param \Illuminate\Foundation\Application $app
-     */
-    protected function getEnvironmentSetUp($app)
-    {
-        parent::getEnvironmentSetUp($app);
-        $app['config']->set('translation-loader.translation_manager', DummyManager::class);
-    }
+beforeEach(function () {
+    $this->app['config']->set('translation-loader.translation_manager', DummyManager::class);
+    //config()->set('translation-loader.translation_manager', DummyManager::class);
+});
 
-    /** @test */
-    public function it_allow_to_change_translation_manager()
-    {
-        $this->assertInstanceOf(DummyManager::class, $this->app['translation.loader']);
-    }
+///**
+// * @param  Application  $app
+// */
+//function getEnvironmentSetUp($app): void
+//{
+//    getEnvironmentSetUp($app);
+//    $app['config']->set('translation-loader.translation_manager', DummyManager::class);
+//}
 
-    /** @test */
-    public function it_can_translate_using_dummy_manager_using_file()
-    {
-        $this->assertEquals('en value', trans('file.key'));
-    }
+it('allow to change translation manager', function () {
+    expect($this->app['translation.loader'])->toBeInstanceOf(DummyManager::class);
+});
 
-    /** @test */
-    public function it_can_translate_using_dummy_manager_using_db()
-    {
-        $this->createLanguageLine('file', 'key', ['en' => 'en value from db']);
-        $this->assertEquals('en value from db', trans('file.key'));
-    }
+it('can translate using dummy manager using file', function () {
+    expect(trans('file.key'))->toEqual('en value');
+});
 
-    /** @test */
-    public function it_can_translate_using_dummy_manager_using_file_with_incomplete_db()
-    {
-        $this->createLanguageLine('file', 'key', ['nl' => 'nl value from db']);
-        $this->assertEquals('en value', trans('file.key'));
-    }
+it('can translate using dummy manager using db', function () {
+    createLanguageLine('file', 'key', ['en' => 'en value from db']);
+    expect(trans('file.key'))->toEqual('en value from db');
+});
 
-    /** @test */
-    public function it_can_translate_using_dummy_manager_using_empty_translation_in_db()
-    {
-        $this->createLanguageLine('file', 'key', ['en' => '']);
+it('can translate using dummy manager using file with incomplete db', function () {
+    createLanguageLine('file', 'key', ['nl' => 'nl value from db']);
+    expect(trans('file.key'))->toEqual('en value');
+});
 
-        // Some versions of Laravel changed the behaviour of what an empty "" translation value returns: the key name or an empty value
-        // @see https://github.com/laravel/framework/issues/34218
-        $this->assertTrue(in_array(trans('file.key'), ['', 'file.key']));
-    }
-}
+it('can translate using dummy manager using empty translation in db', function () {
+    createLanguageLine('file', 'key', ['en' => '']);
+
+    // Some versions of Laravel changed the behaviour of what an empty "" translation value returns: the key name or an empty value
+    // @see https://github.com/laravel/framework/issues/34218
+    expect(in_array(trans('file.key'), ['', 'file.key']))->toBeTrue();
+});

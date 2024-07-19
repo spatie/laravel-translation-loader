@@ -1,35 +1,29 @@
 <?php
 
-namespace Spatie\TranslationLoader\Test;
+declare(strict_types=1);
 
+use Spatie\TranslationLoader\Test\DummyLoader;
+use Spatie\TranslationLoader\Test\TestCase;
 use Spatie\TranslationLoader\TranslationLoaders\Db;
 
-class TranslationManagerTest extends TestCase
-{
-    public function setUp(): void
-    {
-        parent::setUp();
-    }
+uses(TestCase::class);
 
-    /** @test */
-    public function it_will_not_use_database_translations_if_the_provider_is_not_configured()
-    {
-        $this->app['config']->set('translation-loader.translation_loaders', []);
+beforeEach(function () {});
 
-        $this->assertEquals('group.key', trans('group.key'));
-    }
+it('will not use database translations if the provider is not configured', function () {
+    $this->app['config']->set('translation-loader.translation_loaders', []);
 
-    /** @test */
-    public function it_will_merge_translation_from_all_providers()
-    {
-        $this->app['config']->set('translation-loader.translation_loaders', [
-            Db::class,
-            DummyLoader::class,
-        ]);
+    expect(trans('group.key'))->toEqual('group.key');
+});
 
-        $this->createLanguageLine('db', 'key', ['en' => 'db']);
+it('will merge translation from all providers', function () {
+    $this->app['config']->set('translation-loader.translation_loaders', [
+        Db::class,
+        DummyLoader::class,
+    ]);
 
-        $this->assertEquals('db', trans('db.key'));
-        $this->assertEquals('this is dummy', trans('dummy.dummy'));
-    }
-}
+    createLanguageLine('db', 'key', ['en' => 'db']);
+
+    expect(trans('db.key'))->toEqual('db')
+        ->and(trans('dummy.dummy'))->toEqual('this is dummy');
+});
