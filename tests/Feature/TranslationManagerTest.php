@@ -2,13 +2,8 @@
 
 declare(strict_types=1);
 
-use Spatie\TranslationLoader\Test\DummyLoader;
-use Spatie\TranslationLoader\Test\TestCase;
 use Spatie\TranslationLoader\TranslationLoaders\Db;
-
-uses(TestCase::class);
-
-beforeEach(function () {});
+use Tests\Feature\DummyLoader;
 
 it('will not use database translations if the provider is not configured', function () {
     $this->app['config']->set('translation-loader.translation_loaders', []);

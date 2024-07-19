@@ -3,18 +3,13 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Arr;
-use Spatie\TranslationLoader\Test\TestCase;
 
-uses(TestCase::class);
-
-beforeEach(function () {
-    $this->nested = [
-        'bool' => [
-            1 => 'Yes',
-            0 => 'No',
-        ],
-    ];
-});
+const NESTED = [
+    'bool' => [
+        1 => 'Yes',
+        0 => 'No',
+    ],
+];
 
 it('can get translations for language files', function () {
     expect(trans('file.key'))->toEqual('en value')
@@ -40,25 +35,25 @@ test('by default it will prefer a db translation over a file translation', funct
 });
 
 it('will return array if the given translation is nested', function () {
-    foreach (Arr::dot($this->nested) as $key => $text) {
+    foreach (Arr::dot(NESTED) as $key => $text) {
         createLanguageLine('nested', $key, ['en' => $text]);
     }
 
-    expect(trans('nested.bool'))->toEqualCanonicalizing($this->nested['bool'], '$canonicalize = true', $delta = 0.0, $maxDepth = 10, $canonicalize = true);
+    expect(trans('nested.bool'))->toEqualCanonicalizing(NESTED['bool'], '$canonicalize = true', $delta = 0.0, $maxDepth = 10, $canonicalize = true);
 });
 
 it('will return the translation string if max nested level is reached', function () {
-    foreach (Arr::dot($this->nested) as $key => $text) {
+    foreach (Arr::dot(NESTED) as $key => $text) {
         createLanguageLine('nested', $key, ['en' => $text]);
     }
 
-    expect(trans('nested.bool.1'))->toEqual($this->nested['bool'][1]);
+    expect(trans('nested.bool.1'))->toEqual(NESTED['bool'][1]);
 });
 
 it('will return the dotted translation key if no translation found', function () {
     $notFoundKey = 'nested.bool.3';
 
-    foreach (Arr::dot($this->nested) as $key => $text) {
+    foreach (Arr::dot(NESTED) as $key => $text) {
         createLanguageLine('nested', $key, ['en' => $text]);
     }
 

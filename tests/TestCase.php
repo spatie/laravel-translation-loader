@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Spatie\TranslationLoader\Test;
+namespace Tests;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Artisan;
@@ -13,8 +13,13 @@ use Spatie\TranslationLoader\TranslationServiceProvider;
 abstract class TestCase extends Orchestra
 {
     /** @var LanguageLine */
-    protected $languageLine;
+    protected LanguageLine $languageLine;
 
+    /**
+     * Setup the test environment.
+     *
+     * @return void
+     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -35,7 +40,7 @@ abstract class TestCase extends Orchestra
      */
     protected function getEnvironmentSetUp($app): void
     {
-        $app['path.lang'] = $this->getFixturesDirectory('lang');
+        $app['path.lang'] = __DIR__ . '/Fixtures/lang';
 
         $app['config']->set('database.default', 'sqlite');
         $app['config']->set('database.connections.sqlite', [
@@ -46,21 +51,11 @@ abstract class TestCase extends Orchestra
     }
 
     /**
-     * @param  string  $path
-     *
-     * @return string
-     */
-    protected function getFixturesDirectory(string $path): string
-    {
-        return __DIR__ . "/fixtures/{$path}";
-    }
-
-    /**
      * @param  Application  $app
      *
      * @return array
      */
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             TranslationServiceProvider::class,

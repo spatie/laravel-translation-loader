@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Spatie\TranslationLoader\LanguageLine;
+use Tests\TestCase;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,7 @@ use Spatie\TranslationLoader\LanguageLine;
 |
 */
 
-// uses(Tests\TestCase::class)->in('Feature');
+uses(TestCase::class)->in('Feature');
 
 /*
 |--------------------------------------------------------------------------
@@ -27,10 +28,6 @@ use Spatie\TranslationLoader\LanguageLine;
 | to assert different things. Of course, you may extend the Expectation API at any time.
 |
 */
-
-expect()->extend('toBeOne', function () {
-    return $this->toBe(1);
-});
 
 /*
 |--------------------------------------------------------------------------

@@ -3,9 +3,6 @@
 declare(strict_types=1);
 
 use Spatie\TranslationLoader\LanguageLine;
-use Spatie\TranslationLoader\Test\TestCase;
-
-uses(TestCase::class);
 
 it('can get a translation', function () {
     $languageLine = createLanguageLine('group', 'new', ['en' => 'english', 'nl' => 'nederlands']);

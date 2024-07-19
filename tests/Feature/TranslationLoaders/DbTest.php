@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 use Spatie\TranslationLoader\Exceptions\InvalidConfiguration;
 use Spatie\TranslationLoader\LanguageLine;
-use Spatie\TranslationLoader\Test\TestCase;
-
-uses(TestCase::class);
 
 it('can get a translation for the current app locale', function () {
     expect(trans('group.key'))->toEqual('english');

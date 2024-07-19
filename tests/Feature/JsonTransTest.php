@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-use Spatie\TranslationLoader\Test\TestCase;
-
-uses(TestCase::class);
-
 const TERM1 = 'file not found';
 
 const TERM1_EN = 'File not found';

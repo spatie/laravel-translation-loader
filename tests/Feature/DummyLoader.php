@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Spatie\TranslationLoader\Test;
+namespace Tests\Feature;
 
 use Spatie\TranslationLoader\TranslationLoaders\TranslationLoader;
 
