@@ -2,39 +2,27 @@
 
 namespace Spatie\TranslationLoader;
 
-use Illuminate\Support\Str;
-use Illuminate\Translation\TranslationServiceProvider as IlluminateTranslationServiceProvider;
+use Illuminate\Contracts\Support\DeferrableProvider;
+use Illuminate\Translation\Translator;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class TranslationServiceProvider extends IlluminateTranslationServiceProvider
+class TranslationServiceProvider extends PackageServiceProvider implements DeferrableProvider
 {
     /**
-     * Register the application services.
+     * @param  Package  $package
+     *
+     * @return void
      */
-    public function register(): void
+    public function configurePackage(Package $package): void
     {
-        parent::register();
+        $package
+            ->name('laravel-translation-loader')
+            ->hasConfigFile()
+            ->hasMigrations('create_language_lines_table');
 
-        $this->mergeConfigFrom(__DIR__ . '/../config/translation-loader.php', 'translation-loader');
-    }
-
-    /**
-     * Bootstrap the application services.
-     */
-    public function boot(): void
-    {
-        if ($this->app->runningInConsole() && ! Str::contains($this->app->version(), 'Lumen')) {
-            $this->publishes([
-                __DIR__ . '/../config/translation-loader.php' => config_path('translation-loader.php'),
-            ], 'config');
-
-            if (! class_exists('CreateLanguageLinesTable')) {
-                $timestamp = date('Y_m_d_His', time());
-
-                $this->publishes([
-                    __DIR__ . '/../database/migrations/create_language_lines_table.php.stub' => database_path('migrations/' . $timestamp . '_create_language_lines_table.php'),
-                ], 'migrations');
-            }
-        }
+        $this->registerLoader();
+        $this->registerTranslator();
     }
 
     /**
@@ -49,5 +37,36 @@ class TranslationServiceProvider extends IlluminateTranslationServiceProvider
 
             return new $class($app['files'], $app['path.lang']);
         });
+    }
+
+    /**
+     * @return void
+     */
+    protected function registerTranslator(): void
+    {
+        $this->app->singleton('translator', function ($app) {
+            $loader = $app['translation.loader'];
+
+            // When registering the translator component, we'll need to set the default
+            // locale as well as the fallback locale. So, we'll grab the application
+            // configuration so we can easily get both of these values from there.
+            $locale = $app->getLocale();
+
+            $trans = new Translator($loader, $locale);
+
+            $trans->setFallback($app->getFallbackLocale());
+
+            return $trans;
+        });
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides(): array
+    {
+        return ['translator', 'translation.loader'];
     }
 }
