@@ -5,7 +5,7 @@
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/spatie/laravel-translation-loader/run-tests.yml?branch=main&label=Tests&style=flat-square)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-translation-loader.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-translation-loader)
 
-In a vanilla Laravel or Lumen installation you can use [language files](https://laravel.com/docs/localization) to
+In a vanilla Laravel or Lumen installation, you can use [language files](https://laravel.com/docs/localization) to
 localize your app. This package will enable the translations to be stored in the database. You can still use all the
 features of [the `__` helper function](https://laravel.com/docs/localization#retrieving-translation-strings) you know
 and love.
@@ -20,7 +20,8 @@ database version will be returned.
 Want to use a different source for your translations? No problem! The package
 is [easily extendable](https://github.com/spatie/laravel-translation-loader#creating-your-own-translation-providers).
 
-Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source
+Spatie is a web design agency based in Antwerp, Belgium.
+You'll find an overview of all our open source
 projects [on our website](https://spatie.be/opensource).
 
 ## Support us
@@ -61,7 +62,7 @@ php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServi
 php artisan migrate
 ```
 
-Optionally you could publish the config file using this command.
+Optionally, you could publish the config file using this command.
 
 ```bash
 php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="translation-loader-config"
@@ -87,14 +88,14 @@ return [
     'model' => Spatie\TranslationLoader\LanguageLine::class,
 
     /*
-     * This is the translation manager which overrides the default Laravel `translation.loader`
+     * This is the translation manager that overrides the default Laravel `translation.loader`
      */
     'translation_manager' => Spatie\TranslationLoader\TranslationLoaderManager::class,
 
 ];
 ```
 
-> **Note:** publishing assets doesn't work out of the box in Lumen. Instead you have to copy the files from the repo.
+> **Note:** publishing assets doesn't work out of the box in Lumen. Instead, you have to copy the files from the repo.
 
 ## Usage
 
@@ -125,13 +126,13 @@ __('validation.required'); // returns 'Dit is een verplicht veld'
 You can still keep using the default language files as well. If a requested translation is present in both the database
 and the language files, the database version will be returned.
 
-If you need to store/override json translation lines, just create a normal LanguageLine with `group => '*'`.
+If you need to store/override JSON translation lines, just create a normal LanguageLine with `group => '*'`.
 
 ## Creating your own translation providers
 
-This package ships with a translation provider than can fetch translations from the database. If you're storing your
-translations in a yaml-file, a csv-file, or ... you can easily extend this package by creating your own translation
-provider.
+This package ships with a translation provider that can fetch translations from the database.
+If you're storing your translations in a yaml-file, a csv-file, etc.,
+you can easily extend this package by creating your own translation provider.
 
 A translation provider can be any class that implements
 the `Spatie\TranslationLoader\TranslationLoaders\TranslationLoader`-interface. It contains only one method:
@@ -152,7 +153,7 @@ Translation providers can be registered in the `translation_loaders` key of the 
 
 ## Changelog
 
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+Please see [CHANGELOG](CHANGELOG.md) for more information about what has changed recently.
 
 ## Testing
 
@@ -166,7 +167,7 @@ Please see [CONTRIBUTING](https://github.com/spatie/.github/blob/main/CONTRIBUTI
 
 ## Security
 
-If you've found a bug regarding security please mail [security@spatie.be](mailto:security@spatie.be) instead of using
+If you've found a bug regarding security, please mail [security@spatie.be](mailto:security@spatie.be) instead of using
 the issue tracker.
 
 ## Credits
