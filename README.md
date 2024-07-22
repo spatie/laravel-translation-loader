@@ -5,25 +5,34 @@
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/spatie/laravel-translation-loader/run-tests.yml?branch=main&label=Tests&style=flat-square)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-translation-loader.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-translation-loader)
 
-In a vanilla Laravel or Lumen installation you can use [language files](https://laravel.com/docs/localization) to localize your app. This package will enable the translations to be stored in the database. You can still use all the features of [the `__` helper function](https://laravel.com/docs/localization#retrieving-translation-strings) you know and love.
+In a vanilla Laravel or Lumen installation you can use [language files](https://laravel.com/docs/localization) to
+localize your app. This package will enable the translations to be stored in the database. You can still use all the
+features of [the `__` helper function](https://laravel.com/docs/localization#retrieving-translation-strings) you know
+and love.
 
 ```php
 __('messages.welcome', ['name' => 'dayle']);
 ```
 
-You can even mix using language files and the database. If a translation is present in both a file and the database, the database version will be returned.
+You can even mix using language files and the database. If a translation is present in both a file and the database, the
+database version will be returned.
 
-Want to use a different source for your translations? No problem! The package is [easily extendable](https://github.com/spatie/laravel-translation-loader#creating-your-own-translation-providers).
+Want to use a different source for your translations? No problem! The package
+is [easily extendable](https://github.com/spatie/laravel-translation-loader#creating-your-own-translation-providers).
 
-Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
+Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source
+projects [on our website](https://spatie.be/opensource).
 
 ## Support us
 
 [<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-translation-loader.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-translation-loader)
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
+We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can
+support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
 
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using.
+You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards
+on [our virtual postcard wall](https://spatie.be/open-source/postcards).
 
 ## Installation
 
@@ -48,14 +57,14 @@ Spatie\TranslationLoader\TranslationServiceProvider::class,
 You must publish and run the migrations to create the `language_lines` table:
 
 ```bash
-php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="translation-loader-migrations"
 php artisan migrate
 ```
 
 Optionally you could publish the config file using this command.
 
 ```bash
-php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="translation-loader-config"
 ```
 
 This is the contents of the published config file:
@@ -89,7 +98,8 @@ return [
 
 ## Usage
 
-You can create a translation in the database by creating and saving an instance of the `Spatie\TranslationLoader\LanguageLine`-model:
+You can create a translation in the database by creating and saving an instance of
+the `Spatie\TranslationLoader\LanguageLine`-model:
 
 ```php
 use Spatie\TranslationLoader\LanguageLine;
@@ -101,7 +111,8 @@ LanguageLine::create([
 ]);
 ```
 
-You can fetch the translation with [Laravel's default `__` function](https://laravel.com/docs/localization#retrieving-translation-strings):
+You can fetch the translation
+with [Laravel's default `__` function](https://laravel.com/docs/localization#retrieving-translation-strings):
 
 ```php
 __('validation.required'); // returns 'This is a required field'
@@ -111,15 +122,19 @@ app()->setLocale('nl');
 __('validation.required'); // returns 'Dit is een verplicht veld'
 ```
 
-You can still keep using the default language files as well. If a requested translation is present in both the database and the language files, the database version will be returned.
+You can still keep using the default language files as well. If a requested translation is present in both the database
+and the language files, the database version will be returned.
 
 If you need to store/override json translation lines, just create a normal LanguageLine with `group => '*'`.
 
 ## Creating your own translation providers
 
-This package ships with a translation provider than can fetch translations from the database. If you're storing your translations in a yaml-file, a csv-file, or ... you can easily extend this package by creating your own translation provider.
+This package ships with a translation provider than can fetch translations from the database. If you're storing your
+translations in a yaml-file, a csv-file, or ... you can easily extend this package by creating your own translation
+provider.
 
-A translation provider can be any class that implements the `Spatie\TranslationLoader\TranslationLoaders\TranslationLoader`-interface. It contains only one method:
+A translation provider can be any class that implements
+the `Spatie\TranslationLoader\TranslationLoaders\TranslationLoader`-interface. It contains only one method:
 
 ```php
 namespace Spatie\TranslationLoader\TranslationLoaders;
@@ -151,7 +166,8 @@ Please see [CONTRIBUTING](https://github.com/spatie/.github/blob/main/CONTRIBUTI
 
 ## Security
 
-If you've found a bug regarding security please mail [security@spatie.be](mailto:security@spatie.be) instead of using the issue tracker.
+If you've found a bug regarding security please mail [security@spatie.be](mailto:security@spatie.be) instead of using
+the issue tracker.
 
 ## Credits
 
