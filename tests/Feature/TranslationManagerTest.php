@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 use Spatie\TranslationLoader\TranslationLoaders\Db;
 use Tests\Feature\DummyLoader;
 

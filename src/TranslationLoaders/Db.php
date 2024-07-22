@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Spatie\TranslationLoader\TranslationLoaders;
 
 use Spatie\TranslationLoader\Exceptions\InvalidConfiguration;

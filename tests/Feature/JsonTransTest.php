@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 beforeEach(function () {
     $this->term1 = 'file not found';
     $this->term1En = 'File not found';
