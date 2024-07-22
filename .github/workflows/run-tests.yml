@@ -1,8 +1,8 @@
 name: run-tests
 
 on:
-    - push
-    - pull_request
+    push:
+    pull_request:
 
 jobs:
     test:
@@ -47,7 +47,7 @@ jobs:
 
             -   name: Install dependencies
                 run: |
-                    composer require "laravel/framework:${{ matrix.laravel }}" "nesbot/carbon:^2.63" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+                    composer require "laravel/framework:${{ matrix.laravel }}" "nesbot/carbon:^2.63" "orchestra/testbench:${{ matrix.testbench }}" "nunomaduro/collision:^7.0" --no-interaction --no-update
                     composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
             -   name: Execute tests
