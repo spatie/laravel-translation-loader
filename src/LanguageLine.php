@@ -37,7 +37,7 @@ class LanguageLine extends Model
 
     public static function getTranslationsForGroup(string $locale, string $group, string|null $namespace = null): array
     {
-        return Cache::rememberForever(static::getCacheKey($group, $locale), function () use ($namespace, $group, $locale) {
+        return Cache::rememberForever(static::getCacheKey($namespace, $group, $locale), function () use ($namespace, $group, $locale) {
             return static::query()
                 ->where('namespace', $namespace)
                 ->where('group', $group)
@@ -58,9 +58,9 @@ class LanguageLine extends Model
         });
     }
 
-    public static function getCacheKey(string $group, string $locale): string
+    public static function getCacheKey(string $namespace, string $group, string $locale): string
     {
-        return "spatie.translation-loader.{$group}.{$locale}";
+        return "spatie.translation-loader.$namespace.$group.$locale";
     }
 
     public function getTranslation(string $locale): string|null
@@ -84,7 +84,7 @@ class LanguageLine extends Model
     public function flushGroupCache(): void
     {
         foreach ($this->getTranslatedLocales() as $locale) {
-            Cache::forget(static::getCacheKey($this->group, $locale));
+            Cache::forget(static::getCacheKey($this->namespace, $this->group, $locale));
         }
     }
 
