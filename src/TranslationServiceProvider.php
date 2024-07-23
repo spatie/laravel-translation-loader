@@ -19,7 +19,10 @@ class TranslationServiceProvider extends PackageServiceProvider implements Defer
         $package
             ->name('laravel-translation-loader')
             ->hasConfigFile()
-            ->hasMigrations('create_language_lines_table');
+            ->hasMigrations(
+                'create_language_lines_table',
+                'alter_language_lines_table_add_column_namespace'
+            );
 
         $this->registerLoader();
         $this->registerTranslator();

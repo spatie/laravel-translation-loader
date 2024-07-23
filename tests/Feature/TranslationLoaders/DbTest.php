@@ -67,7 +67,7 @@ it('flushes the cache when a translation has been deleted', function () {
 
 it('can work with a custom model', function () {
     $alternativeModel = new class extends LanguageLine {
-        public static function getTranslationsForGroup(string $locale, string $group): array
+        public static function getTranslationsForGroup(string $locale, string $group, string|null $namespace = null): array
         {
             return ['key' => 'alternative class'];
         }

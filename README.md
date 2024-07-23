@@ -74,6 +74,11 @@ This is the contents of the published config file:
 return [
 
     /*
+     * The name of the table in which the language lines are stored.
+     */
+    'table_name' => 'language_lines',
+
+    /*
      * Language lines will be fetched by these loaders. You can put any class here that implements
      * the Spatie\TranslationLoader\TranslationLoaders\TranslationLoader-interface.
      */
@@ -88,7 +93,7 @@ return [
     'model' => Spatie\TranslationLoader\LanguageLine::class,
 
     /*
-     * This is the translation manager that overrides the default Laravel `translation.loader`
+     * This is the translation manager which overrides the default Laravel `translation.loader`
      */
     'translation_manager' => Spatie\TranslationLoader\TranslationLoaderManager::class,
 
@@ -106,9 +111,10 @@ the `Spatie\TranslationLoader\LanguageLine`-model:
 use Spatie\TranslationLoader\LanguageLine;
 
 LanguageLine::create([
-   'group' => 'validation',
-   'key' => 'required',
-   'text' => ['en' => 'This is a required field', 'nl' => 'Dit is een verplicht veld'],
+    'namespace' => '*',
+    'group' => 'validation',
+    'key' => 'required',
+    'text' => ['en' => 'This is a required field', 'nl' => 'Dit is een verplicht veld'],
 ]);
 ```
 
@@ -145,7 +151,7 @@ interface TranslationLoader
     /*
      * Returns all translations for the given locale and group.
      */
-    public function loadTranslations(string $locale, string $group): array;
+    public function loadTranslations(string $locale, string $group, string|null $namespace = null): array;
 }
 ```
 

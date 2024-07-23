@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create(config('translation-loader.table_name'), function (Blueprint $table) {
-            $table->id();
-            $table->string('group')->index();
-            $table->string('key');
-            $table->json('text');
-            $table->timestamps();
+        Schema::table(config('translation-loader.table_name'), function (Blueprint $table) {
+            $table->string('namespace')->default('*')->after('id');
+            $table->string('group')->default('*')->change();
         });
     }
 
@@ -29,6 +26,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists(config('translation-loader.table_name'));
+        Schema::table(config('translation-loader.table_name'), function (Blueprint $table) {
+            $table->dropColumn('namespace');
+            $table->string('group')->change();
+        });
     }
 };

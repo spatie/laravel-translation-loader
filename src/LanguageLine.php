@@ -35,10 +35,11 @@ class LanguageLine extends Model
         static::deleted($flushGroupCache);
     }
 
-    public static function getTranslationsForGroup(string $locale, string $group): array
+    public static function getTranslationsForGroup(string $locale, string $group, string|null $namespace = null): array
     {
-        return Cache::rememberForever(static::getCacheKey($group, $locale), function () use ($group, $locale) {
+        return Cache::rememberForever(static::getCacheKey($group, $locale), function () use ($namespace, $group, $locale) {
             return static::query()
+                ->where('namespace', $namespace)
                 ->where('group', $group)
                 ->get()
                 ->reduce(function ($lines, self $languageLine) use ($locale, $group) {
