@@ -15,7 +15,7 @@ it('will merge translation from all providers', function () {
         DummyLoader::class,
     ]);
 
-    createLanguageLine('db', 'key', ['en' => 'db']);
+    createLanguageLine('*', 'db', 'key', ['en' => 'db']);
 
     expect(trans('db.key'))->toEqual('db')
         ->and(trans('dummy.dummy'))->toEqual('this is dummy');

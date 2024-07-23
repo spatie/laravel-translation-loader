@@ -27,7 +27,7 @@ abstract class TestCase extends Orchestra
         (require __DIR__ . '/../database/migrations/create_language_lines_table.php.stub')->up();
         (require __DIR__ . '/../database/migrations/alter_language_lines_table_add_column_namespace.php.stub')->up();
 
-        $this->languageLine = createLanguageLine('group', 'key', ['en' => 'english', 'nl' => 'nederlands']);
+        $this->languageLine = createLanguageLine('*', 'group', 'key', ['en' => 'english', 'nl' => 'nederlands']);
     }
 
     /**
