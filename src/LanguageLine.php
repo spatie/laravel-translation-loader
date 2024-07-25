@@ -37,16 +37,6 @@ class LanguageLine extends Model
 
     public static function getTranslationsForGroup(string $locale, string $group): array
     {
-        // When the app uses laravel-sail the package breaks every artisan command ran outside sail context.
-        // That's beacuse artisan starts an app and registers all service providers, but the database is unavailable
-        // beacause the hostname (e.g. mysql) is unresolvable.
-        try {
-            DB::connection()->getPdo();
-        } catch (PDOException $exception) {
-            Log::error('laravel-translation-loader: Could not connect to the database, falling back to file translations');
-            return [];
-        }
-
         return Cache::rememberForever(static::getCacheKey($group, $locale), function () use ($group, $locale) {
             return static::query()
                 ->where('group', $group)
