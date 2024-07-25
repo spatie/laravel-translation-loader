@@ -44,7 +44,6 @@ class LanguageLine extends Model
             DB::connection()->getPdo();
         } catch (PDOException $exception) {
             Log::error('laravel-translation-loader: Could not connect to the database, falling back to file translations');
-
             return [];
         }
 
