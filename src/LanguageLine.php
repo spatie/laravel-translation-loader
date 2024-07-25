@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use PDOException;
 
-
 class LanguageLine extends Model
 {
     /** @var array */
