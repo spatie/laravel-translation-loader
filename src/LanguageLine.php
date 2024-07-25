@@ -5,6 +5,10 @@ namespace Spatie\TranslationLoader;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use PDOException;
+
 
 class LanguageLine extends Model
 {
@@ -37,6 +41,23 @@ class LanguageLine extends Model
 
     public static function getTranslationsForGroup(string $locale, string $group, string|null $namespace = null): array
     {
+        // When the app uses laravel-sail the package breaks every artisan command ran outside sail context.
+        // That's beacuse artisan starts an app and registers all service providers,
+        // but the cache store and/or database is unavailable beacause the hostname
+        // (e.g. redis/mysql) is unresolvable.
+        try {
+            DB::connection()->getPdo();
+            Cache::get('laravel-translation-loader');
+        } catch (PDOException $exception) {
+            Log::error('laravel-translation-loader: Could not connect to the database, falling back to file translations');
+
+            return [];
+        } catch (RedisException $exception) {
+            Log::error('laravel-translation-loader: Could not connect to the cache store, falling back to file translations');
+
+            return [];
+        }
+
         return Cache::rememberForever(static::getCacheKey($namespace, $group, $locale), function () use ($namespace, $group, $locale) {
             return static::query()
                 ->where('namespace', $namespace)
