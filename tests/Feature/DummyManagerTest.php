@@ -3,7 +3,7 @@
 use Tests\Feature\TranslationManagers\DummyManager;
 
 beforeEach(function () {
-    $this->app['config']->set('translation-loader.translation_manager', DummyManager::class);
+    config()->set('translation-loader.translation_manager', DummyManager::class);
 });
 
 it('allow to change translation manager', function () {

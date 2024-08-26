@@ -72,14 +72,14 @@ it('can work with a custom model', function () {
             return ['key' => 'alternative class'];
         }
     };
-    $this->app['config']->set('translation-loader.model', get_class($alternativeModel));
+    config()->set('translation-loader.model', get_class($alternativeModel));
 
     expect(trans('group.key'))->toEqual('alternative class');
 });
 it('will throw an exception if the configured model does not extend the default one', function () {
     $invalidModel = new class {};
 
-    $this->app['config']->set('translation-loader.model', get_class($invalidModel));
+    config()->set('translation-loader.model', get_class($invalidModel));
 
     $this->expectException(InvalidConfiguration::class);
 
