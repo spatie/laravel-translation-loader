@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\TranslationLoader\Test\TranslationManagers;
+namespace Tests\Feature\TranslationManagers;
 
 use Spatie\TranslationLoader\TranslationLoaderManager;
 
