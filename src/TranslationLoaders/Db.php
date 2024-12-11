@@ -18,7 +18,7 @@ class Db implements TranslationLoader
     {
         $modelClass = config('translation-loader.model');
 
-        if (! is_a(new $modelClass, LanguageLine::class)) {
+        if (! is_a(new $modelClass(), LanguageLine::class)) {
             throw InvalidConfiguration::invalidModel($modelClass);
         }
 

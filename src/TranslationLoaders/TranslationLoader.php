@@ -7,8 +7,8 @@ interface TranslationLoader
     /**
      * Returns all translations for the given locale and group.
      *
-     * @param string $locale
-     * @param string $group
+     * @param  string  $locale
+     * @param  string  $group
      *
      * @return array
      */
