@@ -25,36 +25,42 @@ it('can get translations for language files for the current locale', function ()
         ->and(trans('file.404.message'))->toEqual('Deze pagina bestaat niet');
 });
 
-test('by default it will prefer a db translation over a file translation', function () {
-    createLanguageLine('file', 'key', ['en' => 'en value from db']);
-    createLanguageLine('file', '404.title', ['en' => 'page not found from db']);
+it('it will prefer a db translation over a file translation by default', function () {
+    createLanguageLine('*', 'file', 'key', ['en' => 'en value from db']);
+    createLanguageLine('*', 'file', '404.title', ['en' => 'page not found from db']);
+    createLanguageLine('validation', 'string', 'required', ['en' => 'The filed is required']);
 
     expect(trans('file.key'))->toEqual('en value from db')
         ->and(trans('file.404.title'))->toEqual('page not found from db')
-        ->and(trans('file.404.message'))->toEqual('This page does not exists');
+        ->and(trans('file.404.message'))->toEqual('This page does not exists')
+        ->and(trans('validation::string.required'))->toEqual('The filed is required');
 });
 
 it('will return array if the given translation is nested', function () {
     foreach (Arr::dot($this->nested) as $key => $text) {
-        createLanguageLine('nested', $key, ['en' => $text]);
+        createLanguageLine('*', 'nested', $key, ['en' => $text]);
+        createLanguageLine('namespace', 'nested', $key, ['en' => $text]);
     }
 
-    expect(trans('nested.bool'))->toEqualCanonicalizing($this->nested['bool'], '$canonicalize = true', $delta = 0.0, $maxDepth = 10, $canonicalize = true);
+    expect(trans('nested.bool'))->toEqualCanonicalizing($this->nested['bool'], '$canonicalize = true')
+        ->and(trans('namespace::nested.bool'))->toEqualCanonicalizing($this->nested['bool'], '$canonicalize = true');
 });
 
 it('will return the translation string if max nested level is reached', function () {
     foreach (Arr::dot($this->nested) as $key => $text) {
-        createLanguageLine('nested', $key, ['en' => $text]);
+        createLanguageLine('*', 'nested', $key, ['en' => $text]);
+        createLanguageLine('namespace', 'nested', $key, ['en' => $text]);
     }
 
-    expect(trans('nested.bool.1'))->toEqual($this->nested['bool'][1]);
-});
+    expect(trans('nested.bool.1'))->toEqual($this->nested['bool'][1])
+        ->and(trans('namespace::nested.bool.1'))->toEqual($this->nested['bool'][1]);
+})->only();
 
 it('will return the dotted translation key if no translation found', function () {
     $notFoundKey = 'nested.bool.3';
 
     foreach (Arr::dot($this->nested) as $key => $text) {
-        createLanguageLine('nested', $key, ['en' => $text]);
+        createLanguageLine('*', 'nested', $key, ['en' => $text]);
     }
 
     expect(trans($notFoundKey))->toEqual($notFoundKey);
@@ -62,7 +68,9 @@ it('will return the dotted translation key if no translation found', function ()
 
 it('will default to fallback if locale is missing', function () {
     app()->setLocale('de');
-    createLanguageLine('missing_locale', 'key', ['en' => 'en value from db']);
+    createLanguageLine('*', 'missing_locale', 'key', ['en' => 'en value from db']);
+    createLanguageLine('missing_namespace', 'missing_locale', 'key', ['en' => 'en value from db']);
 
-    expect(trans('missing_locale.key'))->toEqual('en value from db');
+    expect(trans('missing_locale.key'))->toEqual('en value from db')
+        ->and(trans('missing_namespace::missing_locale.key'))->toEqual('en value from db');
 });

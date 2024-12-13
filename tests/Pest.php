@@ -10,7 +10,7 @@ function flushIlluminateTranslatorCache(): void
     app('translator')->setLoaded([]);
 }
 
-function createLanguageLine(string $group, string $key, array $text): LanguageLine
+function createLanguageLine(string $namespace, string $group, string $key, array $text): LanguageLine
 {
-    return LanguageLine::create(compact('group', 'key', 'text'));
+    return LanguageLine::create(compact('namespace', 'group', 'key', 'text'));
 }

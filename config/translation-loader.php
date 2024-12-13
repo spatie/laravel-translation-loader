@@ -3,6 +3,11 @@
 return [
 
     /*
+     * The name of the table in which the language lines are stored.
+     */
+    'table_name' => 'language_lines',
+
+    /*
      * Language lines will be fetched by these loaders. You can put any class here that implements
      * the Spatie\TranslationLoader\TranslationLoaders\TranslationLoader-interface.
      */

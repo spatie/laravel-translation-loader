@@ -23,9 +23,9 @@ it('can get translations for language files for the current locale', function ()
         ->and(__($this->term2))->toEqual($this->term2Nl);
 });
 
-test('by default it will prefer a db translation over a file translation', function () {
-    createLanguageLine('*', $this->term1, ['en' => $this->term1EnDb]);
-    createLanguageLine('*', $this->term2, ['en' => $this->term2EnDb]);
+it('it will prefer a db translation over a file translation by default', function () {
+    createLanguageLine('*', '*', $this->term1, ['en' => $this->term1EnDb]);
+    createLanguageLine('*', '*', $this->term2, ['en' => $this->term2EnDb]);
 
     expect(__($this->term1))->toEqual($this->term1EnDb)
         ->and(__($this->term2))->toEqual($this->term2EnDb);
@@ -33,7 +33,7 @@ test('by default it will prefer a db translation over a file translation', funct
 
 it('will default to fallback if locale is missing', function () {
     app()->setLocale('de');
-    createLanguageLine('*', $this->term1, ['en' => $this->term1EnDb]);
+    createLanguageLine('*', '*', $this->term1, ['en' => $this->term1EnDb]);
 
     expect(__($this->term1))->toEqual($this->term1EnDb);
 });

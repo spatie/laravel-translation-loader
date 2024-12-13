@@ -23,15 +23,12 @@ class TranslationLoaderManager extends FileLoader
         try {
             $fileTranslations = parent::load($locale, $group, $namespace);
 
-            if (! is_null($namespace) && $namespace !== '*') {
-                return $fileTranslations;
-            }
-
             $loaderTranslations = $this->getTranslationsForTranslationLoaders($locale, $group, $namespace);
 
             return array_replace_recursive($fileTranslations, $loaderTranslations);
         } catch (QueryException $exception) {
             $modelClass = config('translation-loader.model');
+
             $model = new $modelClass();
 
             if (is_a($model, LanguageLine::class) && ! Schema::hasTable($model->getTable())) {

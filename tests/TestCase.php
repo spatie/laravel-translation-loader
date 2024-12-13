@@ -24,11 +24,10 @@ abstract class TestCase extends Orchestra
 
         Artisan::call('migrate');
 
-        $LanguageLinesTable = require __DIR__ . '/../database/migrations/create_language_lines_table.php.stub';
+        (require __DIR__ . '/../database/migrations/create_language_lines_table.php.stub')->up();
+        (require __DIR__ . '/../database/migrations/alter_language_lines_table_add_column_namespace.php.stub')->up();
 
-        $LanguageLinesTable->up();
-
-        $this->languageLine = createLanguageLine('group', 'key', ['en' => 'english', 'nl' => 'nederlands']);
+        $this->languageLine = createLanguageLine('*', 'group', 'key', ['en' => 'english', 'nl' => 'nederlands']);
     }
 
     /**

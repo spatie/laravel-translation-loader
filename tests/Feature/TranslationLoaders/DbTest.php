@@ -20,7 +20,7 @@ it('can return the group and the key when getting a non existing translation', f
 });
 
 it('supports placeholders', function () {
-    createLanguageLine('group', 'placeholder', ['en' => 'text with :placeholder']);
+    createLanguageLine('*', 'group', 'placeholder', ['en' => 'text with :placeholder']);
 
     expect(trans('group.placeholder', ['placeholder' => 'filled in placeholder']))->toEqual('text with filled in placeholder');
 });
@@ -39,7 +39,7 @@ it('will cache all translations', function () {
 it('flushes the cache when a translation has been created', function () {
     expect(trans('group.new'))->toEqual('group.new');
 
-    createLanguageLine('group', 'new', ['en' => 'created']);
+    createLanguageLine('*', 'group', 'new', ['en' => 'created']);
     flushIlluminateTranslatorCache();
 
     expect(trans('group.new'))->toEqual('created');
@@ -67,7 +67,7 @@ it('flushes the cache when a translation has been deleted', function () {
 
 it('can work with a custom model', function () {
     $alternativeModel = new class extends LanguageLine {
-        public static function getTranslationsForGroup(string $locale, string $group): array
+        public static function getTranslationsForGroup(string $locale, string $group, string|null $namespace = null): array
         {
             return ['key' => 'alternative class'];
         }

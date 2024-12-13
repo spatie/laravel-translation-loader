@@ -5,6 +5,9 @@ namespace Spatie\TranslationLoader;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use PDOException;
 
 class LanguageLine extends Model
 {
@@ -35,10 +38,28 @@ class LanguageLine extends Model
         static::deleted($flushGroupCache);
     }
 
-    public static function getTranslationsForGroup(string $locale, string $group): array
+    public static function getTranslationsForGroup(string $locale, string $group, string|null $namespace = null): array
     {
-        return Cache::rememberForever(static::getCacheKey($group, $locale), function () use ($group, $locale) {
+        // When the app uses laravel-sail the package breaks every artisan command ran outside sail context.
+        // That's beacuse artisan starts an app and registers all service providers,
+        // but the cache store and/or database is unavailable beacause the hostname
+        // (e.g. redis/mysql) is unresolvable.
+        try {
+            DB::connection()->getPdo();
+            Cache::get('laravel-translation-loader');
+        } catch (PDOException $exception) {
+            Log::error('laravel-translation-loader: Could not connect to the database, falling back to file translations');
+
+            return [];
+        } catch (RedisException $exception) {
+            Log::error('laravel-translation-loader: Could not connect to the cache store, falling back to file translations');
+
+            return [];
+        }
+
+        return Cache::rememberForever(static::getCacheKey($namespace, $group, $locale), function () use ($namespace, $group, $locale) {
             return static::query()
+                ->where('namespace', $namespace)
                 ->where('group', $group)
                 ->get()
                 ->reduce(function ($lines, self $languageLine) use ($locale, $group) {
@@ -57,9 +78,9 @@ class LanguageLine extends Model
         });
     }
 
-    public static function getCacheKey(string $group, string $locale): string
+    public static function getCacheKey(string $namespace, string $group, string $locale): string
     {
-        return "spatie.translation-loader.{$group}.{$locale}";
+        return "spatie.translation-loader.$namespace.$group.$locale";
     }
 
     public function getTranslation(string $locale): string|null
@@ -83,7 +104,7 @@ class LanguageLine extends Model
     public function flushGroupCache(): void
     {
         foreach ($this->getTranslatedLocales() as $locale) {
-            Cache::forget(static::getCacheKey($this->group, $locale));
+            Cache::forget(static::getCacheKey($this->namespace, $this->group, $locale));
         }
     }
 

@@ -9,8 +9,9 @@ interface TranslationLoader
      *
      * @param  string  $locale
      * @param  string  $group
+     * @param  string|null  $namespace
      *
      * @return array
      */
-    public function loadTranslations(string $locale, string $group): array;
+    public function loadTranslations(string $locale, string $group, string|null $namespace = null): array;
 }
