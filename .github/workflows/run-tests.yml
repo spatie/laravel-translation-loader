@@ -27,7 +27,7 @@ jobs:
           - laravel: 10.*
             php: 8.5
 
-    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }}
+    name: P${ matrix.php } - L${ matrix.laravel } - ${ matrix.stability }
 
     steps:
       - name: Checkout code
@@ -36,14 +36,14 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: ${ matrix.php }
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
           coverage: none
 
       - name: Install dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
-          composer update --${{ matrix.stability }} --prefer-dist --no-interaction
+          composer require "laravel/framework:${ matrix.laravel }" "orchestra/testbench:${ matrix.testbench }" --no-interaction --no-update
+          composer update --${ matrix.stability } --prefer-dist --no-interaction
 
       - name: Execute tests
         run: vendor/bin/pest
