@@ -7,9 +7,13 @@ use Spatie\TranslationLoader\LanguageLine;
 
 class Db implements TranslationLoader
 {
-    public function loadTranslations(string $locale, string $group, string|null $namespace): array
+    public function loadTranslations(string $locale, string $group, ?string $namespace = null): array
     {
         $model = $this->getConfiguredModelClass();
+
+        if (! in_array($namespace, [null, '*'], true)) {
+            $group = "{$namespace}::{$group}";
+        }
 
         return $model::getTranslationsForGroup($locale, $group);
     }

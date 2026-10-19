@@ -37,6 +37,8 @@ on [our virtual postcard wall](https://spatie.be/open-source/postcards).
 
 ## Installation
 
+This package requires PHP 8.4 or higher and Laravel 12 or 13.
+
 You can install the package via composer:
 
 ``` bash
@@ -128,6 +130,23 @@ and the language files, the database version will be returned.
 
 If you need to store/override JSON translation lines, just create a normal LanguageLine with `group => '*'`.
 
+### Namespaced translations
+
+For package or module translations, include the namespace in the database group:
+
+```php
+LanguageLine::create([
+    'group' => 'customers::messages',
+    'key' => 'hello',
+    'text' => ['en' => 'Hello customer'],
+]);
+
+__('customers::messages.hello'); // returns 'Hello customer'
+```
+
+Namespaced database translations override matching language-file translations without affecting
+other namespaces or the unnamespaced group. No database migration is required.
+
 ## Creating your own translation providers
 
 This package ships with a translation provider that can fetch translations from the database.
@@ -143,13 +162,22 @@ namespace Spatie\TranslationLoader\TranslationLoaders;
 interface TranslationLoader
 {
     /*
-     * Returns all translations for the given locale and group.
+     * Returns all translations for the given locale, group, and namespace.
      */
-    public function loadTranslations(string $locale, string $group): array;
+    public function loadTranslations(string $locale, string $group, ?string $namespace = null): array;
 }
 ```
 
 Translation providers can be registered in the `translation_loaders` key of the config file.
+
+The namespace is `null` or `'*'` for unnamespaced translations. Providers are also called for
+package and module namespaces, and should return only translations for the requested namespace.
+
+### Upgrading custom translation providers
+
+Existing implementations of `TranslationLoader` must add `?string $namespace = null` as the third
+parameter of `loadTranslations`. The same applies to subclasses overriding `Db::loadTranslations`.
+This is a breaking interface change, even though callers can still omit the namespace argument.
 
 ## Changelog
 

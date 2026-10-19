@@ -5,13 +5,9 @@ namespace Spatie\TranslationLoader\TranslationLoaders;
 interface TranslationLoader
 {
     /**
-     * Returns all translations for the given locale and group.
+     * Returns all translations for the given locale, group, and namespace.
      *
-     * @param  string  $locale
-     * @param  string  $group
-     * @param  string|null  $namespace
-     *
-     * @return array
+     * @return array<string, mixed>
      */
-    public function loadTranslations(string $locale, string $group, string|null $namespace): array;
+    public function loadTranslations(string $locale, string $group, ?string $namespace = null): array;
 }
